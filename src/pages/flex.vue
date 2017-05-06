@@ -61,7 +61,7 @@ export default {
        }
        .b1{
               background-color:red;
-              width:133px;
+              width:1313px;
        }
         .b2{
               background-color:green;
