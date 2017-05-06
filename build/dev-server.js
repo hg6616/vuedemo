@@ -30,6 +30,18 @@ app.get('/api/goods', function (req, res) {
   //   console.log('hello world');
 });
 
+ 
+
+app.get('/api/zhihu', function (req, res, next) {
+    var options = {
+        method: "GET",
+        url: "http://news-at.zhihu.com/api/4/news/latest"
+    };
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        res.json(JSON.parse(body))
+    });
+});
 
 var compiler = webpack(webpackConfig)
 

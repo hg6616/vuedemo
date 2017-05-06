@@ -6,4 +6,7 @@ export default{
   [types.CHANGE](state,{msg}){
     state.index.msg=msg
   },
+  [types.GET_ZHIHU](state,{data}){
+    state.zdata=data;
+  }
 }

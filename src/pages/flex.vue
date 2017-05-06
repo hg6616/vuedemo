@@ -29,7 +29,7 @@ export default {
         // }
     },
     created() {
-        //   console.log('created');
+      //   log('created');
     },
     mounted() {
         //  console.log('mounted');
