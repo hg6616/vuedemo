@@ -1,0 +1,388 @@
+
+
+
+ .iconfont{
+     color:$themeColor;
+     font-size: $fs0;
+ }
+/*标签初始化.start*/ 
+ 
+ *{
+     margin: 0;
+     padding: 0;
+      
+ }
+ 
+ html{
+      font-size:62.5%;
+      color:$fontcolor;
+      font-family: $defaultFont;
+     min-height:100%;
+     background: $bordercolor;
+  } 
+
+  ul{
+       list-style: none;  
+  }
+  ul.topBorder{
+      li+li{
+          border-top:0.1rem solid $bordercolor;
+      }
+  }
+
+  input[type=text],textarea{
+    border:none;
+    font-size: 1.2rem;
+    display: inline-block;
+          font-family: $defaultFont;
+              outline: 0;
+}
+.textarea{
+    resize: none;
+        height: 5rem;
+}
+ /*标签初始化.end*/
+
+ /*工具类.start*/
+  /*工具类.end*/
+
+   /*工具类.start*/
+        .clearfix{
+         zoom:1;
+        &:after{
+         clear:both;
+         content: ' ';
+         display: block;
+         height: 0;
+         visibility: hidden;
+     } 
+     } 
+  /*工具类.end*/
+
+ /*定位相关.start*/
+
+.middle-div{
+    position: relative;
+     margin: 0 auto;
+     width:92%;
+    //   margin: 0 1.3rem;
+    //  width:100%;
+}
+.margin-bottom{
+ margin-bottom: 0.67rem;
+}
+.margin-top{
+ margin-top: 1.2rem;
+}
+.mg_t_4{
+       margin-top: 4rem;
+}
+.inline-right{
+     position: absolute;
+         right:1rem;
+}
+.inline-right-button{
+     @extend .inline-right;
+         top:0.6rem;
+}
+
+  /*定位相关.end*/
+
+ /*颜色.start*/
+ .alertColor{
+     color:$alertColor;
+ }
+  /*颜色.end*/
+
+     .iconbig{
+         height: 2.07rem;
+         width:2.07rem;
+         background:$fontcolor;
+         border-radius: 1rem;
+         display: inline-block;
+     }
+
+        .iconbig2{
+         height: 2.07rem;
+         width:2.07rem;
+         background:$fontcolor;
+         border-radius: 1rem; 
+            margin: 0 auto;
+     }
+
+   .iconlittle{
+         height: 1.05rem;
+         width:1.05rem;
+         background:$fontcolor;
+         border-radius:0.7rem;
+         display: inline-block;
+     }
+     
+     .msgnum{
+         display: inline-block;
+     background: #f5b214;
+         color:#fff;
+         height: 1.4rem;
+       //  width: 2rem;
+        border-radius:  0.7rem;
+         text-align: center;
+    line-height: 1.4rem;
+    padding: 0 0.7rem;
+    font-size: 1rem;;
+    vertical-align: top;
+ 
+         }
+
+.bindComment{
+     background: $bordercolor;
+    p{
+        font-size:1.2rem; 
+        margin-bottom: 0.9rem;
+    }
+    p:first-child{
+        color:$themeColor;
+        padding-top:1.4rem;
+    }
+}
+
+
+.card{ 
+            font-size:(24/$pr);
+         border-radius: 0.5rem;        
+         background: #fff;
+         overflow: hidden;
+             font-size: $fs0;
+         &:first-child{
+          margin-top:1.5rem;
+         }
+    .head{ 
+   background: #a6a6a6;
+   color:#fff;
+    padding: (10/$pr); 
+   text-align: center; 
+    }
+    .body{
+          ul{  
+            text-align: left; 
+            li{ 
+                padding: $pd0; 
+                label{
+                    width:8rem;
+                    display: inline-block;  
+                }      
+            }
+          li+li{
+              border-top:0.1rem solid $bordercolor;
+          }
+        }
+    }
+        
+
+        .text{
+            display: inline-block;
+        }
+}
+ 
+.abuttonRight{
+    color:$themeColor;
+    float:right;
+    margin-right: 1.3rem;
+    
+} 
+
+.longButton{
+      color:#fff;
+      background: $themeColor;
+      text-align: center;
+      margin:0 auto;
+        width:92%;
+         border-radius: 0.5rem;
+         height: 3.4rem;
+         line-height: 3.4rem;
+          font-size: 1.6rem; 
+}
+.bottom-button{
+     @extend   .longButton;
+   position: absolute;
+          bottom: 0.8rem;
+          left:50%;
+          margin-left: -46%; 
+}
+.little-button{
+      color:#fff;
+      background: $themeColor;
+      text-align: center; 
+      display: inline-block;
+       border-radius: 0.5rem;
+        height: 2.5rem;
+         line-height: 2.5rem;
+        font-size: 1rem;
+          padding: 0 1rem; 
+
+}
+
+
+//  .arrow{ 
+//     background-image: url("/assets/arrow.svg");
+//     background-size: 10px 20px;
+//     background-repeat: no-repeat;
+//     background-position: 95% center;
+//    background-position: -webkit-calc(100% -1rem) center;
+//     background-position: calc(100% - 2rem) center; 
+//    }
+
+.short-input{
+    width: 3.4rem;
+}
+
+.button{
+    color: #fff;
+    background: #58bace;
+    text-align: center;
+    display: inline-block;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 1rem;
+    padding: 0 1rem; 
+}
+
+.modal{ 
+      display: none;
+          height: 100%;
+       width: 100%;
+       position: absolute;
+        top:0;
+.modal-back{
+    position: absolute;
+    background: #000;
+    opacity: 0.5;
+    height: 100%;
+    width: 100%;
+  
+     z-index:1000;
+   //  bottom:0;
+     left:0;
+   transition: all 1s ease-in-out;
+}
+}
+  .show{
+      display: block; 
+      top:0;
+     
+  }
+
+  .dialog{
+      border-radius: 0.5rem;
+      border: 0.1rem solid $themeColor;
+      background: #fff;
+      margin: 0 auto;
+      width:20rem;
+      position: relative;
+      top: 30%;
+     z-index:1001;       
+      .footer{
+          border-top: 0.1rem solid $themeColor;
+      }
+      .content{
+           padding:1.2rem;
+      }
+    
+  }
+
+  .arrow-select{
+    width:100%;
+    background-color:#fff;
+    padding:1rem 0 1rem 1rem;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    font-size:1.1rem;
+  //  height:1.7rem;
+   line-height: 1.7rem;
+   box-sizing: border-box;
+}
+    //  .list-block input[type=time], .list-block input[type=number], .list-block input[type=text], .list-block input[type=password], .list-block input[type=search], .list-block input[type=email], .list-block input[type=tel], .list-block input[type=url], .list-block input[type=date], .list-block input[type=datetime-local], .list-block select, .list-block textarea
+
+ .middle_title{
+     width: 100%;
+     display: flex;
+     margin: 1rem 0;
+     div{
+         display: inline-block;
+     }
+     .text{
+            font-size: 1.2rem;
+            color:#2e2e2e;
+            margin: 0 1rem;
+     }
+     .line{
+         flex:1;
+         border-top:0.1rem solid $themeColor;
+         //margin-bottom: -0.5rem;
+      //   width: 20%;
+       .lineborder{
+           height: 50%;
+           width: 80%;
+       }
+         .lineborder+.lineborder{
+  border-top:0.1rem solid $themeColor;
+         }
+     }
+ }   
+
+ /*状态标签*/
+ 
+  .markLabel{
+        color:#fff; 
+         &:before{
+            padding: 0 (10/$pr);
+         }
+  }
+  .mkIng:before{
+      content:"受理中";
+       background-color: $themeColor;     
+  }
+
+    .mkFail:before{
+      content:"预约失败";
+       background-color: #d44848;     
+  }
+
+      .mkWait:before{
+      content:"待试驾";
+       background-color: #6fbede;     
+  }
+      .mkCancel:before{
+      content:"已取消";
+       background-color: #999;     
+  }
+      .mkDone:before{
+      content:"已试驾";
+       background-color: #666;     
+  }
+      .mkValue:before{
+      content:"已评价";
+       background-color: #666;     
+  } 
+
+  .triangle{
+      display: inline-block;
+      width: 0;
+      height: 0; 
+     // border-left:1rem solid transparent;
+      border-right:1rem solid transparent;
+      border-bottom:1rem solid $themeColor;
+  }
+
+   /*状态标签*/
+
+   .bottomMsg{
+       margin: 0 auto;
+       text-align: center;
+       font-size:(24/$pr);
+       color:#767676; 
+   }
+   a{
+       text-decoration: none;
+   }

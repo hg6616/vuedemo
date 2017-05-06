@@ -1,0 +1,277 @@
+<template>
+    <div class="personcenter-container">
+        <div class="head">
+            <input type="text" :value="msg">
+            <button @click="changeindex">change</button>
+            <div class="detail clearfix">
+                <div class="img">
+                    <img class="img2" src="../assets/thumb.jpg">
+                </div>
+                <div class="word">
+                    <div class="up">
+                        <!--<div class=" "> </div>-->
+                        <i class="iconfont icon-yonghu-yuan"></i>
+                        <div class="text">我是老李</div>
+                    </div>
+                    <div class="down">
+                        <span class="sp1">粤A12345</span>
+                        <span class="sp2">标志301</span>
+                    </div>
+                </div>
+            </div>
+            <div class="banner">
+                <ul class="menuul">
+                    <li>
+                        <router-link to="/eventAlarm">
+                            <div class=""><i class="iconfont icon-daxiao"></i></div>活动提醒
+                        </router-link>
+                    </li>
+                    <li>
+                        <div class=""><i class="iconfont icon-jiankong"></i></div>保养提醒</li>
+                    <li>
+                        <div class=""><i class="iconfont icon-anquan"></i></div>保险提醒</li>
+                    <li>
+                        <div class=""><i class="iconfont icon-iconfont-car-viewed"></i></div>车检提醒</li>
+                </ul>
+                <div class="bindCar" style="display: none">
+                    <router-link to="/bindOwner">
+                        <i class="iconfont icon-yonghu-yuan"></i>
+                        <div class="text">绑定车主</div>
+                    </router-link>
+    
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <ul class="c">
+                <li class="arrow">
+                    <router-link to="/myMsg">
+                        <i class="iconfont icon-tixing"></i>
+                        <div class="text">我的消息</div><span class="msgnum">3</span>
+                        <div class="arrow2"></div>
+                    </router-link>
+    
+                </li>
+                <li class="arrow">
+                    <router-link to="/myRecord">
+                        <i class="iconfont icon-lishijilu"></i>
+                        <div class="text">服务记录</div>
+                        <div class="arrow2"></div>
+                    </router-link>
+    
+                </li>
+                <li class="arrow">
+                    <router-link to="/coupon">
+                        <i class="iconfont icon-youhuiquan"></i>
+                        <div class="text">优惠券</div>
+                        <div class="arrow2"></div>
+                    </router-link>
+    
+                </li>
+            </ul>
+            <div class="bindComment" style="display: none">
+                <p>温馨提示:绑定后有啥好处?</p>
+                <p>1.保养,保险,年检到期提醒</p>
+                <p>2.养修免排队</p>
+                <p>3.一键救援,出行无忧</p>
+                <p>4.在线服务点评,关心您的诉求</p>
+                <p>5.1对1专属养车顾问24小时在线服务</p>
+            </div>
+        </div>
+
+      
+    </div>
+</template>
+
+<script type="">
+export default {
+
+    beforeCreate() {
+        console.log('beforeCreate');
+    },
+    created() {
+        console.log('created');
+    },
+    beforeMount() {
+        console.log('beforeMount');
+    },
+    mounted() {
+        console.log('mounted');
+    },
+    beforeUpdate() {
+        console.log('beforeUpdate');
+    },
+    updated() {
+        console.log('updated');
+    },
+    beforeDestroy() {
+        console.log('beforeDestroy');
+    },
+    destroyed() {
+        console.log('destroyed');
+    },
+    activated() {
+        console.log('activated');
+    },
+    deactivated: function () {
+        console.log('deactivated');
+    },
+    computed: {
+        msg() {
+            return this.$store.state.pc.msg;
+        }
+    },
+
+    methods: {
+        changeindex() {
+            this.$store.dispatch({
+                type: 'changemsg',
+                msg: 'bad'
+            });
+
+            // this.$toast({
+            //     message: '操作成功',
+            //     iconClass: 'icon icon-success'
+            // });
+            this.$indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+            });
+        }
+    }
+}
+</script>
+
+<style lang="stylus" > 
+     @import    '../style/var'; 
+ .personcenter-container {
+     .head {
+         height: 11rem;
+         background: url('../assets/bg.png');
+         position: relative;
+         // overflow: hidden;
+         .detail {
+             height: 6.5rem;
+             padding: 0.8rem 0 1.3rem 1.5rem;
+             .img {
+                 float: left;
+                 .img2 {
+                     height: 6.5rem;
+                     width: 6.5rem;
+                     border-radius: 3.25rem;
+                     border: 0.1rem solid white;
+                 }
+             }
+             .word {
+                 margin-left: 0.8rem;
+                 float: left;
+                 color: #ffffff;
+                 .up {
+                     height: 2.07rem;
+                     line-height: 2.07rem;
+                     margin: 1.4rem 0 1.2rem 0;
+                     vertical-align: middle;
+                     font-size: 2.07rem;
+                     .iconfont {
+                         color: #fff;
+                         font-size: 2.07rem;
+                     }
+                     .text {
+                         display: inline-block;
+                         vertical-align: top;
+                     }
+                 }
+                 .down {
+                     font-size: 1.2rem;
+                     margin-bottom: 0.73rem;
+                     .sp1 {
+                         padding-right: 0.93rem;
+                         border-right: 0.1rem solid #ffffff;
+                     }
+                     .sp2 {
+                         padding-left: 1rem;
+                     }
+                 }
+             }
+         }
+         .banner {
+             margin: 0 1.5rem 0.8rem 1.5rem;
+             height: 5.77rem;
+             border-radius: 0.5rem;
+             position: absolute;
+             background: #ffffff;
+             left: 50%;
+             width: 91.7%;
+             margin-left: -45.6%;
+             bottom: -3.47rem;
+             box-sizing: content-box;
+             box-shadow: 0 0.5rem 0.1rem #c9c9c9;
+             ul {
+                 list-style: none;
+                 text-align: center;
+                 display: flex;
+                 flex-direction: row;
+                 li {
+                     float: left;
+                     flex: 1;
+                     padding-top: 1.4rem;
+                     padding-bottom: 1.07rem;
+                     position: relative;
+                     .iconfont {
+                         font-size: 1.7rem;
+                     }
+                 }
+                 li+li:before {
+                     content: ' ';
+                     display: inline-block;
+                     height: 3.2rem; //   margin-top:1.4rem;
+                     border-left: 0.1rem solid$bordercolor;
+                     position: absolute;
+                     left: 0px;
+                 }
+             }
+             .bindCar {
+                 color: $themeColor;
+                 text-align: center;
+                 margin: 2rem 0; // .iconbig{
+                 //     height: 1.6rem;
+                 //     width: 1.6rem;
+                 // }
+                 .text {
+                     font-size: 1.6rem;
+                     display: inline-block;
+                     vertical-align: top;
+                 }
+                 .icon-yonghu-yuan {
+                     font-size: 1.6rem;
+                 }
+             }
+         }
+     }
+     .body {
+         margin: 3.6rem 1.5rem 0.8rem 1.5rem;
+         border-radius: 0.5rem;
+         background: #fff; //  padding-top:3.6rem;
+         ul {
+             list-style: none;
+             text-align: left;
+             font-size: 1.6rem;
+             li {
+                 padding: 1.2rem 1.4rem;
+                 .iconlittle {
+                     margin-right: 0.8rem;
+                 }
+                 .arrow {
+                     float: right;
+                 }
+             }
+             li+li {
+                 border-top: 0.1rem solid $bordercolor;
+             }
+         }
+         .text {
+             display: inline-block;
+         }
+     }
+ }
+</style>
