@@ -2,6 +2,9 @@
  * Mocking client-server processing
  */
 import fetchData from '../utils/fetch'
+import axios from 'axios';
+import { Indicator } from 'mint-ui';
+
 
 const _products = [
   { "id": 1, "title": "iPad 4 Mini", "price": 500.01, "inventory": 2 },
@@ -25,24 +28,53 @@ export default {
   getZhihuData(param, cb) {
     //  console.log(Vue)
     //   this.$http.get
-var url='http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&city=广州';
-   //url='http://news-at.zhihu.com/api/4/news/latest';
-   url='/api/zhihu';
-    fetch(url, {
-      // headers: {
-      //   'Accept': 'application/json',
-      //   'Content-Type': 'application/json',
-      //   'Access-Control-Allow-Origin':'*'
-      // },
-      method: "GET",
-      headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-     // mode: 'no-cors',
-    }).then((res) => {
-      console.log(res);
+    // var url='http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&city=广州';
+    //    //url='http://news-at.zhihu.com/api/4/news/latest';
+    //    url='/api/zhihu';
+
+    var url = '/api/goods';
+    url = '/api/zhihu';
+   // url = '/news/latest';
+    Indicator.open();
+    axios({
+      method: 'get',
+      url: url,
+    })
+      .then(function (response) {
+        console.log(response);
+         cb(response); 
+      });
+
+
+    // fetch(url, {
+    //   // headers: {
+    //   //   'Accept': 'application/json',
+    //   //   'Content-Type': 'application/json',
+    //   //   'Access-Control-Allow-Origin':'*'
+    //   // },
+    //   method: "GET",
+    //   headers: {
+    // 		'Accept': 'application/json',
+    // 		'Content-Type': 'application/json'
+    // 	},
+    //  // mode: 'no-cors',
+    // }).then((res) => {
+    //   console.log(res);
+    //   cb(res);
+    // });
+  },
+  getNews(param,cb){
+    var url='/api/news/'+param.param;
+   // log(param);
+    axios({
+      method:'get',
+      url
+    }).then(res=>{
       cb(res);
-    });
+    })
   }
+}
+
+function log(t){
+  console.log(t);
 }

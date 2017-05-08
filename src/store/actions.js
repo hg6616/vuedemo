@@ -20,7 +20,15 @@ export const changemsg=({commit},param)=>{
 }
 
 export const getzhihu=({commit},param)=>{
-      api.getZhihuData(param,data=>{
+       console.log('action getzhihu')
+      api.getZhihuData(param,data=>{ 
         commit(types.GET_ZHIHU,data);
       });
+}
+
+export const getNews=({commit},param)=>{
+   api.getNews(param,data=>{
+     console.log(data)
+     commit(types.GET_NEWS,data);
+   });
 }

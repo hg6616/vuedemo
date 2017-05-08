@@ -1,14 +1,21 @@
 <template>
-    <div>
-        <!--<ul>
-            <li v-for="d in zdata">
-    
+    <div id="zhihu">
+        <ul>
+            <li v-for="d in zdata.stories" class="card" @click="viewDetail(d.id)">
+                <div class="img">
+                    <!--<img :src="d.images[0]">-->
+                </div>
+                <div class="title">
+                    {{d.title}}
+                </div>
             </li>
-        </ul>-->
+        </ul>
+    
     </div>
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 export default {
     data() {
         return {};
@@ -18,7 +25,15 @@ export default {
         //     return this.store.state.pc.msg;
         // }
         zdata() {
-            return this.$store.state.zdata;
+            var d = this.$store.state.zdata;
+            //  console.log(d);
+            return d;
+        }
+    },
+    methods: {
+        viewDetail(id) {
+      // console.log(id);
+       this.$router.push('/zhihuDetail/'+id);
         }
     },
     created() {
@@ -31,10 +46,33 @@ export default {
     },
     mounted() {
         //  console.log('mounted');
+        //  return;
+        //  console.log(document.getElementById('zhihu'));
+        //   console.log(this.$el)
+        //     new BScroll(this.$el, {
+        //           click: true
+        //         });
     },
 }
 </script>
 
 <style lang="stylus" scoped> 
        @import  '../style/var'; 
+
+       #zhihu{
+         //  background-color:green;
+          // height:1000px;
+       }
+       .card{
+           border-radius:5px;
+           .img{
+               height:100px; 
+           }
+           .title{
+               padding:5px;
+               font-size:16px;
+               color:#000;
+           }
+           margin-bottom:10px;
+       }
 </style>

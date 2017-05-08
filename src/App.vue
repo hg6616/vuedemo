@@ -1,18 +1,23 @@
 <template>
-  <div id="app"> 
+	<div id="app">
 		<!--路由出口-->
-     <transition name="router-fade" mode="out-in">
-			 <keep-alive>
-      <router-view></router-view>
+		<transition name="router-fade" mode="out-in">
+			<keep-alive>
+				<router-view></router-view>
 			</keep-alive>
-    </transition> 
-  </div>
+		</transition>
+	</div>
 </template>
 
 <script type=""> 
- 	export default {
-    	
-  	}
+import axios from 'axios';
+export default {
+
+
+	created() { 
+
+	}
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus"> 

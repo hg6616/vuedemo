@@ -26,6 +26,7 @@ import testDriveDetail from '../pages/testDriveDetail';
 import myRecord from '../pages/myRecord';
 import flex from '../pages/flex';
 import zhihu from '../pages/zhihu';
+import zhihuDetail from '../pages/zhihuDetail';
 
 
 
@@ -66,5 +67,6 @@ export default [
   { path: '/testDriveDetail', component: testDriveDetail },
   { path: '/myRecord', component: myRecord },
   { path: '/zhihu', component: zhihu },
+  { path: '/zhihuDetail/:id', component: zhihuDetail },
 
 ];
