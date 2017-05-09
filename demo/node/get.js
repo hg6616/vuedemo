@@ -1,29 +1,14 @@
 var http = require('http');
 var options = {
     method: "GET",
-    hostname: 'news-at.zhihu.com',
-    port: 80,
-    path: '/api/4/news/latest'
-};
-options={};
-var postData={"dlrCode":"H2901"};
- options = {
-    method: "POST",
     hostname: 'dmswx.szlanyou.com',
     port: 80,
-    path: '/serv/base/car/brand/v1/list',
-     headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': Buffer.byteLength(postData)
-  }
+      path: '/serv/base/car/brand/v1/list?params={"dlrCode":"H2901"}',
 };
 
-var url='http://news-at.zhihu.com/api/4/news/latest';
-url='http://dmswx.szlanyou.com/serv/base/car/brand/v1/list';
+
 var req = http.request(options, function ( res) {
-   // log(res)
-    // if (error) throw new Error(error);
-    // res.json(JSON.parse(body))
+
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
         console.log(`主体: ${chunk}`);

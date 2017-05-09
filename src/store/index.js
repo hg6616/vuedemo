@@ -18,10 +18,11 @@ const state = {
   pc: {
     msg: 'world'
   },
-  zdata:{
-    stories:[]
+  zdata: {
+    stories: []
   },
-  news:'<div>loading</div>'
+  news: '<div>loading</div>',
+  car:''
 };
 export default new Vuex.Store({
   actions,

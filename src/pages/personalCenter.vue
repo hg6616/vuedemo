@@ -78,8 +78,7 @@
                 <p>5.1对1专属养车顾问24小时在线服务</p>
             </div>
         </div>
-
-      
+    
     </div>
 </template>
 
@@ -112,12 +111,18 @@ export default {
     },
     activated() {
         console.log('activated');
+        this.$store.dispatch({
+                type: 'getCar',
+                url: '/serv/base/car/brand/v1/list',
+                data:{"dlrCode": "H2901"}
+            });
     },
     deactivated: function () {
         console.log('deactivated');
     },
     computed: {
         msg() {
+            console.log('msg');
             return this.$store.state.pc.msg;
         }
     },
@@ -144,6 +149,8 @@ export default {
 
 <style lang="stylus" > 
      @import    '../style/var'; 
+ 
+
  .personcenter-container {
      .head {
          height: 11rem;

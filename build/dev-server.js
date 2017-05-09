@@ -12,6 +12,10 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var http = require('http');
+var bodyParser = require('body-parser');
+ 
+// 创建 application/x-www-form-urlencoded 编码解析
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -77,16 +81,16 @@ app.get('/api/news/:id', function (req, resOut, next) {
     method: "GET",
     hostname: 'news-at.zhihu.com',
     port: 80,
-    path: '/api/4/news/' + id 
+    path: '/api/4/news/' + id
   };
   var postData = {};
   var req = http.request(options, function (res) {
     res.setEncoding('utf8');
-    res.on('data', (chunk) => { 
+    res.on('data', (chunk) => {
       postData = chunk;
     });
     res.on('end', () => {
-       console.log(postData)
+      console.log(postData)
       resOut.send(postData);
     });
 
@@ -99,10 +103,47 @@ app.get('/api/news/:id', function (req, resOut, next) {
   req.end();
 
 });
+//测试调用接口
+app.post('/serv/base/car/brand/v1/list', urlencodedParser,function (req, resOut, next) {
+  var postData ='params='+JSON.stringify( req.body.params);// 'params= {"dlrCode": "H2901"}';
+  console.log(postData)
+  var options = {
+    hostname: 'dmswx.szlanyou.com',
+    port: 80,
+    path: '/serv/base/car/brand/v1/list',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded', 
+      'Content-Length': postData.length
+    }
+  }; 
+  var resData;
+  var req = http.request(options, (res) => {
+    console.log(`STATUS: ${res.statusCode}`);
+    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+    res.setEncoding('utf8');
+    res.on('data', (chunk) => {
+      console.log(`主体: ${chunk}`);
+      resData=chunk;
+    });
+    res.on('end', () => {
+      console.log('响应中已无数据。');
+      resOut.send(resData);
+    });
+  }); 
+  req.on('error', (e) => {
+    console.log(`请求遇到问题: ${e.message}`);
+  });
+
+  // 写入数据到请求主体
+  req.write(postData + "\n");
+  req.end();
+});
 
 
 var request = require('request');
 app.get('/news/latest', function (req, res, next) {
+  debugger;
   var options = {
     method: "GET",
     url: "http://news-at.zhihu.com/api/4/news/latest"
@@ -111,6 +152,31 @@ app.get('/news/latest', function (req, res, next) {
     if (error) throw new Error(error);
     res.json(JSON.parse(body))
   });
+});
+
+app.get('/api/news2/:id', function (req, res, next) {
+  var id = req.params.id;
+  var options = {
+    method: "GET",
+    url: "http://news-at.zhihu.com/api/4/news/" + id
+  };
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    res.json(JSON.parse(body))
+  });
+});
+
+//解决知乎图片访问限制问题
+app.get('/resource', function (req, res, next) {
+  var url = req.query.url;
+  var options = {
+    method: "GET",
+    url: url,
+    headers: {
+      "Referer": 'https://daily.zhihu.com'
+    }
+  };
+  req.pipe(request(options)).pipe(res);
 });
 
 var compiler = webpack(webpackConfig)

@@ -1,9 +1,9 @@
 <template>
     <div id="zhihu">
         <ul>
-            <li v-for="d in zdata.stories" class="card" @click="viewDetail(d.id)">
+            <li v-for="d in zdata.stories" class="card clearfix" @click="viewDetail(d.id)">
                 <div class="img">
-                    <!--<img :src="d.images[0]">-->
+                    <img :src="d.images[0]">
                 </div>
                 <div class="title">
                     {{d.title}}
@@ -32,8 +32,8 @@ export default {
     },
     methods: {
         viewDetail(id) {
-      // console.log(id);
-       this.$router.push('/zhihuDetail/'+id);
+            // console.log(id);
+            this.$router.push('/zhihuDetail/' + id);
         }
     },
     created() {
@@ -65,13 +65,17 @@ export default {
        }
        .card{
            border-radius:5px;
+           display:flex;
            .img{
-               height:100px; 
+              // height:100px; 
+               //float:left;
+               flex:1
            }
            .title{
                padding:5px;
                font-size:16px;
                color:#000;
+               flex:2;
            }
            margin-bottom:10px;
        }

@@ -20,7 +20,7 @@ export const changemsg=({commit},param)=>{
 }
 
 export const getzhihu=({commit},param)=>{
-       console.log('action getzhihu')
+     //  console.log('action getzhihu')
       api.getZhihuData(param,data=>{ 
         commit(types.GET_ZHIHU,data);
       });
@@ -28,7 +28,15 @@ export const getzhihu=({commit},param)=>{
 
 export const getNews=({commit},param)=>{
    api.getNews(param,data=>{
-     console.log(data)
+   //  console.log(data)
      commit(types.GET_NEWS,data);
+   });
+}
+
+export const getCar=({commit},param)=>{
+          console.log('action getCar')
+    api.getCar(param,data=>{
+   //  console.log(data)
+     commit(types.GET_CAR,data);
    });
 }

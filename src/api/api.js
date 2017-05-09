@@ -34,7 +34,7 @@ export default {
 
     var url = '/api/goods';
     url = '/api/zhihu';
-   // url = '/news/latest';
+    // url = '/news/latest';
     Indicator.open();
     axios({
       method: 'get',
@@ -42,7 +42,7 @@ export default {
     })
       .then(function (response) {
         console.log(response);
-         cb(response); 
+        cb(response);
       });
 
 
@@ -63,18 +63,31 @@ export default {
     //   cb(res);
     // });
   },
-  getNews(param,cb){
-    var url='/api/news/'+param.param;
-   // log(param);
+  getNews(param, cb) {
+    var url = '/api/news2/' + param.param;
+    // log(param);
     axios({
-      method:'get',
+      method: 'get',
       url
-    }).then(res=>{
+    }).then(res => {
       cb(res);
     })
+  },
+
+  getCar(param, cb) {
+    axios({
+      method: 'post',
+      url: param.url,
+      data: getParam(param.data)
+    }).then(res => {
+      cb(res);
+    });
   }
 }
-
-function log(t){
+//  var postData = 'params= {"dlrCode": "H2901"}';
+var getParam=(data)=>{
+ return 'params='+JSON.stringify(data);
+}
+function log(t) {
   console.log(t);
 }
