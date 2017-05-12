@@ -53,6 +53,7 @@ export default {
                 type: 'getNews',
                 param: id
             });
+                 window.scrollTo(0,0)
         } 
     },
     mounted() {

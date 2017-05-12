@@ -1,6 +1,5 @@
 <template>
-    <div class="index-container">
-        <input type="text" :value="msg">
+    <div class="index-container"> 
         <ul class="ulc topBorder">
             <li class="lic  ">
                 <i class="iconfont icon-iconfont-tuijian-"></i>

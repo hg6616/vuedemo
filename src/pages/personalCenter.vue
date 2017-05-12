@@ -1,21 +1,19 @@
 <template>
     <div class="personcenter-container">
         <div class="head">
-            <input type="text" :value="msg">
-            <button @click="changeindex">change</button>
             <div class="detail clearfix">
                 <div class="img">
-                    <img class="img2" src="../assets/thumb.jpg">
+                    <img class="img2" :src="carOwner.headImgUrl">
                 </div>
                 <div class="word">
                     <div class="up">
                         <!--<div class=" "> </div>-->
                         <i class="iconfont icon-yonghu-yuan"></i>
-                        <div class="text">我是老李</div>
+                        <div class="text">{{carOwner.nickName}}</div>
                     </div>
                     <div class="down">
-                        <span class="sp1">粤A12345</span>
-                        <span class="sp2">标志301</span>
+                        <span class="sp1">{{carOwner.carOwner.carNo}}</span>
+                        <span class="sp2">{{carOwner.carOwner.carTypeConfigName}}</span>
                     </div>
                 </div>
             </div>
@@ -82,49 +80,41 @@
     </div>
 </template>
 
-<script type="">
+<script type=""> 
+import { mapGetters } from 'vuex'
 export default {
+    name: 'pc',
+    data() {
+        return {
 
-    beforeCreate() {
-        console.log('beforeCreate');
+        }
     },
-    created() {
-        console.log('created');
-    },
-    beforeMount() {
-        console.log('beforeMount');
-    },
-    mounted() {
-        console.log('mounted');
-    },
-    beforeUpdate() {
-        console.log('beforeUpdate');
-    },
-    updated() {
-        console.log('updated');
-    },
-    beforeDestroy() {
-        console.log('beforeDestroy');
-    },
-    destroyed() {
-        console.log('destroyed');
-    },
-    activated() {
-        console.log('activated');
-        this.$store.dispatch({
-                type: 'getCar',
-                url: '/serv/base/car/brand/v1/list',
-                data:{"dlrCode": "H2901"}
-            });
-    },
-    deactivated: function () {
-        console.log('deactivated');
-    },
+
     computed: {
         msg() {
-            console.log('msg');
+            // console.log('msg');
             return this.$store.state.pc.msg;
-        }
+        },
+        car() {
+            return this.$store.state.GET_CAR_BRAND;
+        },
+        carOwner() {
+            debugger;
+            var d = this.$store.state.GET_USER_INFO;
+            var res = {
+                "nickName": "",
+                "headImgUrl": "",
+                "carOwner": {
+                    "carNo": "",
+                    "carTypeConfigName": ""
+                }
+            };
+            if (d != undefined && d.length > 0) {
+                res = d;
+            }
+            return res;
+        },
+        //  ...mapGetters(['carOwner']),
     },
 
     methods: {
@@ -133,16 +123,45 @@ export default {
                 type: 'changemsg',
                 msg: 'bad'
             });
-
-            // this.$toast({
-            //     message: '操作成功',
-            //     iconClass: 'icon icon-success'
-            // });
             this.$indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
         }
+    }
+    , components: {
+        //  mheader
+    },
+    beforeCreate() {
+        //   console.log('beforeCreate');
+    },
+    created() {
+        //    console.log('created');
+    },
+    beforeMount() {
+        //  console.log('beforeMount');
+    },
+    mounted() {
+        //   console.log('mounted');
+    },
+    beforeUpdate() {
+        //   console.log('beforeUpdate');
+    },
+    updated() {
+        //   console.log('updated');
+    },
+    beforeDestroy() {
+        //  console.log('beforeDestroy');
+    },
+    destroyed() {
+        //  console.log('destroyed');
+    },
+    activated() {
+        //   console.log('activated');  
+        this.$store.dispatch({ type: this.$store.state.types.GET_USER_INFO, data: { "dlrCode": "H2901" } });
+    },
+    deactivated: function () {
+        // console.log('deactivated');
     }
 }
 </script>

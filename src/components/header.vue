@@ -1,12 +1,12 @@
 <template>
-    <mt-header :title="mytt">
+    <mt-header :title="mytt" class="header">
         <mt-button  icon="back" slot="left" @click="back">返回</mt-button>
-        <mt-button icon="more" slot="right"></mt-button>
+        <!--<mt-button icon="more" slot="right"></mt-button>-->
     </mt-header>
 </template>
 
 <script>
-import MintUI from 'mint-ui'
+//import MintUI from 'mint-ui'
 export default {
     name:'nerd',
     data() {
@@ -38,4 +38,7 @@ export default {
 
 <style lang="stylus" scoped> 
        @import  '../style/var'; 
+       .header{
+           background-color:$themeColor;
+       }
 </style>

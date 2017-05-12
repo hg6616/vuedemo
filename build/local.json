@@ -1,0 +1,46 @@
+{
+    "GET_EVENT": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "actName": "奇骏MT手到擎来，先用后买超低首付10%起",
+                "actShortName": "奇骏MT手到擎来，先用后买超低首付10%起",
+                "actStartTime": "2017-04-01 00:00:00",
+                "actEndTime": "2017-04-21 23:59:59",
+                "actOpenStartTime": "2017-04-01 00:00:00",
+                "actOpenEndTime": "2017-04-21 23:59:59",
+                "actPhotoUrl": "http://dmswx.szlanyou.com/file/img/1234566434.jpg"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_USER_INFO":{
+    "callTime": "2017-05-05 09:24:30",
+    "result": [
+        {
+            "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
+            "unionId": null,
+            "nickName": "pedro",
+            "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
+            "fanStatus": 1,
+            "carOwner": {
+                "carownerName": "张三",
+                "mobile": "13667890987",
+                "carNo": "粤R09893",
+                "carTypeConfigId": "1",
+                "carTypeConfigName": "标志301舒适版",
+                "vin": "V14578904567890345",
+                "engineNo": "145654",
+                "buyCarTime": "2016-08-09",
+                "buyInsuranceTime": "2016-09-09"
+            }
+        }
+    ],
+    "error": "R200",
+    "errormessage": "调用成功",
+    "token": null
+}
+}

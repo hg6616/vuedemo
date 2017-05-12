@@ -13,7 +13,7 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var http = require('http');
 var bodyParser = require('body-parser');
- 
+
 // 创建 application/x-www-form-urlencoded 编码解析
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -104,40 +104,54 @@ app.get('/api/news/:id', function (req, resOut, next) {
 
 });
 //测试调用接口
-app.post('/serv/base/car/brand/v1/list', urlencodedParser,function (req, resOut, next) {
-  var postData ='params='+JSON.stringify( req.body.params);// 'params= {"dlrCode": "H2901"}';
-  console.log(postData)
-  var options = {
-    hostname: 'dmswx.szlanyou.com',
-    port: 80,
-    path: '/serv/base/car/brand/v1/list',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded', 
-      'Content-Length': postData.length
-    }
-  }; 
-  var resData;
-  var req = http.request(options, (res) => {
-    console.log(`STATUS: ${res.statusCode}`);
-    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-      console.log(`主体: ${chunk}`);
-      resData=chunk;
+app.post('/mock', urlencodedParser, function (req, resOut, next) {
+  //console.log(req.body.local)
+  if (req.body.local != undefined) {//读取本地json文件
+    var data = JSON.parse(fs.readFileSync('build/local.json'));
+    var obj = JSON.parse(req.body.local).obj;
+    //console.log(obj)
+    resOut.send(data[obj]);
+  }
+  else {
+    var postData = 'params=' + req.body.params// 'params= {"dlrCode": "H2901"}';
+    console.log(req.body.url)
+    //console.log(req.body.params)
+    //  postData = 'params= {"dlrCode": "H2901"}';
+    // console.log(postData)
+    var options = {
+      hostname: 'dmswx.szlanyou.com',
+      port: 80,
+      path: req.body.url,
+      //    path: '/serv/base/car/brand/v1/list',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': postData.length
+      }
+    };
+    var resData;
+    var req = http.request(options, (res) => {
+      //  console.log(`STATUS: ${res.statusCode}`);
+      //   console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        console.log(`主体: ${chunk}`);
+        resData = chunk;
+      });
+      res.on('end', () => {
+        console.log('响应中已无数据。');
+        resOut.send(resData);
+      });
     });
-    res.on('end', () => {
-      console.log('响应中已无数据。');
-      resOut.send(resData);
+    req.on('error', (e) => {
+      console.log(`请求遇到问题: ${e.message}`);
     });
-  }); 
-  req.on('error', (e) => {
-    console.log(`请求遇到问题: ${e.message}`);
-  });
 
-  // 写入数据到请求主体
-  req.write(postData + "\n");
-  req.end();
+    // 写入数据到请求主体
+    req.write(postData + "\n");
+    req.end();
+  }
+
 });
 
 

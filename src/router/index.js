@@ -41,7 +41,7 @@ export default [
       }]
   },
     { path: '/', component: index },
-     { path: '/index/:id', component: index },
+     { path: '/index', component: index },
   { path: '/flex', component: flex },
   { path: '/ratings', component: ratings },
   { path: '/seller', component: seller }, 

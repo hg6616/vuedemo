@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		 <mheader></mheader>
 		<!--路由出口-->
 		<transition name="router-fade" mode="out-in">
 			<keep-alive>
@@ -12,11 +13,20 @@
 <script type=""> 
 import axios from 'axios';
 //import css from 'style/aa.css'
+import mheader from './components/header'
 export default {
 
 
 	created() {
 
+	},
+	components:{
+		mheader
+	},
+	methods:{
+      logx(obj){
+		  console.log(obj)
+	  }
 	}
 }
 </script>

@@ -6,7 +6,7 @@ import cart from './modules/cart'
 import products from './modules/products'
 import mutations from './mutations'
 //import createLogger from '../../../src/plugins/logger'
-
+import * as types from './mutation-types'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -22,7 +22,9 @@ const state = {
     stories: []
   },
   news: '<div>loading</div>',
-  car:''
+  car:'',
+  types,
+  GET_USER_INFO:[]
 };
 export default new Vuex.Store({
   actions,
