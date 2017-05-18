@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-      <link rel="stylesheet" type="text/css" href="static/css/aa.css">
-    <title>智通车商</title>
-      <!--<link rel="stylesheet" type="text/stylus" href="src/style/a.styl">-->
-  </head>
-  <body>
-    <!--组件挂载到这里-->
-    <div id="app"> 
-         
 
-    </div>
-    
-    <!-- built files will be auto injected -->
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <link rel="stylesheet" type="text/css" href="static/css/aa.css">
+  <title>智通车商</title>
+  <!--<link rel="stylesheet" type="text/stylus" href="src/style/a.styl">-->
+  <script>
+    //换肤
+    function changesSkin() {
+      var createNode = document.createElement("style");
+      var content = `.theme-bc{
+    background-color: #98bace;
+}
+.theme{
+    color:#98bace;
+}`;
+      var createTextNode = document.createTextNode(content);
+      createNode.appendChild(createTextNode);
+      document.body.appendChild(createNode);
+      document.documentElement.appendChild(createNode);
+      console.log('change skin suc')
+    }
+  </script>
+
+</head>
+
+<body>
+  <!--组件挂载到这里-->
+  <div id="app">
+
+
+  </div>
+
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

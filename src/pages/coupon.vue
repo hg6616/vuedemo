@@ -1,92 +1,77 @@
 <template>
-      <div>
-
-              <div class="container">
-       
-      <div class="middle-div margin-top">
-          <div class="coupon" @click="showModal">
-               <div class="head">
-                   <span class="type">集团券</span>
-                   <span  class="shop">东风日产</span>
-               </div>
-               <div class="content">                   
-                   <p class="coupon-name">免费保养一次</p>
-                   <p class="coupon-expire">有效期至2017年12月30日</p>
-               </div>
-               <div class="couponimg unused">   </div> 
-          </div> 
-               <div class="coupon">
-               <div class="head">
-                   <span class="type">集团券</span>
-                   <span  class="shop">东风日产</span>
-               </div>
-               <div class="content">                   
-                   <p class="coupon-name">免费保养一次</p>
-                   <p class="coupon-expire">有效期至2017年12月30日</p>
-               </div>
-               <div class="couponimg unused">   </div> 
-          </div>
-            <div class="coupon">
-               <div class="head">
-                   <span class="type">集团券</span>
-                   <span  class="shop">东风日产</span>
-               </div>
-               <div class="content">                   
-                   <p class="coupon-name">免费保养一次</p>
-                   <p class="coupon-expire">有效期至2017年12月30日</p>
-               </div>
-               <div class="couponimg used">   </div> 
-          </div>
-            <div class="coupon">
-               <div class="head">
-                   <span class="type">集团券</span>
-                   <span  class="shop">东风日产</span>
-               </div>
-               <div class="content">                   
-                   <p class="coupon-name">免费保养一次</p>
-                   <p class="coupon-expire">有效期至2017年12月30日</p>
-               </div>
-               <div class="couponimg expired">   </div> 
-          </div>
-      </div>
- 
-    </div>
-
-
-    <div class="modal" :class={show:isShow}>
-        <div class="modal-back" @click="hideModal">
-
-        </div>
-        <div class="dialog">
-            <!--<div class="header">1</div>-->
-            <div class="content">
-               <p class="desc">使用该卡券</p>
-               <div class="img"><span class="text">免费保养一次</span></div> 
-            </div>
-            <div class="footer">
-                <div class="btnText">
-                    取消
-                </div>
-                <div class="btnText">
-                    确定
+    <div>
+    
+        <div class="container">
+    
+            <div class="middle-div margin-top">
+                <div class="coupon" @click="showModal" v-for="x in coupon">
+                    <div class="head">
+                        <span class="type"></span>
+                        <span class="shop"></span>
+                    </div>
+                    <div class="content">
+                        <p class="coupon-name">{{x.title}}</p>
+                        <p class="coupon-expire">有效期至{{x.endTime}}</p>
+                    </div>
+                    <div class="couponimg unused" :class="{unused:x.status=='0',used:x.status=='1',expired:x.status=='2',}"> </div>
                 </div>
             </div>
+    
         </div>
+        <modal :config="modalConfig"></modal>
+        <!--<div class="modal" :class={show:isShow}>
+                <div class="modal-back" @click="hideModal">
+        
+                </div>
+                <div class="dialog">
+                    <div class="header">1</div> 
+                    <div class="content">
+                        <p class="desc">使用该卡券</p>
+                        <div class="img"><span class="text">免费保养一次</span></div>
+                    </div>
+                    <div class="footer">
+                        <div class="btnText">
+                            取消
+                        </div>
+                        <div class="btnText">
+                            确定
+                        </div>
+                    </div>
+                </div>
+            </div>-->
     </div>
-      </div>
 </template>
 
 <script>
+import { mapGetters, mapState, mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
+import modal from '../components/modal'
 export default {
     data() {
         return {
-            isShow:false
+            isShow: false,
+            // modalConfig:{
+            //     isShow:false
+            // }
         };
     },
+    components:{modal},
     computed: {
         // msg() {
         //     return this.$store.state.pc.msg;
         // }
+        modalConfig() {
+            return { isShow: false }
+        },
+        ...mapState({
+            coupon: state => {
+                var res = state.GET_COUPON_TAKING_RECORD;
+                if (res == null || res == undefined) {
+                    res = []
+                }
+                return res;
+            }
+        })
     },
     created() {
         //   console.log('created');
@@ -94,54 +79,27 @@ export default {
     mounted() {
         //  console.log('mounted');
     },
-    methods:{
-         showModal(){
-             this.$data.isShow=true;
-         },
-           hideModal(){
-             this.$data.isShow=false;
-         }
+    activated() {
+        // this.$store.dispatch({ type: this.$store.state.types.GET_COUPON_TAKING_RECORD, data: {"dlrCode":"H2901","status":"1"} });
+        this.GET_COUPON_TAKING_RECORD({ data: { "dlrCode": "H2901", "status": "1" } })
+    },
+    methods: {
+        ...mapActions([
+            types.GET_COUPON_TAKING_RECORD
+        ]),
+        showModal() {
+           this.modalConfig.isShow=true;
+        },
+        hideModal() {
+            this.$data.isShow = false;
+        }
     }
 }
 </script>
 
 <style lang="stylus" scoped> 
        @import    '../style/var'; 
-       
-.modal{
-    .content{
-        .desc{
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-        }
-        .img{
-            .text{
-                font-size: 1.5rem;
-               
-                color:#fff;
-            }
-             padding: 2rem 0 2rem 2rem;
-            background-image: url("../assets/cp_free.png");
-            background-size: 100% 100%;
-        }
-    }
-    .footer{
-        display: flex;
-        .btnText{
-            text-align: center;
-             padding:0.75rem 0;
-            font-size: 1.5rem;
-            color:#9a9a9a;
-          //  display: inline-block;
-           // width: 49%; 
-            flex: 1;
-        }
-         .btnText+.btnText{
-                border-left: 0.1rem solid $themeColor;
-                color:$themeColor
-            }
-    }
-}
+ 
 
 .coupon{
      border-radius: 0.5rem;

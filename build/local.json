@@ -17,30 +17,281 @@
         "errormessage": "调用成功",
         "token": null
     },
-    "GET_USER_INFO":{
-    "callTime": "2017-05-05 09:24:30",
-    "result": [
-        {
-            "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
-            "unionId": null,
-            "nickName": "pedro",
-            "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
-            "fanStatus": 1,
-            "carOwner": {
-                "carownerName": "张三",
-                "mobile": "13667890987",
-                "carNo": "粤R09893",
-                "carTypeConfigId": "1",
-                "carTypeConfigName": "标志301舒适版",
-                "vin": "V14578904567890345",
-                "engineNo": "145654",
-                "buyCarTime": "2016-08-09",
-                "buyInsuranceTime": "2016-09-09"
+    "GET_USER_INFO": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
+                "unionId": null,
+                "nickName": "pedro",
+                "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
+                "fanStatus": 1,
+                "carOwner": {
+                    "carownerName": "张三",
+                    "mobile": "13667890987",
+                    "carNo": "粤R09893",
+                    "carTypeConfigId": "1",
+                    "carTypeConfigName": "标志301舒适版",
+                    "vin": "V14578904567890345",
+                    "engineNo": "145654",
+                    "buyCarTime": "2016-08-09",
+                    "buyInsuranceTime": "2016-09-09"
+                }
             }
-        }
-    ],
-    "error": "R200",
-    "errormessage": "调用成功",
-    "token": null
-}
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_USER_INFO2": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
+                "unionId": null,
+                "nickName": "pedro",
+                "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
+                "fanStatus": 1,
+                "carOwner": null
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "BIND_CAR_OWNER": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": null,
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_COUPON_TAKING_RECORD": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "title": "免费保养一次",
+                "subtitle": "8折优惠券",
+                "defaultDetail": "",
+                "type": "1",
+                "cardCode": "8907654678",
+                "beginTime": "2017-05-01 09:24:30",
+                "endTime": "2017-05-06 09:24:30",
+                "receiveType": "1",
+                "busiId": null,
+                "remark": "",
+                "status": "0"
+            },
+            {
+                "id": 1,
+                "title": "200元钣金代金券",
+                "subtitle": "8折优惠券",
+                "defaultDetail": "",
+                "type": "1",
+                "cardCode": "8907654678",
+                "beginTime": "2017-05-01 09:24:30",
+                "endTime": "2017-05-06 09:24:30",
+                "receiveType": "1",
+                "busiId": null,
+                "remark": "",
+                "status": "0"
+            },
+            {
+                "id": 1,
+                "title": "预约到店礼品一份",
+                "subtitle": "8折优惠券",
+                "defaultDetail": "",
+                "type": "1",
+                "cardCode": "8907654678",
+                "beginTime": "2017-05-01 09:24:30",
+                "endTime": "2017-05-06 09:24:30",
+                "receiveType": "1",
+                "busiId": null,
+                "remark": "",
+                "status": "1"
+            },
+            {
+                "id": 1,
+                "title": "国庆抽奖券",
+                "subtitle": "8折优惠券",
+                "defaultDetail": "",
+                "type": "1",
+                "cardCode": "8907654678",
+                "beginTime": "2017-05-01 09:24:30",
+                "endTime": "2017-05-06 09:24:30",
+                "receiveType": "1",
+                "busiId": null,
+                "remark": "",
+                "status": "2"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_CAR_SERIES": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "carSeriesCn": "标志401",
+                "sort": 110,
+                "image": "http://img1.bitautoimg.com/autoalbum/files/20140728/885/23423088545828_3490372_3.jpg",
+                "price": "18.97~21.97"
+            },
+            {
+                "id": 2,
+                "carSeriesCn": "标志402",
+                "sort": 110,
+                "image": "http://img1.bitautoimg.com/autoalbum/files/20140728/885/23423088545828_3490372_3.jpg",
+                "price": "10~11.97"
+            },
+            {
+                "id": 31,
+                "carSeriesCn": "标志403",
+                "sort": 110,
+                "image": "http://img1.bitautoimg.com/autoalbum/files/20140728/885/23423088545828_3490372_3.jpg",
+                "price": "15.97~21.97"
+            },
+            {
+                "id": 4,
+                "carSeriesCn": "标志404",
+                "sort": 110,
+                "image": "http://img1.bitautoimg.com/autoalbum/files/20140728/885/23423088545828_3490372_3.jpg",
+                "price": "12.97~21.97"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_CAR_TYPE_CONFIG": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "carConfigCn": "标志301舒适版",
+                "sort": 2,
+                "netSalePrice": 12.2,
+                "lowestPrice": 12
+            },
+            {
+                "id": 2,
+                "carConfigCn": "标志301中配版",
+                "sort": 2,
+                "netSalePrice": 13.2,
+                "lowestPrice": 13
+            },
+            {
+                "id": 3,
+                "carConfigCn": "标志301顶配",
+                "sort": 2,
+                "netSalePrice": 14.2,
+                "lowestPrice": 14
+            },
+            {
+                "id": 3,
+                "carConfigCn": "标志301顶配",
+                "sort": 2,
+                "netSalePrice": 14.2,
+                "lowestPrice": 14
+            },
+            {
+                "id": 3,
+                "carConfigCn": "标志301顶配",
+                "sort": 2,
+                "netSalePrice": 14.2,
+                "lowestPrice": 14
+            },
+            {
+                "id": 3,
+                "carConfigCn": "标志301顶配",
+                "sort": 2,
+                "netSalePrice": 14.2,
+                "lowestPrice": 14
+            },
+            {
+                "id": 3,
+                "carConfigCn": "标志301顶配",
+                "sort": 2,
+                "netSalePrice": 14.2,
+                "lowestPrice": 14
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_CAR_SERIES_PIC": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "imgPath": "http://img1.bitautoimg.com/autoalbum/files/20140728/885/23423088545828_3490372_3.jpg",
+                "sort": 1
+            },
+            {
+                "imgPath": "http://img2.bitautoimg.com/autoalbum/files/20140728/604/23104360411431_3490377_14.jpg",
+                "sort": 1
+            },
+            {
+                "imgPath": "http://img4.bitautoimg.com/autoalbum/files/20140728/395/23412139549047_3490375_14.jpg",
+                "sort": 1
+            },
+            {
+                "imgPath": "http://img1.bitautoimg.com/autoalbum/files/20140728/690/23414269064293_3490376_14.jpg",
+                "sort": 1
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "ADD_VEHICLE_CLUE": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": "R200",
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "ADD_INSURANCE_CLUE": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": "R200",
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "ADD_SERVICE_CLUE": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": "R200",
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_INSURANCE_TYPE": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "dicDataId": 1,
+                "safeName": "第三者责任险",
+                "safeLimits": "1000,2000,50000",
+                "ext": "第三者责任险是指被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济责 任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过责任限额的30％。因 为交强险在对第三者的财产损失和医疗费用部分赔偿较低，可考虑购买第三者责任险作为交强险的补充。"
+            },
+            {
+                "dicDataId": 2,
+                "safeName": "机动车辆损失险",
+                "safeLimits": null,
+                "ext": "机动车辆损失险~~~~~~~~。"
+            },
+              {
+                "dicDataId": 3,
+                "safeName": "xxx辆损失险",
+                "safeLimits": null,
+                "ext": null
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    }
 }

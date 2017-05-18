@@ -1,5 +1,5 @@
 <template>
-    <mt-header :title="mytt" class="header">
+    <mt-header :title="mytt" class="theme-bc">
         <mt-button  icon="back" slot="left" @click="back">返回</mt-button>
         <!--<mt-button icon="more" slot="right"></mt-button>-->
     </mt-header>
@@ -27,10 +27,8 @@ export default {
         //  console.log('mounted');
     },
     methods:{
-        back(){
-            console.log(3);
-            this.$router.go(-1);
-                 console.log(4);
+        back(){ 
+            this.$router.go(-1); 
         }
     }
 }

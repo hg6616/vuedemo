@@ -7,6 +7,7 @@ import products from './modules/products'
 import mutations from './mutations'
 //import createLogger from '../../../src/plugins/logger'
 import * as types from './mutation-types'
+import { Toast } from 'mint-ui'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -22,9 +23,54 @@ const state = {
     stories: []
   },
   news: '<div>loading</div>',
-  car:'',
-  types,
-  GET_USER_INFO:[]
+  car: '',
+  dlrCode: 'H2901',//todo
+  sucCode:'R200',//调用成功的编码
+  mytitle:'',//智通车商  标题 todo
+  // types,
+  //记得给state赋值初始值,不然getter中不会自动变化 
+  SEND_AUTH_CODE: null,
+  GET_CAR_BRAND: null,
+  GET_CAR_SERIES: null,
+  GET_CAR_SERIES_PIC: null,
+  GET_CAR_TYPE_CONFIG: null,
+  GET_USER_INFO: null,
+  GET_MSG_COUNT: null,
+  GET_MSG: null,
+  UPDATE_MSG_READ_STATUS: null,
+  ADD_VEHICLE_CLUE: null,
+  GET_VEHICLE_CLUE: null,
+  BIND_CAR_OWNER: null,
+  ADD_SERVICE_CLUE: null,
+  GET_SERVICE_CLUE: null,
+  GET_INSURANCE_TYPE: null,
+  ADD_INSURANCE_CLUE: null,
+  GET_RENEWAL_INSURANCE_QUERY_PRICE: null,
+  GET_COUPON: null,
+  TAKE_COUPON: null,
+  GET_COUPON_TAKING_RECORD: null,
+  GET_DLR: null,
+  CANCEL_VEHICLE_APPOINTMENT: null,
+  CANCEL_SERVICE_APPOINTMENT: null,
+  GET_EVENT: null,
+  validate: (err) => {
+    let res = true;
+    //   debugger;
+    console.log(err);
+    if (err && err.errors.length > 0) {
+      var msg = '';
+      res = false;
+      for (let x in err.errors) {
+        msg += err.errors[x].msg + ';';
+      }
+      Toast({
+        message: msg,
+       // position: 'bottom',
+        duration: 2000
+      });
+    }
+    return res;
+  }
 };
 export default new Vuex.Store({
   actions,

@@ -1,9 +1,5 @@
 <template>
     <div class="container">
-        <!--<div class="arrow-select arrow">
-                    <i class="icon icon-lion">小圆点</i>
-                    <span class="text">2016款 1.6L 手动 标致301 舒适版</span>
-                </div>-->
         <div class="card middle-div  margin-bottom">
             <div class="body">
                 <ul>
@@ -15,19 +11,10 @@
                         <label>手机号</label>
                         <span><input ref="mobile" type="number" placeholder="请输入手机号"></span>
                     </li>
-                    <!--<li style="position: relative">
-                                <label>验证码</label>
-                                <span><input type="text" placeholder="请输入验证码" class="short-inpu3t"></span>
-                                <div class="little-button">获取验证码</div>
-                            </li>-->
                     <li class=" ">
-                        <label>预约时间</label>
-                        <span><input ref="repairTime" type="date" placeholder="请选择预约时间"></span>
+                        <label>到险日期</label>
+                        <span><input ref="repairTime" type="date" placeholder="请选择到险日期"></span>
                     </li>
-                    <!--<li class="arrow">
-                                <label>专营店</label>
-                                <span><input type="text" placeholder="请选择专营店"></span>
-                            </li>-->
                     <li>
                         <label style="vertical-align: top">备注</label>
                         <span><textarea  ref="remark"   style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
@@ -47,26 +34,24 @@ import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
 export default {
     data() {
-        return {
+        return { 
         };
     },
     methods: {
-        ...mapActions([types.ADD_VEHICLE_CLUE]),
+        ...mapActions([types.ADD_INSURANCE_CLUE]),
         submit() {
+            var state = this.$store.state;
             var params = {
-                "dlrCode": this.$store.state.dlrCode,
-                "carownerName": this.$refs.carownerName.value,
-                "mobile": this.$refs.mobile.value,
-                "clueType": "2",//试驾是2
-                "repairTime": this.$refs.repairTime.value,
-                "carTypeId": this.$route.query.cartype,
-                "carBrandId": this.$route.query.carbrand,
+                "dlrCode": state.dlrCode,
+                "aiBuType": "2",//推荐购买是2
+                "recommendName": this.$refs.carownerName.value,
+                "recommendTel": this.$refs.mobile.value,
                 "remark": this.$refs.remark.value,
-                //    "validCode": "201609"
-            }
-            this.ADD_VEHICLE_CLUE(params)
+            };
+            this.ADD_INSURANCE_CLUE(params)
                 .then(() => {
-                    if (this.$store.state.ADD_VEHICLE_CLUE == 'R200') {
+                 //    this.$store.commit(types.CHANGE_TITLE,'保险')
+                    if (state.ADD_INSURANCE_CLUE == state.sucCode) {
                         this.$toast('操作成功');
                     }
                     else {
@@ -75,7 +60,7 @@ export default {
                 })
                 .catch(() => {
                     this.$toast('操作失败');
-                }) 
+                })
         }
     },
 }

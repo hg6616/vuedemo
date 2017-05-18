@@ -3,42 +3,41 @@
     
         <div class="middle-div">
             <ul class="events">
-                <li class="cls">
-                    <p class="big">冷"COOL"到底,安全检查</p>
-                    <p class="small">2017-03-09 12:00</p>
-                    <div class="back going">
-                        <div class="line"></div>
-                        <div class="word">
+                <!--<li class="cls">
+                        <p class="big">冷"COOL"到底,安全检查</p>
+                        <p class="small">2017-03-09 12:00</p>
+                        <div class="back going">
+                            <div class="line"></div>
+                            <div class="word">
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="cls">
-                    <p class="big">春节送大礼,好车开回家</p>
-                    <p class="small">2017-03-09 12:00</p>
-                    <div class="back ended">
-                        <div class="line"></div>
-                        <div class="word">
+                    </li>
+                    <li class="cls">
+                        <p class="big">春节送大礼,好车开回家</p>
+                        <p class="small">2017-03-09 12:00</p>
+                        <div class="back ended">
+                            <div class="line"></div>
+                            <div class="word">
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>-->
     
                 <li class="cls" v-for="d in events">
-                    <p class="big">{{d.actName}}</p>
+                    <p class="big ellipsis">{{d.actName}}</p>
                     <p class="small">{{d.actStartTime}}</p>
-                    <div class="back ended">
+                    <div class="back" :class="{going:d.going,ended:!d.going}">
                         <div class="line"></div>
                         <div class="word">
                         </div>
                     </div>
                 </li>
-    
             </ul>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
@@ -49,20 +48,24 @@ export default {
         // msg() {
         //     return this.$store.state.pc.msg;
         // }
-        ...mapGetters(['events']),
+        ...mapGetters(['events', 'elen']),
+    },
+    methods: {
+        ...mapActions(['GET_EVENT'])
     },
     created() {
         //   console.log('created');
     },
     mounted() {
         //  console.log('mounted');
-      //  this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
+        //  this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
 
     },
-        activated() {
-                 this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
-
-        },
+    activated() {
+        console.log('action event')
+        //      this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
+        this.GET_EVENT({ data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } })
+    },
 }
 </script>
 
@@ -79,6 +82,7 @@ export default {
          .big{
              color:#434343;
              font-size: (30/$pr);
+             width:20rem;
          }
          .small{
              color:#9a9a9a;

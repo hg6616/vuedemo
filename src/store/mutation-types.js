@@ -31,4 +31,5 @@ export const GET_DLR='GET_DLR' ;//获取专营店信息
 export const CANCEL_VEHICLE_APPOINTMENT='CANCEL_VEHICLE_APPOINTMENT' ;//取消整车预约
 export const CANCEL_SERVICE_APPOINTMENT='CANCEL_SERVICE_APPOINTMENT' ;//取消服务预约
 export const GET_EVENT='GET_EVENT' ;//活动列表接口
+export const CHANGE_TITLE='CHANGE_TITLE'//更改header的标题
 

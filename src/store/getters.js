@@ -11,26 +11,35 @@ export const cartProducts = state => {
   })
 }
 
-//个人中心
+//车主信息
 export const carOwner = state => {
   var d = state.GET_USER_INFO;
   var res = {
-    "nickName": "",
+    "nickName": "kkkk",
     "headImgUrl": "",
     "carOwner": {
       "carNo": "",
       "carTypeConfigName": ""
     }
   };
-  if (d!=undefined&&d.length > 0) {
+  if (d != undefined) {
     res = d;
+    if (res.carOwner != null) {
+      res.binded = true;//已绑定
+    }
+    else {
+      res.carOwner = {
+        "carNo": "",
+        "carTypeConfigName": ""
+      }
+    }
   }
   return res;
 }
 
 //活动提醒
 export const events = state => {
- // debugger;
+  // debugger;
   var d = state.GET_EVENT;
   //  "result": [
   //           {
@@ -45,11 +54,16 @@ export const events = state => {
   //           }
   //       ],
   var res = [];
-  if (d!=undefined&&d.length > 0) {
-    for(let x in d){
-       d[x].going=new Date()-new Date(d[x].actEndTime)>0?true:false;
+  if (d != undefined && d.length > 0) {
+    for (let x in d) {
+      d[x].going = new Date() - new Date(d[x].actEndTime) <= 0 ? true : false;
     }
     res = d;
   }
   return res;
+}
+
+export const elen = state => {
+  // debugger;
+  return state.GET_EVENT == undefined ? 999 : state.GET_EVENT.length;
 }

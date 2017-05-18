@@ -13,14 +13,18 @@
       
  }
  
- html{
+ html,body{
       font-size:62.5%;
       color:$fontcolor;
       font-family: $defaultFont;
      min-height:100%;
      background: $bordercolor;
   } 
-
+ 
+ol, ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
   ul{
        list-style: none;  
   }
@@ -30,12 +34,13 @@
       }
   }
 
-  input[type=text],textarea{
+  input,textarea,select{
     border:none;
     font-size: 1.2rem;
     display: inline-block;
           font-family: $defaultFont;
               outline: 0;
+              background-color: transparent;
 }
 .textarea{
     resize: none;
@@ -77,9 +82,16 @@
 .mg_t_4{
        margin-top: 4rem;
 }
+.mg_b_5{
+    margin-bottom:5rem;
+}
 .inline-right{
      position: absolute;
-         right:1rem;
+     right:1rem;
+}
+.inline-arrow-left{
+     position: absolute;
+     right:3.5rem;
 }
 .inline-right-button{
      @extend .inline-right;
@@ -203,7 +215,8 @@
 }
 .bottom-button{
      @extend   .longButton;
-   position: absolute;
+   position: fixed;
+ //  position: absolute;
           bottom: 0.8rem;
           left:50%;
           margin-left: -46%; 
@@ -294,7 +307,7 @@
     width:100%;
     background-color:#fff;
     padding:1rem 0 1rem 1rem;
-    position: absolute;
+   // position: absolute;
     top:0px;
     left: 0px;
     font-size:1.1rem;
@@ -390,3 +403,34 @@
            color:#666;
        }
    }
+
+   .ellipsis{
+     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+   }
+
+   input.is-danger, textarea.is-danger {
+    border-color: #ff3860;
+   }
+
+   .swiperImg{
+      height:100%;
+      width:100%;
+}
+.roundDot{
+    height:.5rem;
+    width:.5rem;
+    background-color:$themeColor;
+    border-radius:50%;
+    display:inline-block;
+        vertical-align: middle;
+}
+
+
+.theme-bc{
+    background-color: $themeColor;
+}
+.theme{
+    color:$themeColor;
+}

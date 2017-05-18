@@ -1,5 +1,6 @@
 <template>
     <div class="personcenter-container">
+    
         <div class="head">
             <div class="detail clearfix">
                 <div class="img">
@@ -18,7 +19,7 @@
                 </div>
             </div>
             <div class="banner">
-                <ul class="menuul">
+                <ul class="menuul" v-show="carOwner.binded">
                     <li>
                         <router-link to="/eventAlarm">
                             <div class=""><i class="iconfont icon-daxiao"></i></div>活动提醒
@@ -31,10 +32,10 @@
                     <li>
                         <div class=""><i class="iconfont icon-iconfont-car-viewed"></i></div>车检提醒</li>
                 </ul>
-                <div class="bindCar" style="display: none">
+                <div class="bindCar" v-show="!carOwner.binded">
                     <router-link to="/bindOwner">
-                        <i class="iconfont icon-yonghu-yuan"></i>
-                        <div class="text">绑定车主</div>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        <span class="text">绑定车主</span>
                     </router-link>
     
                 </div>
@@ -67,7 +68,7 @@
     
                 </li>
             </ul>
-            <div class="bindComment" style="display: none">
+            <div class="bindComment" v-show="!carOwner.binded">
                 <p>温馨提示:绑定后有啥好处?</p>
                 <p>1.保养,保险,年检到期提醒</p>
                 <p>2.养修免排队</p>
@@ -81,15 +82,14 @@
 </template>
 
 <script type=""> 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
+import * as types from '../store/mutation-types'
 export default {
     name: 'pc',
     data() {
         return {
-
-        }
+         }
     },
-
     computed: {
         msg() {
             // console.log('msg');
@@ -98,36 +98,23 @@ export default {
         car() {
             return this.$store.state.GET_CAR_BRAND;
         },
-        carOwner() {
-            debugger;
-            var d = this.$store.state.GET_USER_INFO;
-            var res = {
-                "nickName": "",
-                "headImgUrl": "",
-                "carOwner": {
-                    "carNo": "",
-                    "carTypeConfigName": ""
-                }
-            };
-            if (d != undefined && d.length > 0) {
-                res = d;
-            }
-            return res;
-        },
-        //  ...mapGetters(['carOwner']),
+        // ...mapState({ 
+        //     haveBindedOwner: (state) => {
+        //         var d = state.GET_USER_INFO;
+        //         var res = false;
+        //         if (d != undefined && d.length > 0 && d[0].carOwner != null) {
+        //             res = true;//todo
+        //         }
+        //         return res;
+        //     }
+        // }),
+         ...mapGetters(['carOwner']),
     },
 
     methods: {
-        changeindex() {
-            this.$store.dispatch({
-                type: 'changemsg',
-                msg: 'bad'
-            });
-            this.$indicator.open({
-                text: '加载中...',
-                spinnerType: 'fading-circle'
-            });
-        }
+        ...mapActions([
+            types.GET_USER_INFO
+        ]),
     }
     , components: {
         //  mheader
@@ -157,8 +144,7 @@ export default {
         //  console.log('destroyed');
     },
     activated() {
-        //   console.log('activated');  
-        this.$store.dispatch({ type: this.$store.state.types.GET_USER_INFO, data: { "dlrCode": "H2901" } });
+        //   console.log('activated');   
     },
     deactivated: function () {
         // console.log('deactivated');
@@ -259,17 +245,18 @@ export default {
              .bindCar {
                  color: $themeColor;
                  text-align: center;
-                 margin: 2rem 0; // .iconbig{
-                 //     height: 1.6rem;
-                 //     width: 1.6rem;
-                 // }
+                 margin: 2rem 0; 
                  .text {
                      font-size: 1.6rem;
                      display: inline-block;
-                     vertical-align: top;
+                       color: $themeColor;
                  }
                  .icon-yonghu-yuan {
                      font-size: 1.6rem;
+                 }
+                 .glyphicon{
+                       color: $themeColor;
+                         font-size: 1.6rem;
                  }
              }
          }

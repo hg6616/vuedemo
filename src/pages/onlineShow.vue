@@ -1,75 +1,62 @@
 <template>
     <div>
-         <div class="container">
-        <div class="arrow-select arrow"  @click="showBrand">
-            <i class="icon icon-lion">狮子</i>
-            <span class="text">东风标致</span>
+        <div class="container">
+            <div class="arrow-select arrow" @click="showBrand">
+                <img src="../assets/brand/peugeot.png" style="height:1.1rem">
+                <span class="text">东风标致</span>
+            </div>
+            <div class="showpic-content middle-div">
+                <ul class="ul-pic">
+                    <li class="li-pic" v-for="x in carList" @click="showDetail(x.id)">
+                        <div class="pic">
+                            <img :src="x.image" class="showpic">
+                        </div>
+                        <p class="car-series">{{x.carSeriesCn}}</p>
+                        <p class="price"><span>{{x.price}}</span>万</p>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="showpic-content middle-div">
-            <ul class="ul-pic">
-                <li class="li-pic">
-                    <div class="pic">
-                        <img src="../assets/cartype1.jpg" class="showpic">
-                    </div>
-                    <p class="car-series">标致301</p>
-                    <p class="price"><span>18.97~21.97</span>万</p>
-                </li>
-
-                <li class="li-pic">
-                    <div class="pic">
-                        <img src="../assets/cartype1.jpg" class="showpic">
-                    </div>
-                    <p class="car-series">标致301</p>
-                    <p class="price"><span>18.97~21.97</span>万</p>
-                </li>
-
-                <li class="li-pic">
-                    <div class="pic">
-                        <img src="../assets/cartype1.jpg" class="showpic">
-                    </div>
-                    <p class="car-series">标致301</p>
-                    <p class="price"><span>18.97~21.97</span>万</p>
-                </li>
-
-                <li class="li-pic">
-                    <div class="pic">
-                        <img src="../assets/cartype1.jpg" class="showpic">
-                    </div>
-                    <p class="car-series">标致301</p>
-                    <p class="price"><span>18.97~21.97</span>万</p>
-                </li>
-            </ul>
+    
+        <div class="modal" :class="{show:isShow}">
+            <div class="modal-back" @click="hideBrand">
+    
+            </div>
+            <div class="brand-select" :class="{showBrand:isShowBrand}">
+                <ul class="cls">
+                    <li class="cls active">东风标致</li>
+                    <li class="cls">郑州日产</li>
+                    <li class="cls">东风风神</li>
+                    <li class="cls">一汽大众</li>
+                </ul>
+            </div>
         </div>
-    </div>
- 
-    <div class="modal" :class="{show:isShow}">
-        <div class="modal-back" @click="hideBrand">
-
-        </div>
-        <div class="brand-select"  :class="{showBrand:isShowBrand}">
-            <ul class="cls">
-                <li class="cls active">东风标致</li>
-                <li class="cls">郑州日产</li>
-                <li class="cls">东风风神</li>
-                <li class="cls">一汽大众</li>
-            </ul>
-        </div>
-    </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import * as types from '../store/mutation-types'
 export default {
     data() {
         return {
-            isShow:false,
-            isShowBrand:false
+            isShow: false,
+            isShowBrand: false
         };
     },
     computed: {
         // msg() {
         //     return this.$store.state.pc.msg;
         // }
+        ...mapState({
+            carList: state => {
+                var res = state.GET_CAR_SERIES;
+                if (res == null) {
+                    res = [];
+                }
+                return res;
+            }
+        })
     },
     created() {
         //   console.log('created');
@@ -77,24 +64,33 @@ export default {
     mounted() {
         //  console.log('mounted');
     },
-    methods:{
-        showBrand(){
-            this.$data.isShow=true;
+    activated() {
+        this.GET_CAR_SERIES({ data: { "dlrCode": "H2901", "carBrandId": "1", "carBrandCode": "1" } });
+    },
+    methods: {
+        ...mapActions([types.GET_CAR_SERIES]),
+        showDetail(id) {
+            console.log(id)
+            this.$router.push({ path: '/carTypeChoose', query: { id: id}})
+        },
+        showBrand() {
+            this.$data.isShow = true;
             setTimeout(
-                ()=>{
-                    this.$data.isShowBrand=true; 
-                },100
+                () => {
+                    this.$data.isShowBrand = true;
+                }, 100
             );
         },
-        hideBrand(){
-             this.$data.isShowBrand=false;
-             setTimeout(
-                ()=>{
-                    this.$data.isShow=false; 
-                },300
-            ); 
+        //todo
+        hideBrand() {
+            this.$data.isShowBrand = false;
+            setTimeout(
+                () => {
+                    this.$data.isShow = false;
+                }, 300
+            );
         }
-    } 
+    }
 }
 </script>
 
@@ -102,7 +98,7 @@ export default {
        @import    '../style/var'; 
        
 .showpic-content{
-    margin-top:3.9rem;
+ //   margin-top:3.9rem;
   
     .ul-pic{ 
         display: flex;
@@ -114,7 +110,7 @@ export default {
             margin-top:0.7rem;
             .pic{
                 height:10rem;
-                width:14.3rem;
+                width:13rem;
                 margin-bottom: 0.8rem;
                 .showpic{
                     height:100%;

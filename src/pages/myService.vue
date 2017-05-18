@@ -7,25 +7,9 @@
             </div>
             <div class="body">
                 <ul>
-                    <li class="arrow">
-                        <router-link to="/onlineShow">
-                            <i class="iconfont icon-huanche"></i>
-                            <span>线上展厅</span>
-                        </router-link>
-    
-                    </li>
-                    <li class="arrow">
-                        <router-link to="/testDriveAppointment">
-                            <i class="iconfont icon-shijian"></i>
-                            <span>试驾预约</span>
-                        </router-link>
-    
-                    </li>
-                    <li class="arrow">
-                        <router-link to="/iRecommand">
-                            <i class="iconfont icon-iconfont-tuijian-"></i>
-                            <span>我要推荐</span>
-                        </router-link>
+                    <li class="arrow" v-for=" x in serviceList.buyService" @click="linkTo(x.link)">
+                        <i class="iconfont" :class="x.iconCls"></i>
+                        <span>{{x.title}}</span>
                     </li>
                 </ul>
             </div>
@@ -37,25 +21,13 @@
             </div>
             <div class="body">
                 <ul>
-                    <li class="arrow">
-                        <router-link to="/maintainAppointment"> <i class="iconfont icon-lease-resv-2home"></i>
-                            <span>养修预约</span></router-link>
-    
-                    </li>
-                    <li class="arrow">
-                        <router-link to="/xubaoQuery"> <i class="iconfont icon-xunjia"></i>
-                            <span>续保询价</span></router-link>
-    
-                    </li>
-                    <li class="arrow">
-                        <router-link to="/carExchange"> <i class="iconfont icon-cheliangzhihuan"></i>
-                            <span>车辆置换</span></router-link>
-    
+                    <li class="arrow" v-for=" x in serviceList.ownerService" @click="ownerLinkTo(x.link)">
+                        <i class="iconfont" :class="x.iconCls"></i>
+                        <span>{{x.title}}</span>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="longButton  bottom-button">更改</div>
     </div>
 </template>
 
@@ -68,6 +40,56 @@ export default {
         // msg() {
         //     return this.store.state.pc.msg;
         // }
+        serviceList() {
+            return {
+                buyService: [
+                    {
+                        title: '线上展厅',
+                        iconCls: 'icon-huanche',
+                        link: '/onlineShow'
+                    },
+                    {
+                        title: '试驾预约',
+                        iconCls: 'icon-shijian',
+                        link: '/testDriveAppointment'
+                    }, {
+                        title: '我要推荐',
+                        iconCls: 'icon-iconfont-tuijian-',
+                        link: '/iRecommand'
+                    },
+                ],
+                ownerService: [
+                    {
+                        title: '养修预约',
+                        iconCls: 'icon-lease-resv-2home',
+                        link: '/maintainAppointment'
+                    },
+                    {
+                        title: '续保询价',
+                        iconCls: 'icon-xunjia',
+                        link: '/xubaoQuery'
+                    }, {
+                        title: '车辆置换',
+                        iconCls: 'icon-cheliangzhihuan',
+                        link: '/carExchange'
+                    },
+                ]
+            };
+        }
+    },
+    methods: {
+        linkTo(url) {
+            this.$router.push(url)
+        },
+        ownerLinkTo(url) {
+            if (this.$store.getters.carOwner.binded) {
+                this.$router.push(url)
+            }
+            else{
+                //todo 弹框前往绑定车主
+                   this.$router.push('/bindOwner')
+            }
+        }
     },
     created() {
         //   console.log('created');
@@ -75,6 +97,9 @@ export default {
     mounted() {
         //  console.log('mounted');
     },
+    activated() {
+
+    }
 }
 </script>
 
