@@ -1,17 +1,19 @@
 <template>
-     <div class="container">
-
+    <div class="container" v-if="carOwner!=null&&carOwner!=undefined">
+    
         <div class="card middle-div  margin-bottom">
             <div class="body">
                 <ul>
-                    <li> <label>姓名</label>
-                        <span>武松</span></li>
-                    <li> <label>手机号码</label>
-                        <span>139868848484</span>
-                        <a class="abuttonRight">更换</a>
-                        </li>
+                    <li>
+                        <label>姓名</label>
+                        <span>{{info.carownerName}}</span></li>
+                    <li>
+                        <label>手机号码</label>
+                        <span>{{info.mobile}}</span>
+                        <a class="abuttonRight" @click="changeMobile">更换</a>
+                    </li>
                 </ul>
-
+    
             </div>
         </div>
         <div class="card middle-div  margin-bottom">
@@ -19,41 +21,47 @@
                 车辆信息
             </div>
             <div class="body">
-                <ul> 
-                <li><label>车牌</label>
-                    <span>粤A12345</span></li>
-                <li><label>车型</label>
-                    <span>标致301</span></li>
-                <li><label>车架号</label>
-                    <span>LGB456789598877</span></li>
-                <li><label>发动机号</label>
-                    <span>G45456457667</span></li>
-                <li><label>保险到期</label>
-                    <span>2017-09-12</span></li>
+                <ul>
+                    <li>
+                        <label>车牌</label>
+                        <span>{{info.carNo}}</span></li>
+                    <li>
+                        <label>车型</label>
+                        <span>{{info.carTypeConfigName}}</span></li>
+                    <li>
+                        <label>车架号</label>
+                        <span>{{info.vin}}</span></li>
+                    <li>
+                        <label>发动机号</label>
+                        <span>{{info.engineNo}}</span></li>
+                    <li>
+                        <label>保险到期</label>
+                        <span>{{info.buyInsuranceTime}}</span></li>
                 </ul>
             </div>
         </div>
-
-        <div class="longButton ">更改</div>
+     
+        <button   class="longButton  bottom-button" @click="changeInfo">更改</button>
     </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {};
-    },
+import { mapGetters } from 'vuex'
+export default { 
     computed: {
-        // msg() {
-        //     return this.store.state.pc.msg;
-        // }
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
+        ...mapGetters(['carOwner']),
+        info(){
+            return this.carOwner.carOwner;
+        } 
+    }, 
+    methods:{
+        changeMobile(){
+            //todo
+        },
+         changeInfo(){
+            //todo
+        }
+    }
 }
 </script>
 

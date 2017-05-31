@@ -10,7 +10,7 @@
                     <div class="up">
                         <!--<div class=" "> </div>-->
                         <i class="iconfont icon-yonghu-yuan"></i>
-                        <div class="text">{{carOwner.nickName}}</div>
+                        <div class="text" @click="viewDetail">{{carOwner.nickName}}</div>
                     </div>
                     <div class="down">
                         <span class="sp1">{{carOwner.carOwner.carNo}}</span>
@@ -20,16 +20,16 @@
             </div>
             <div class="banner">
                 <ul class="menuul" v-show="carOwner.binded">
-                    <li>
+                    <li class="clickable">
                         <router-link to="/eventAlarm">
                             <div class=""><i class="iconfont icon-daxiao"></i></div>活动提醒
                         </router-link>
                     </li>
-                    <li>
+                    <li class="disabled">
                         <div class=""><i class="iconfont icon-jiankong"></i></div>保养提醒</li>
-                    <li>
+                    <li class="disabled">
                         <div class=""><i class="iconfont icon-anquan"></i></div>保险提醒</li>
-                    <li>
+                    <li class="disabled">
                         <div class=""><i class="iconfont icon-iconfont-car-viewed"></i></div>车检提醒</li>
                 </ul>
                 <div class="bindCar" v-show="!carOwner.binded">
@@ -41,30 +41,103 @@
                 </div>
             </div>
         </div>
+    
+        <div class="tableMenu middle-div" v-show="carOwner.binded">
+            <div class="row">
+                <div class="cell clickable" @click="linkTo('/maintainAppointment')">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+                            <i class="iconfont icon-lease-resv-2home"></i>
+                        </div>
+                    </div>
+                    <div class="text">养修预约</div>
+                    <div class="lineToTop"></div>
+                    <div class="lineToLeft"></div>
+                </div>
+                <div class="cell" @click="linkTo('/irecommand')">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+                            <i class="iconfont icon-iconfont-tuijian-"></i>
+                        </div>
+                    </div>
+                    <div class="text">我要推荐</div>
+                    <div class="lineToRight"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell" @click="linkTo('/maintainAppointment')">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+                            <i class="iconfont icon-iconfont-dianhua"></i> </div>
+                    </div>
+                    <div class="text">一键求援</div>
+                    <div class="lineToBottom"></div>
+    
+                </div>
+                <div class="cell" @click="linkTo('/xubaoQuery')">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+                            <i class="iconfont icon-xunjia"></i>
+                        </div>
+                    </div>
+                    <div class="text">续保询价</div>
+    
+                </div>
+            </div>
+        </div>
+    
+        <div class="tableMenu middle-div" v-show="!carOwner.binded">
+            <div class="row">
+                <div class="cell">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+    
+                            <i class="iconfont icon-lease-resv-2home"></i>
+                        </div>
+                    </div>
+                    <div class="text">养修预约</div>
+                    <div class="lineToTop2"></div>
+                    <div class="lineToBottom2"></div>
+                </div>
+                <div class="cell">
+                    <div class="icon">
+                        <div class="icon-wrapper">
+                            <i class="iconfont icon-iconfont-tuijian-"></i>
+                        </div>
+                    </div>
+                    <div class="text">我要推荐</div>
+                </div>
+            </div>
+    
+        </div>
+    
         <div class="body">
             <ul class="c">
-                <li class="arrow">
-                    <router-link to="/myMsg">
-                        <i class="iconfont icon-tixing"></i>
-                        <div class="text">我的消息</div><span class="msgnum">3</span>
-                        <div class="arrow2"></div>
-                    </router-link>
+                <li class="arrow  " @click="linkTo('/priceOffEvent')">
+    
+                    <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+    
+                    <div class="text">最新优惠活动</div>
+                    <div class="msgnum">3</div>
     
                 </li>
-                <li class="arrow">
-                    <router-link to="/myRecord">
-                        <i class="iconfont icon-lishijilu"></i>
-                        <div class="text">服务记录</div>
-                        <div class="arrow2"></div>
-                    </router-link>
+                <li class="arrow" @click="linkTo('/myMsg')">
+    
+                    <i class="iconfont icon-tixing"></i>
+                    <div class="text">我的消息</div>
+                    <div class="msgnum">3</div>
     
                 </li>
-                <li class="arrow">
-                    <router-link to="/coupon">
-                        <i class="iconfont icon-youhuiquan"></i>
-                        <div class="text">优惠券</div>
-                        <div class="arrow2"></div>
-                    </router-link>
+                <li class="arrow" @click="linkTo('/myRecord')">
+    
+                    <i class="iconfont icon-lishijilu"></i>
+                    <div class="text">服务记录</div>
+    
+                </li>
+                <li class="arrow" @click="linkTo('/coupon')">
+    
+                    <i class="iconfont icon-youhuiquan"></i>
+                    <div class="text">优惠券</div>
     
                 </li>
             </ul>
@@ -85,36 +158,27 @@
 import { mapGetters, mapState, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 export default {
-    name: 'pc',
+    name: 'personalCenter',
     data() {
         return {
-         }
+        }
     },
     computed: {
-        msg() {
-            // console.log('msg');
-            return this.$store.state.pc.msg;
-        },
-        car() {
-            return this.$store.state.GET_CAR_BRAND;
-        },
-        // ...mapState({ 
-        //     haveBindedOwner: (state) => {
-        //         var d = state.GET_USER_INFO;
-        //         var res = false;
-        //         if (d != undefined && d.length > 0 && d[0].carOwner != null) {
-        //             res = true;//todo
-        //         }
-        //         return res;
-        //     }
-        // }),
-         ...mapGetters(['carOwner']),
+        ...mapGetters(['carOwner']),
     },
 
     methods: {
         ...mapActions([
             types.GET_USER_INFO
         ]),
+        linkTo(url) {
+            this.$router.push(url);
+        },
+        viewDetail() {
+            if (this.carOwner.binded) {
+                this.$router.push('/personaldata');
+            } 
+        }
     }
     , components: {
         //  mheader
@@ -223,23 +287,28 @@ export default {
                  text-align: center;
                  display: flex;
                  flex-direction: row;
-                 li {
-                     float: left;
-                     flex: 1;
-                     padding-top: 1.4rem;
-                     padding-bottom: 1.07rem;
-                     position: relative;
+                 padding:(41/$pr3) (54/$pr3) (33/$pr3) (54/$pr3) ;
+                 font-size:1rem;
+                 li { 
+                     flex: 1; 
                      .iconfont {
-                         font-size: 1.7rem;
+                         font-size: (57/$pr3) ;
+                         margin-bottom:(21/$pr3) ;
+                     } 
+                 }
+                 li.disabled{
+                     color:#ddd;
+                     .iconfont {
+                         color:#ddd;
                      }
                  }
-                 li+li:before {
-                     content: ' ';
-                     display: inline-block;
-                     height: 3.2rem; //   margin-top:1.4rem;
-                     border-left: 0.1rem solid$bordercolor;
-                     position: absolute;
-                     left: 0px;
+                 li+li {
+                  //   content: ' ';
+                   //  display: inline-block;
+                   //  height: 3.2rem; //   margin-top:1.4rem;
+                     border-left: 0.1rem solid $bordercolor;
+                  //   position: absolute;
+                    // left: 0px;
                  }
              }
              .bindCar {
@@ -262,7 +331,7 @@ export default {
          }
      }
      .body {
-         margin: 3.6rem 1.5rem 0.8rem 1.5rem;
+         margin: 1rem 1.5rem 0.8rem 1.5rem;
          border-radius: 0.5rem;
          background: #fff; //  padding-top:3.6rem;
          ul {
@@ -271,6 +340,10 @@ export default {
              font-size: 1.6rem;
              li {
                  padding: 1.2rem 1.4rem;
+                 .glyphicon ,.iconfont{
+                     color:$themeColor;
+                     font-size:1.6rem;
+                 } 
                  .iconlittle {
                      margin-right: 0.8rem;
                  }
@@ -286,5 +359,103 @@ export default {
              display: inline-block;
          }
      }
+
+     .tableMenu{
+         padding:(38/$pr3) (52/$pr3);
+         background-color:#fff;
+         border-radius:1rem;
+         box-sizing: border-box;
+         margin-top:4rem;
+         &>.row+.row{
+              &>.cell{
+             padding-top:(54/$pr3);
+             padding-bottom:0;
+              }
+              
+         }
+         &>.row{
+            display:flex; 
+            &>.cell{
+                flex:1;
+                text-align:center;
+                position:relative;
+             //   border:0.1rem solid $themeColor;
+                  padding-bottom:(54/$pr3);
+               @extend   .clickable;
+                .icon{
+                          border-radius:50%;
+                        border:(6/$pr3) solid $themeColor;
+                        display: inline-block;
+                        margin-bottom:(16/$pr3);
+                      
+                    .icon-wrapper{
+                        background:$themeColor;
+                         border-radius:50%;
+                       display: inline-block;
+                        border:(13/$pr3) solid #fff;
+                        .glyphicon,.iconfont{
+                            font-size:(66/$pr3);
+                            color:#fff;
+                            margin:(33/$pr3);
+                        }
+                    }
+                } 
+                &>.text{
+                    font-size:(36/$pr3);
+                }
+                 
+                &>.lineToTop{
+                    position:absolute;
+                    background:linear-gradient(to top, $themeColor , #fcfefe); 
+                    height:100%;
+                    width:  0.1rem ;
+                    top:0;
+                    right:0
+                }
+                 &>.lineToRight{
+                    position:absolute;
+                    background:linear-gradient(to right, $themeColor , #fcfefe); 
+                width    :100%;
+                    height:  0.1rem ;
+                    left:0;
+                    bottom:0
+                }
+                 &>.lineToBottom{
+                    position:absolute;
+                    background:linear-gradient(to bottom, $themeColor , #fcfefe); 
+                    height:100%;
+                    width:  0.1rem ;
+                    top:0;
+                    right:0
+                }
+                 &>.lineToLeft{
+                    position:absolute;
+                    background:linear-gradient(to left, $themeColor , #fcfefe); 
+                    width    :100%;
+                    height:  0.1rem ;
+                    bottom:0;
+                    right:0
+                }
+                &>.lineToTop2{
+                    position:absolute;
+                    background:linear-gradient(to top, $themeColor , #fcfefe); 
+                    height:50%;
+                    width:  0.1rem ;
+                    top:0;
+                    right:0
+                }
+                 &>.lineToBottom2{
+                    position:absolute;
+                    background:linear-gradient(to bottom, $themeColor , #fcfefe); 
+                    height:50%;
+                    width:  0.1rem ;
+                    bottom:0;
+                    right:0
+                }
+            }
+         }
+         
+     }
  }
+
 </style>

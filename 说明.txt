@@ -1,0 +1,18 @@
+1.cd 该目录
+2.运行命令: npm i
+3.npm run dev
+
+相关链接:
+Vue:https://cn.vuejs.org/v2/guide/
+VueRouter(路由):https://router.vuejs.org/zh-cn/
+Vuex(状态管理):https://vuex.vuejs.org/zh-cn/
+vee-validate(表单校验):http://vee-validate.logaretm.com/
+mint-ui(第三方UI):http://mint-ui.github.io/docs/#/zh-cn
+ES6入门(新标准的js语法):http://es6.ruanyifeng.com/
+
+其他:
+muse-ui:http://www.muse-ui.org/#/install
+element-ui:http://element.eleme.io/#/zh-CN/component/installation
+
+vue-devtools.crx是chrome的vue调试插件
+vuex.create.xlsx是用来生成vuex的固定代码

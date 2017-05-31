@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.title{
+  position:relative;
+  text-align:center;
+}
+.title:before, .title:after {
+  content: "";
+  width: 40%;
+  height: 1px;
+  position: absolute;
+  top: 50%; 
+}
+.title:before {
+  background: -webkit-linear-gradient(right, #666 , #eee); 
+  background: -o-linear-gradient(left, #666 , #eee); 
+  background: -moz-linear-gradient(left,#666 , #eee);
+  background: linear-gradient(to left, #666 , #eee); 
+  left: 2px;
+}
+.title:after {
+  background: -webkit-linear-gradient(left, #666 , #eee); 
+  background: -o-linear-gradient(right, #666 , #eee); 
+  background: -moz-linear-gradient(right,#666 , #eee);
+  background: linear-gradient(to right, #666 , #eee); 
+  right: 2px;
+}
+</style>
+</head>
+<body>
+<p class="title">这是一个标题</p>
+</body>
+</html>

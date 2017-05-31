@@ -6,31 +6,27 @@
         </div>
     
         <div class="card middle-div  margin-bottom">
-            <div class="head">
-                活动分类
-            </div>
+    
             <div class="body">
                 <ul>
                     <li class="arrow">
-                        <i class="iconfont icon-fanxiangxunche"></i>
-                        <span>购车活动</span>
+                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
+                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
                     </li>
-                    <li class="arrow">
-                        <i class="iconfont icon-fuwu-02"></i>
-                        <span>养修活动</span>
+                        <li class="arrow">
+                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
+                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
                     </li>
-                    <li class="arrow">
-                        <i class="iconfont icon-chexianguanli"></i>
-                        <span>续保活动</span>
-                    </li>
-                    <li class="arrow">
-                        <i class="iconfont icon-cheliangzhihuan"></i>
-                        <span>置换活动</span>
+                        <li class="arrow">
+                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
+                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
                     </li>
                 </ul>
             </div>
         </div>
-    
+        <div class="bottomMsg">
+            参加活动,省心省力更省钱
+        </div>
     </div>
 </template>
 
@@ -71,6 +67,27 @@ export default {
   .card{
       .head{
           background-color: $themeColor;
+      }
+      .body{
+          li{
+              .spImg{
+                  width:(215/$pr3);
+                  height:(100/$pr3);
+                  display:inline-block;
+                  margin-right:(21/$pr3);
+                  img{
+                       width:(215/$pr3);
+                  height:(100/$pr3);
+                  }
+              }
+              .spText{
+                  max-width:(653/$pr3);
+                  display:inline-block;
+                  line-height:(100/$pr3);
+                  height:(100/$pr3);
+                  word-wrap:nowrap;
+              }
+          }
       }
   }
 </style>

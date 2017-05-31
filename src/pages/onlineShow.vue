@@ -2,8 +2,8 @@
     <div>
         <div class="container">
             <div class="arrow-select arrow" @click="showBrand">
-                <img src="../assets/brand/peugeot.png" style="height:1.1rem">
-                <span class="text">东风标致</span>
+                <img :src="selectedBrand.icon" style="height:1.1rem">
+                <span class="text">{{selectedBrand.carBrandCn}}</span>
             </div>
             <div class="showpic-content middle-div">
                 <ul class="ul-pic">
@@ -17,37 +17,30 @@
                 </ul>
             </div>
         </div>
-    
-        <div class="modal" :class="{show:isShow}">
-            <div class="modal-back" @click="hideBrand">
-    
-            </div>
-            <div class="brand-select" :class="{showBrand:isShowBrand}">
-                <ul class="cls">
-                    <li class="cls active">东风标致</li>
-                    <li class="cls">郑州日产</li>
-                    <li class="cls">东风风神</li>
-                    <li class="cls">一汽大众</li>
-                </ul>
-            </div>
-        </div>
+        <brandSelect :callback="setSelectBrand" :config="brandSelectConfig"></brandSelect>
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import brandSelect from '../components/brandSelect'
 export default {
     data() {
         return {
-            isShow: false,
-            isShowBrand: false
+            //传入选择品牌组件的配置
+            brandSelectConfig: {
+                showBrand: false,
+               level:'brand'
+               // level:'series'
+            },
+            selectedBrand: {
+                carBrandCn: '',
+                icon: ''
+            }
         };
     },
     computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
         ...mapState({
             carList: state => {
                 var res = state.GET_CAR_SERIES;
@@ -55,14 +48,12 @@ export default {
                     res = [];
                 }
                 return res;
-            }
+            },
+
         })
     },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
+    components: {
+        brandSelect
     },
     activated() {
         this.GET_CAR_SERIES({ data: { "dlrCode": "H2901", "carBrandId": "1", "carBrandCode": "1" } });
@@ -70,25 +61,13 @@ export default {
     methods: {
         ...mapActions([types.GET_CAR_SERIES]),
         showDetail(id) {
-            console.log(id)
-            this.$router.push({ path: '/carTypeChoose', query: { id: id}})
+            this.$router.push({ path: '/carTypeChoose', query: { id: id } })
         },
         showBrand() {
-            this.$data.isShow = true;
-            setTimeout(
-                () => {
-                    this.$data.isShowBrand = true;
-                }, 100
-            );
+            this.brandSelectConfig.showBrand = true;
         },
-        //todo
-        hideBrand() {
-            this.$data.isShowBrand = false;
-            setTimeout(
-                () => {
-                    this.$data.isShow = false;
-                }, 300
-            );
+        setSelectBrand(obj) {
+            this.selectedBrand = obj;
         }
     }
 }
@@ -138,33 +117,6 @@ export default {
 }
 
 
-.modal{
-    .brand-select{
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top:0;
-        left:100%;    
-        z-index:10002;
-        background: #fff;
-        transition: all .5s ease-in-out;
-        ul{ 
-            color:#787878;
-            font-size: 1.2rem;
-            text-align: left;
-            li{
-                padding:1.2rem 0 1.2rem 1.2rem; 
-                 border-bottom: 0.1rem solid $bordercolor;
-            } 
-            .active{
-                 background:$themeColor;
-            color:#fff;
-            }
-        }
-    }
-    .showBrand{
-   left:8.9rem;;    
-    }
-}
+
 
 </style>

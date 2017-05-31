@@ -11,6 +11,16 @@
                 "actOpenStartTime": "2017-04-01 00:00:00",
                 "actOpenEndTime": "2017-04-21 23:59:59",
                 "actPhotoUrl": "http://dmswx.szlanyou.com/file/img/1234566434.jpg"
+            },
+            {
+                "id": 2,
+                "actName": "逍客清仓大甩卖啦",
+                "actShortName": "逍客清仓大甩卖啦",
+                "actStartTime": "2017-04-01 00:00:00",
+                "actEndTime": "2017-08-21 23:59:59",
+                "actOpenStartTime": "2017-04-01 00:00:00",
+                "actOpenEndTime": "2017-04-21 23:59:59",
+                "actPhotoUrl": "http://dmswx.szlanyou.com/file/img/1234566434.jpg"
             }
         ],
         "error": "R200",
@@ -19,26 +29,24 @@
     },
     "GET_USER_INFO": {
         "callTime": "2017-05-05 09:24:30",
-        "result": [
-            {
-                "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
-                "unionId": null,
-                "nickName": "pedro",
-                "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
-                "fanStatus": 1,
-                "carOwner": {
-                    "carownerName": "张三",
-                    "mobile": "13667890987",
-                    "carNo": "粤R09893",
-                    "carTypeConfigId": "1",
-                    "carTypeConfigName": "标志301舒适版",
-                    "vin": "V14578904567890345",
-                    "engineNo": "145654",
-                    "buyCarTime": "2016-08-09",
-                    "buyInsuranceTime": "2016-09-09"
-                }
+        "result": {
+            "openId": "o5YVws6a_RTj-fzP5MXP7CiZTgAk",
+            "unionId": null,
+            "nickName": "pedro",
+            "headImgUrl": "http://wx.qlogo.cn/mmopen/pKJf936VoDEgWibBBWoC2ODLpjnHl7s8RF81S52ftr4vCYvjNckOsXEDGbNCJCfG6iaSUSVommib9BCtwlTFfVuBv5x4xMrU40V/0",
+            "fanStatus": 1,
+            "carOwner": {
+                "carownerName": "张三",
+                "mobile": "13667890987",
+                "carNo": "粤R09893",
+                "carTypeConfigId": "1",
+                "carTypeConfigName": "标志301舒适版",
+                "vin": "V14578904567890345",
+                "engineNo": "145654",
+                "buyCarTime": "2016-08-09",
+                "buyInsuranceTime": "2016-09-09"
             }
-        ],
+        },
         "error": "R200",
         "errormessage": "调用成功",
         "token": null
@@ -275,7 +283,7 @@
                 "dicDataId": 1,
                 "safeName": "第三者责任险",
                 "safeLimits": "1000,2000,50000",
-                "ext": "第三者责任险是指被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济责 任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过责任限额的30％。因 为交强险在对第三者的财产损失和医疗费用部分赔偿较低，可考虑购买第三者责任险作为交强险的补充。"
+                "ext": "第三者责任险是指被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济责 任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过责任限额的30％。因 为交强险在对第三者的财产损失和医疗费用部分赔偿较低，可考虑购买第三者责任险作为交强险的补充。第三者责任险是指被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济责 任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过责任限额的30％。因 为交强险在对第三者的财产损失和医疗费用部分赔偿较低，可考虑购买第三者责任险作为交强险的补充。"
             },
             {
                 "dicDataId": 2,
@@ -283,15 +291,118 @@
                 "safeLimits": null,
                 "ext": "机动车辆损失险~~~~~~~~。"
             },
-              {
+            {
                 "dicDataId": 3,
                 "safeName": "xxx辆损失险",
                 "safeLimits": null,
                 "ext": null
+            },
+            {
+                "dicDataId": 4,
+                "safeName": "责任险",
+                "safeLimits": "4000,5000,60000",
+                "ext": "xxxxshuom"
             }
         ],
         "error": "R200",
         "errormessage": "调用成功",
         "token": null
+    },
+    "GET_CAR_BRAND": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "carBrandCode": null,
+                "carBrandEn": null,
+                "carBrandCn": "东风标致",
+                "sort": 110,
+                "icon": "static/img/brand/peugeot.png"
+            },
+            {
+                "id": 2,
+                "carBrandCode": null,
+                "carBrandEn": null,
+                "carBrandCn": "东风日产",
+                "sort": 110,
+                "icon": "static/img/brand/nissan.png"
+            },
+            {
+                "id": 3,
+                "carBrandCode": null,
+                "carBrandEn": null,
+                "carBrandCn": "东风雪铁龙",
+                "sort": 110,
+                "icon": "static/img/brand/xuetielong.png"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_EVENT_DETAIL": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "actName": "奇骏MT手到擎来，先用后买超低首付10%起",
+                "actShortName": "奇骏MT手到擎来，先用后买超低首付10%起",
+                "actStartTime": "2017-04-01 00:00:00",
+                "actEndTime": "2017-04-21 23:59:59",
+                "actOpenStartTime": "2017-04-01 00:00:00",
+                "actOpenEndTime": "2017-04-21 23:59:59",
+                "actPhotoUrl": "static/img/iwantrecommand.jpg",
+                "actInfor": "活动图文详情",
+                "actAddress": "风神大道",
+                "actTel": "",
+                "actUpNum": 1000,
+                "actCheckNum": 1000,
+                "signUpNum": 1000,
+                "commentNum": 1000,
+                "coupon": {
+                    "id": 1,
+                    "title": "8折优惠券",
+                    "subtitle": "8折优惠券",
+                    "defaultDetail": "",
+                    "type": 1,
+                    "total": 10000,
+                    "quantity": 9999,
+                    "getLimit": 2
+                },
+                "comments": [
+                    {
+                        "id": 1,
+                        "nickname": "same",
+                        "photo": "static/img/thumb_comment.jpg",
+                        "content":"活动很好",
+                        "time":"2小时前",
+                        "thumbNum":277
+                    },
+                       {
+                        "id": 12,
+                        "nickname": "jack",
+                        "photo": "static/img/thumb_comment.jpg",
+                        "content":"活动还好还好.............",
+                        "time":"2小时前",
+                        "thumbNum":77
+                    }
+                ]
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+
+    "GET_MSG_DETAIL":{
+        "callTime": "2017-05-05 09:24:30",
+        "result":[
+          {  
+            "msg":"祝您生活愉快"
+
+           }
+      ]
+       
     }
+  
 }

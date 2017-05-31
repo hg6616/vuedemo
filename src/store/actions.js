@@ -74,4 +74,6 @@ export const GET_DLR = ({ commit }, param) => { return commonAction(commit, para
 export const CANCEL_VEHICLE_APPOINTMENT = ({ commit }, param) => { return commonAction(commit, param, types.CANCEL_VEHICLE_APPOINTMENT); }
 export const CANCEL_SERVICE_APPOINTMENT = ({ commit }, param) => { return commonAction(commit, param, types.CANCEL_SERVICE_APPOINTMENT); }
 export const GET_EVENT = ({ commit }, param) => { return commonAction(commit, param, types.GET_EVENT); }
+export const GET_EVENT_DETAIL = ( { commit }, param) => { return commonAction(commit,param,types.GET_EVENT_DETAIL);}
+export const GET_MSG_DETAIL = ({ commit }, param) => { return commonAction(commit, param, types.GET_MSG_DETAIL); }
 

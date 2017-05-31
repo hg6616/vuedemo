@@ -212,6 +212,7 @@ ol, ul {
          height: 3.4rem;
          line-height: 3.4rem;
           font-size: 1.6rem; 
+          @extend .clickable;
 }
 .bottom-button{
      @extend   .longButton;
@@ -235,14 +236,7 @@ ol, ul {
 }
 
 
-//  .arrow{ 
-//     background-image: url("/assets/arrow.svg");
-//     background-size: 10px 20px;
-//     background-repeat: no-repeat;
-//     background-position: 95% center;
-//    background-position: -webkit-calc(100% -1rem) center;
-//     background-position: calc(100% - 2rem) center; 
-//    }
+ 
 
 .short-input{
     width: 3.4rem;
@@ -385,7 +379,9 @@ ol, ul {
       height: 0; 
      // border-left:1rem solid transparent;
       border-right:1rem solid transparent;
-      border-bottom:1rem solid $themeColor;
+      border-bottom:1.4rem solid $themeColor;
+      position: relative;
+      top: 0.2rem;
   }
 
    /*状态标签*/
@@ -434,3 +430,18 @@ ol, ul {
 .theme{
     color:$themeColor;
 }
+label.required{
+    &:before{
+        content: '*';
+        color:red;
+        margin-right: 0.2rem;
+    }
+}
+
+.required{
+    &:before{
+        content: '*';
+        color:red;
+    }
+}
+

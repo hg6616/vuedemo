@@ -1,169 +1,103 @@
 <template>
-    <div class="container">
-        <div class="arrow-select arrow">
-            <div class="roundDot"></div>
-            <span class="text">2016款 1.6L 手动 标致301 舒适版</span>
-        </div>
-        <div class="card middle-div  margin-bottom">
-            <div class="body">
-                <ul>
-                    <li @click="mm( $event)">
-                        <label>姓名</label>
-                        <span><input type="text" placeholder="请填写姓名"></span>
-                    </li>
-                    <li>
-                        <label>手机</label>
-                        <span><input type="number" placeholder="请填写手机号码"></span>
-    
-                    </li>
-                    <li>
-                        <label>裸车价格</label>
-                        <span><input type="number" placeholder="请填写裸车价格"></span>
-                        <span class="inline-right">元</span>
-                    </li>
-                </ul>
+    <div>
+        <div class="container" v-if="carOwner.binded">
+            <div class="arrow-select arrow" @click="showBrand">
+                <div class="roundDot"></div>
+                <span class="text">{{selectedSeries.carSeriesCn}}</span>
             </div>
+            <div class="card middle-div  margin-bottom">
+                <div class="body">
     
-        </div>
-        <div class="card middle-div  margin-bottom mg_b_5">
-            <div class="head">
-                险种选择
-            </div>
-            <div class="body">
-                <ul>
-                    <li @click="checkSafe(x.dicDataId)" v-for="x in insurTypeList2 ">
-                        <label>{{x.safeName}} <span v-if="x.haveTip" @click.stop="tip(x.dicDataId)" class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span> 
-                                                        <select  v-if="x.haveMoneyList" >
-                                                    <option v-for="y in x.moneyList" :value="y">{{y}}</option>
-                         
-                                                </select>
-                                                    <span v-if="!x.haveMoneyList" class="glyphicon glyphicon-ok-circle ckIcon"  :class="{grey:!x.checked}" aria-hidden="true"></span></span>
-                        <p>{{!x.checked}}</p>
-                    </li>
-                    ......
-                    <li>
-                        <label>交强险(必选) <span @click="tip" class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    ....
-                    <li>
-                        <label>第三者责任险</label>
-                        <select>
-                            <option>不选择</option>
-                            <option>5万</option>
-                        </select>
-                    </li>
-                    <li>
-                        <label>机动车辆损失险 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li>
-                        <label>全车抢盗险 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li class="arrow">
-                        <label>车上人员责任险</label>
-                        <span class="inline-arrow-left">不选择</span>
-                    </li>
-                    <li>
-                        <label>玻璃单独破碎险 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li class="arrow">
-                        <label>车身划痕损失险<span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <select>
-                            <option>不选择</option>
-                            <option>5万</option>
-                        </select>
-                        <span class="inline-arrow-left">不选择</span>
-                    </li>
-                    <li>
-                        <label>自燃损失险 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li>
-                        <label>涉水损失责任险 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li>
-                        <label>不计免赔 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li>
-                        <label>车船税 <span class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
-                        <span><span class="glyphicon glyphicon-ok-circle ckIcon" aria-hidden="true"></span></span>
-                    </li>
-                    <li>
-                        <label style="vertical-align: top">备注</label>
-                        <span><textarea    style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
-                    </li>
+                    <ul>
+                        <li>
+                            <label>姓名</label>
+                            <span><input ref="carownerName" type="text" placeholder="请填写姓名"></span>
+                        </li>
+                        <li>
+                            <label>手机</label>
+                            <span><input ref="mobile"  type="number" placeholder="请填写手机号码"></span>
     
-                </ul>
+                        </li>
+                        <li>
+                            <label>裸车价格</label>
+                            <span><input type="number" ref="carPrice" placeholder="请填写裸车价格"></span>
+                            <span class="inline-right">元</span>
+                        </li>
+                    </ul>
+                </div>
     
             </div>
-        </div>
-        <button class="longButton  bottom-button theme-bc" @click="change">提交</button>
+            <div class="card middle-div  margin-bottom mg_b_5">
+                <div class="head">
+                    险种选择
+                </div>
+                <div class="body">
+                    <ul>
+                        <li @click="checkSafe(x.dicDataId)" v-for="x in insurTypeList ">
+                            <label @click.stop="tip(x.dicDataId)">{{x.safeName}} <span v-if="x.haveTip" class="glyphicon glyphicon-exclamation-sign lbIcon" aria-hidden="true"></span></label>
+                            <span> 
+                                       <select  v-if="x.haveMoneyList"  v-model="x.selectedMoney">
+                                          <option v-for="y in x.moneyList" :value="y.value">{{y.text}}</option>
+                          </select>
+                             <span v-if="!x.haveMoneyList" class="glyphicon glyphicon-ok-circle ckIcon"  :class="{grey:!x.checked}" aria-hidden="true"></span></span>
+                            <li>
+                                <label style="vertical-align: top">备注</label>
+                                <span><textarea ref="remark"     style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
+                            </li>
+                        </li>
     
+                    </ul>
+                </div>
+            </div>
+            <button class="longButton  bottom-button theme-bc" @click="submit">提交</button>
+    
+        </div>
+        <brandSelect :callback="setSelectSeries" :config="brandSelectConfig"></brandSelect>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import * as types from '../store/mutation-types'
+import { MessageBox } from 'mint-ui';
+import util from '../utils/util.js'
+import brandSelect from '../components/brandSelect'
 export default {
     data() {
         return {
-            insurTypeListd:[
-            {
-                "dicDataId": 1,
-                "safeName": "第三者责任险",
-                "safeLimits": "1000,2000,50000",
-                "ext": "第三者责任险是指被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济责 任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过责任限额的30％。因 为交强险在对第三者的财产损失和医疗费用部分赔偿较低，可考虑购买第三者责任险作为交强险的补充。"
+            brandSelectConfig: {
+                showBrand: false,
+                level: 'series'
             },
-            {
-                "dicDataId": 2,
-                "safeName": "机动车辆损失险",
-                "safeLimits": null,
-                "ext": "机动车辆损失险~~~~~~~~。"
+            selectedSeries: {
+                carSeriesCn: ''
             },
-              {
-                "dicDataId": 3,
-                "safeName": "xxx辆损失险",
-                "safeLimits": null,
-                "ext": null
-            }
-        ]
+            clickInsureID: '',
+            emitChange: false,//用于触发列表改变事件
         };
     },
+    components: { brandSelect },
     computed: {
-        insurTypeList2(){
-             var res = this.insurTypeListd;
-                if (res == null) {
-                    res = []
-                }
-                else {
-                    for (let x in res) {
-                        let o = res[x];
-                        o.haveMoneyList = false;
-                        o.haveTip = false;
-                        o.checked = true;
-                        //debugger;
-                        if (o.safeLimits != null) {
-                            var list = o.safeLimits.split(',')
-                            o.moneyList = list;
-                            o.haveMoneyList = true;
-                            o.checked = false;
-                        }
-                        if (o.ext != null) {
-                            o.haveTip = true
-                        }
+        insurTypeList() {
+            var res = this.insuranceTypes;
+            var change = this.emitChange;
+            //  debugger;
+            if (res == null) {
+                res = []
+            }
+            else {
+                for (let x in res) {
+                    let o = res[x];
+                    if (this.clickInsureID == o.dicDataId && o.checked != undefined) {
+                        o.checked = !o.checked;
+                        break;
                     }
                 }
-                return res;
+            }
+            return res;
         },
         ...mapState({
-            insurTypeList: state => {
+            insuranceTypes:state => {
                 var res = state.GET_INSURANCE_TYPE;
                 if (res == null) {
                     res = []
@@ -173,13 +107,19 @@ export default {
                         let o = res[x];
                         o.haveMoneyList = false;
                         o.haveTip = false;
-                        o.checked = true;
+                        o.checked = true;//默认都选中;
                         //debugger;
                         if (o.safeLimits != null) {
-                            var list = o.safeLimits.split(',')
+                            var listValue = ('0,' + o.safeLimits).split(',');
+                            var listText = ('不选择,' + o.safeLimits).split(',');
+                            var list = [];
+                            for (let i in listValue) {
+                                list.push({ value: listValue[i], text: listText[i] })
+                            }
                             o.moneyList = list;
                             o.haveMoneyList = true;
                             o.checked = false;
+                            o.selectedMoney = '0';
                         }
                         if (o.ext != null) {
                             o.haveTip = true
@@ -188,47 +128,64 @@ export default {
                 }
                 return res;
             }
-        })
+        }),
+        ...mapGetters(['carOwner'])
     },
     activated() {
-        this.GET_INSURANCE_TYPE({})
+        util.ifRedirectAfterLoadPage.call(this, () => { this.GET_INSURANCE_TYPE({}) });
     },
     methods: {
-        ...mapActions([types.GET_INSURANCE_TYPE, types.ADD_INSURANCE_CLUE]),
+        ...mapActions([types.GET_INSURANCE_TYPE, types.ADD_INSURANCE_CLUE, types.GET_USER_INFO]),
+        //勾选险种
         checkSafe(id) {
-            console.log(id);
-            this.insurTypeList2[1].checked = !this.insurTypeList2[1].checked;
-            return;
-            console.log(this.insurTypeList);
+            this.clickInsureID = id;
+            this.emitChange = !this.emitChange;
+        },
+        //弹出险种详情
+        tip(id) {
             for (let x in this.insurTypeList) {
                 var d = this.insurTypeList[x];
                 if (d.dicDataId == id) {
-                    d.checked = !d.checked
+                    if (d.haveTip && d.ext != null) {
+                        MessageBox('提示', d.ext);
+                    }
+                    break;
                 }
             }
-            // var cc = this.insurTypeList.filter(x => {
-            //     return x.dicDataId == id;
-            // })[0];
-
-            // console.log(cc);
-            // cc.checked=! cc.checked
         },
-        tip(id) {
-            console.log(id)
-        },
-        change() { },
         submit() {
             var params = {
                 "dlrCode": this.$store.state.dlrCode,
-                "carownerName": this.$refs.carownerName.value,
-                "mobile": this.$refs.mobile.value,
-                "clueType": "3",//t推荐购车是3
-                //    "repairTime": "2016-09-09",
-                "carTypeId": this.$refs.carTypeId.value,
-                "carBrandId": "1",
+                "aiBuType": "1",//1是保险询价
+                "recommendName": this.$refs.carownerName.value,
+                "recommendTel": this.$refs.mobile.value,
                 "remark": this.$refs.remark.value,
-                // "validCode": "201609"
+                "carPrice": this.$refs.carPrice.value,
+                "safeList": []
             }
+            var safeList = []
+            for (let i in this.insurTypeList) {
+                let d = this.insurTypeList[i];
+                let obj;
+                // debugger
+                if (d.haveMoneyList) {//有选择保额的
+                    obj = {
+                        "dicDataId": d.dicDataId,
+                        "safeName": d.safeName,
+                        "safeLimit": d.selectedMoney
+                    }
+                }
+                else if (d.checked) {//已勾选的
+                    obj = {
+                        "dicDataId": d.dicDataId,
+                        "safeName": d.safeName,
+                    }
+                }
+                if (obj != undefined) {
+                    safeList.push(obj);
+                }
+            }
+            params.safeList = safeList;
             this.ADD_INSURANCE_CLUE(params)
                 .then(() => {
                     if (this.$store.state.ADD_INSURANCE_CLUE == 'R200') {
@@ -242,6 +199,12 @@ export default {
                     this.$toast('操作失败');
                 })
         }
+        , setSelectSeries(obj) {
+            this.selectedSeries = obj;
+        },
+        showBrand() {
+            this.brandSelectConfig.showBrand = true;
+        },
     },
 }
 </script>

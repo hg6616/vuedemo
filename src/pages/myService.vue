@@ -73,6 +73,11 @@ export default {
                         iconCls: 'icon-cheliangzhihuan',
                         link: '/carExchange'
                     },
+                    {
+                        title: '一键救援',
+                        iconCls: 'icon-cheliangzhihuan',
+                        link: '/carRescue'
+                    },
                 ]
             };
         }

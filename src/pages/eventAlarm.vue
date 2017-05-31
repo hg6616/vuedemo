@@ -1,28 +1,8 @@
 <template>
     <div class="container">
-    
         <div class="middle-div">
             <ul class="events">
-                <!--<li class="cls">
-                        <p class="big">冷"COOL"到底,安全检查</p>
-                        <p class="small">2017-03-09 12:00</p>
-                        <div class="back going">
-                            <div class="line"></div>
-                            <div class="word">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="cls">
-                        <p class="big">春节送大礼,好车开回家</p>
-                        <p class="small">2017-03-09 12:00</p>
-                        <div class="back ended">
-                            <div class="line"></div>
-                            <div class="word">
-                            </div>
-                        </div>
-                    </li>-->
-    
-                <li class="cls" v-for="d in events">
+                <li class="cls" v-for="d in events" @click="seeDetail(d.id)">
                     <p class="big ellipsis">{{d.actName}}</p>
                     <p class="small">{{d.actStartTime}}</p>
                     <div class="back" :class="{going:d.going,ended:!d.going}">
@@ -39,38 +19,23 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
-    data() {
-        return {
-
-        };
-    },
     computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-        ...mapGetters(['events', 'elen']),
+        ...mapGetters(['events']),
     },
     methods: {
-        ...mapActions(['GET_EVENT'])
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-        //  this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
-
+        ...mapActions(['GET_EVENT']),
+        seeDetail(id){
+            this.$router.push({path:'/eventDetail',query:{id:id}})
+        }
     },
     activated() {
-        console.log('action event')
-        //      this.$store.dispatch({ type: this.$store.state.types.GET_EVENT, data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } });
-        this.GET_EVENT({ data: { "dlrCode": "H2901", "busiType": "1", "subBusiType": "1" } })
+        this.GET_EVENT({ data: { "dlrCode": this.$store.state.dlrCode, "busiType": "1", "subBusiType": "1" } })
     },
 }
 </script>
 
 <style lang="stylus" scoped> 
-       @import    '../style/var';  
+@import    '../style/var';  
  .events{
      margin-top:(24/$pr);
      li{
@@ -79,6 +44,7 @@ export default {
          border-radius: (10/$pr);
          padding:(24/$pr);
          overflow:hidden;
+         @extend .clickable;
          .big{
              color:#434343;
              font-size: (30/$pr);
@@ -118,7 +84,7 @@ export default {
                  background-color:$themeColor; 
                   &>.word{
                  &:before{
-                     content:'未使用'
+                     content:'进行中'
                  } 
              }  
           }
@@ -126,7 +92,7 @@ export default {
                  background-color:grey; 
                   &>.word{
                  &:before{
-                     content:'已取消'
+                     content:'已结束'
                  } 
              }  
           }

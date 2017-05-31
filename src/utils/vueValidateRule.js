@@ -8,8 +8,14 @@ const dictionary = {
     },
     cn: {
         messages: {
-            email: (field) => '请输入正确的邮箱格式'+field
-        }
+            email: (field) => '请输入正确的邮箱格式'+field,
+            required: (field) => '请填入必填字段'+field,
+            max: (field,value) =>`${field}最大长度${value}`,
+            min: (field) =>`${field}最小长度${value}`,
+
+            
+        },
+        
     }
 };
 export default {
@@ -20,7 +26,7 @@ export default {
         // fieldsBagName: 'fields', 
         // delay: 0, 
         dictionary: dictionary,
-          strict: true, 
+          strict: false, 
         // enableAutoClasses: false, 
         // classNames: {
         //   touched: 'touched', // the control has been blurred
@@ -35,17 +41,24 @@ export default {
         {
             name: 'mobile',
             fn: {
-                getMessage: field => '请输入正确的手机号码',
+                getMessage: field =>`'${field}'请输入正确的手机号码`,
                 validate: value => /^0{0,1}1(3|4|5|8|7)[0-9]{9}$/.test(value)
             }
         },
         {
             name: 'chn',
             fn: {
-                getMessage: field => '请输入中文',
+                getMessage: field =>`'${field}'请输入中文`,
                 validate: value => /^[\u4E00-\u9FA5]{0,25}$/.test(value)
             },
         },
+            {
+            name: 'positiveInt',
+            fn: {
+                getMessage: field =>`'${field}'请输入正整数`,
+                validate: value => /^\d+$/.test(value)
+            },
+        }, 
         {
             name: 'specialRule',
             fn: {

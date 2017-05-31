@@ -17,16 +17,18 @@
                 </router-link>
             </li>
             <li class="cls arrow">
-                <div class="content">
-                    <div class="left"> <i class="iconfont icon-chaxunguohujia"></i></div>
-                    <div class="right">
-                        <p class="big"><span>询低价信息</span><span class="msgnum">3</span></p>
-                        <p class="small">
-                            <span>新的车辆报价已到</span>
-                            <span class="right">09:49</span>
-                        </p>
+                <router-link to="/myMsgDetail">
+                    <div class="content">
+                        <div class="left"> <i class="iconfont icon-chaxunguohujia"></i></div>
+                        <div class="right">
+                            <p class="big"><span>询低价信息</span><span class="msgnum">3</span></p>
+                            <p class="small">
+                                <span>新的车辆报价已到</span>
+                                <span class="right">09:49</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </router-link>
             </li>
             <li class="cls arrow">
                 <div class="content">

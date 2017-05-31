@@ -19,13 +19,19 @@ import xubaoQuery from '../pages/xubaoQuery';
 import carExchange from '../pages/carExchange';
 import priceOffEvent from '../pages/priceOffEvent';
 import eventAlarm from '../pages/eventAlarm';
-import buyEvent from '../pages/buyEvent';
+import eventDetail from '../pages/eventDetail';
 import myTestDrive from '../pages/myTestDrive';
 import testDriveDetail from '../pages/testDriveDetail';
 import myRecord from '../pages/myRecord';
 import flex from '../pages/flex';
 import zhihu from '../pages/zhihu';
 import zhihuDetail from '../pages/zhihuDetail';
+import width from '../pages/width';
+import learnvue from '../pages/learnvue';
+import myMsgDetail from '../pages/myMsgDetail';
+import carRescue from '../pages/carRescue';
+
+
 
 
 
@@ -48,16 +54,19 @@ export default [
   { path: '/recommendInsurance', meta: { title: '推荐保险' }, component: recommendInsurance },
   { path: '/recommendMaintain', meta: { title: '推荐养修' }, component: recommendMaintain },
   { path: '/iRecommand', meta: { title: '我要推荐' }, component: iRecommand },
-  { path: '/maintainAppointment', meta: { title: '维修预约' }, component: maintainAppointment },
+  { path: '/maintainAppointment', meta: { title: '养修预约' }, component: maintainAppointment },
   { path: '/xubaoQuery', meta: { title: '续保查询' }, component: xubaoQuery },
   { path: '/carExchange', meta: { title: '车辆置换' }, component: carExchange },
-  { path: '/priceOffEvent', meta: { title: '降价活动' }, component: priceOffEvent },
+  { path: '/priceOffEvent', meta: { title: '优惠活动' }, component: priceOffEvent },
   { path: '/eventAlarm', meta: { title: '活动提醒' }, component: eventAlarm },
-  { path: '/buyEvent', meta: { title: '购车活动' }, component: buyEvent },
+  { path: '/eventDetail', meta: { title: '活动详情' }, component: eventDetail },
   { path: '/myTestDrive', meta: { title: '我的试驾' }, component: myTestDrive },
   { path: '/testDriveDetail', meta: { title: '试驾详情' }, component: testDriveDetail },
   { path: '/myRecord', meta: { title: '我的记录' }, component: myRecord },
   { path: '/zhihu', meta: { title: '知乎' }, component: zhihu },
-  { path: '/zhihuDetail/:id', meta: { title: '知乎详细' }, component: zhihuDetail },
-
+  { path: '/zhihuDetail/:id', meta: { title: '知乎详细' }, component: zhihuDetail }, 
+  { path: '/width', meta: { title: '测试宽度' }, component: width },
+  { path: '/learnvue', meta: { title: '测试宽度' }, component: learnvue },
+  { path: '/myMsgDetail', meta: { title: '消息详情' },  component: myMsgDetail },
+  { path: '/carRescue', meta: { title: '一键救援' }, component: carRescue },
 ];

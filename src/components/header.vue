@@ -8,7 +8,7 @@
 <script>
 //import MintUI from 'mint-ui'
 export default {
-    name:'nerd',
+    name:'header',
     data() {
         return {
            //   mytt:this.mytitle

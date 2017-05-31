@@ -54,8 +54,10 @@ router.beforeEach((to, from, next) => {
     if (title) {
       app.$store.commit('CHANGE_TITLE', title)
     }
-
+    // var bind = app.$store.getters.carOwner.binded;
+    // console.log('bind:' + bind)
   }
+
   next();
 
 })

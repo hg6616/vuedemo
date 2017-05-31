@@ -97,6 +97,7 @@
 import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types' 
 export default {
+    name:'bindOwner',
     data() {
         return {
             ismodal: true,

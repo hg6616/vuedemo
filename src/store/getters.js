@@ -25,7 +25,7 @@ export const carOwner = state => {
   if (d != undefined) {
     res = d;
     if (res.carOwner != null) {
-      res.binded = true;//已绑定
+      res.binded =true;//已绑定
     }
     else {
       res.carOwner = {
@@ -38,10 +38,8 @@ export const carOwner = state => {
 }
 
 //活动提醒
-export const events = state => {
-  // debugger;
-  var d = state.GET_EVENT;
-  //  "result": [
+export const events = state => { 
+    //  "result": [
   //           {
   //               "id": 1,
   //               "actName": "奇骏MT手到擎来，先用后买超低首付10%起",
@@ -53,6 +51,7 @@ export const events = state => {
   //               "actPhotoUrl": "http://dmswx.szlanyou.com/file/img/1234566434.jpg"
   //           }
   //       ],
+  var d = state.GET_EVENT; 
   var res = [];
   if (d != undefined && d.length > 0) {
     for (let x in d) {
@@ -62,8 +61,5 @@ export const events = state => {
   }
   return res;
 }
-
-export const elen = state => {
-  // debugger;
-  return state.GET_EVENT == undefined ? 999 : state.GET_EVENT.length;
-}
+ 
+ 

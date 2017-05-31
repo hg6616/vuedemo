@@ -113,5 +113,7 @@ export default {
  [types.CANCEL_VEHICLE_APPOINTMENT](param, cb) {return  commonApi('/serv/ve/clue/v1/cancel',param, cb); },
  [types.CANCEL_SERVICE_APPOINTMENT](param, cb) {return  commonApi('/serv/se/clue/v1/cancel',param, cb); },
  [types.GET_EVENT](param, cb) {return  commonApi('/serv/sale/activity/v1/list',param, cb); },
+ [types.GET_EVENT_DETAIL](param, cb) {return  commonApi('/serv/sale/activity/v1/detail',param, cb); },
+ [types.GET_MSG_DETAIL](param, cb) {return  commonApi('/serv/sale/activity/v1/detail',param, cb); },
 
 }

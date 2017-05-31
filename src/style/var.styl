@@ -3,6 +3,7 @@
  $size1=1rem;
  $size2=0.7rem;
  $size3=0.5rem;
+ $normalSize=1.4rem;
   $pr=20rem;//效果图像素除以这个
   $pr3=30rem;
  $color1=#2e93c5;
@@ -30,4 +31,10 @@ $pd1=$size1;
  $pd3=$size3;  
 
 
-
+//公共的点击变底色的样式
+ .clickable{
+     &:active{
+         background-color:#ddd;
+      //   transition: all 0.5s ease;
+     }
+ }

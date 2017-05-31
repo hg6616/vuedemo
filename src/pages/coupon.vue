@@ -18,27 +18,11 @@
             </div>
     
         </div>
-        <modal :config="modalConfig"></modal>
-        <!--<div class="modal" :class={show:isShow}>
-                <div class="modal-back" @click="hideModal">
-        
-                </div>
-                <div class="dialog">
-                    <div class="header">1</div> 
-                    <div class="content">
-                        <p class="desc">使用该卡券</p>
-                        <div class="img"><span class="text">免费保养一次</span></div>
-                    </div>
-                    <div class="footer">
-                        <div class="btnText">
-                            取消
-                        </div>
-                        <div class="btnText">
-                            确定
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+        <modal :config="modalConfig" v-on:childdo="listenfromchild" :callback="childsay">
+            <mdialog slot="dialog"> </mdialog>
+        </modal>
+        <!--<img :src="pic">-->
+        <p>{{res}}</p>
     </div>
 </template>
 
@@ -46,16 +30,23 @@
 import { mapGetters, mapState, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
 import modal from '../components/modal'
+import mdialog from '../components/dialog'
 export default {
     data() {
         return {
             isShow: false,
+            res: 'hell no',
+            childsay2: function (e) {
+                // alert(e);
+                this.res = e;
+            }
+            //  pic:'static/img/car_event.jpg'//引用本地文件的写法,只能放在static,发布后要复制到static目录
             // modalConfig:{
             //     isShow:false
             // }
         };
     },
-    components:{modal},
+    components: { modal, mdialog },
     computed: {
         // msg() {
         //     return this.$store.state.pc.msg;
@@ -87,11 +78,19 @@ export default {
         ...mapActions([
             types.GET_COUPON_TAKING_RECORD
         ]),
+        childsay(e) {
+            console.log(e);
+            this.res = e;
+        },
         showModal() {
-           this.modalConfig.isShow=true;
+            this.modalConfig.isShow = true;
         },
         hideModal() {
             this.$data.isShow = false;
+        },
+        listenfromchild(msg) {
+            console.log('listen child')
+            console.log(msg)
         }
     }
 }

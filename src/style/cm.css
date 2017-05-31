@@ -6,3 +6,9 @@
    background-position: -webkit-calc(100% -1rem) center;
     background-position: calc(100% - 2rem) center; 
    }*/
+ /*覆盖一些样式*/
+
+ .mint-msgbox-message {
+     max-height: 200px;
+     overflow-y: scroll;
+ }

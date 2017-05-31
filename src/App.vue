@@ -58,6 +58,10 @@ export default {
     background-position: 95% center;
    background-position: -webkit-calc(100% -1rem) center;
     background-position: calc(100% - 2rem) center; 
+
+	 &:active{
+         background-color:#ddd;
+     }
    }
 	// 路由切换过渡
 .router-fade-enter-active, .router-fade-leave-active {

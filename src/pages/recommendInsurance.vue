@@ -4,20 +4,20 @@
             <div class="body">
                 <ul>
                     <li>
-                        <label>姓名</label>
-                        <span><input ref="carownerName" type="text" placeholder="请输入姓名"></span>
+                        <label class="required">姓名</label>
+                        <span><input ref="carownerName"  name="姓名"  v-validate="{ rules: {  required: true,chn: true } }"  type="text" placeholder="请输入姓名"></span>
                     </li>
                     <li>
-                        <label>手机号</label>
-                        <span><input ref="mobile" type="number" placeholder="请输入手机号"></span>
+                        <label class="required">手机号</label>
+                        <span><input ref="mobile" name="手机号"  v-validate="{ rules: {  required: true,mobile: true } }"   type="number" placeholder="请输入手机号"></span>
                     </li>
                     <li class=" ">
-                        <label>到险日期</label>
-                        <span><input ref="repairTime" type="date" placeholder="请选择到险日期"></span>
+                        <label class="required">到险日期</label>
+                        <span><input ref="repairTime" name="到险日期"  v-validate="{ rules: {  required: true } }"   type="date" placeholder="请选择到险日期"></span>
                     </li>
                     <li>
                         <label style="vertical-align: top">备注</label>
-                        <span><textarea  ref="remark"   style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
+                        <span><textarea  ref="remark"   name="备注"  v-validate="{ rules: {  max: 200 } }"   style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
                     </li>
     
                 </ul>

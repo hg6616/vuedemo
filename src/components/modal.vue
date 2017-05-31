@@ -1,24 +1,12 @@
 <template>
-    <div class="modal" :class={show:modalConfig.isShow}>
+    <div class="modal" :class={show:modalConfig2.isShow}>
         <div class="modal-back" @click="hideModal">
     
         </div>
-        <div class="dialog">
-            <div class="header">1</div>
-            <div class="content">
-                <p class="desc">使用该卡券</p>
-                <div class="img"><span class="text">免费保养一次</span></div>
-            </div>
-            <div class="footer">
-                <div class="btnText">
-                    取消
-                </div>
-                <div class="btnText">
-                    确定
-                </div>
-            </div>
-        </div>
-        <p>{{modalConfig.isShow}}</p>
+           <slot name="dialog"></slot>
+
+        <!--<p>{{modalConfig2.isShow}}</p>-->
+        
     </div>
 </template>
 
@@ -31,32 +19,20 @@ export default {
            modalConfig:this.config
         }
     },
-    props:['config'],
+    props:['config','callback'],
     computed: {
         modalConfig2(){ 
             return this.config;
-            var res={};
-        //    debugger;
-       //    Object.assign(res,this.config)
-            //console.log(this.config);
-            console.log(res);
-         res=this.config;
-            return res;
         }
     },
     methods: {
         hideModal(){
-            // console.log(this.config2==this.config);
-            // console.log(this.config2===this.config);
-            // console.log(this.cf===this.config);
-           // debugger;
-         //   this.config.isShow=false;
-            this.modalConfig.isShow=false;
-           // this.cf.isShow=false;
-            console.log('change show')
-            // Vue.nextTick(()=>{
-            //     console.log('updated')
-            // });
+            this.callback('hello')
+                 // this.config.isShow=false;
+        },
+        dosome(){
+            console.log('dosome')
+            this.$emit('childdo',{hello:'world'})
         }
     }
     , components: {

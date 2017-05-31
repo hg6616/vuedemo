@@ -25,8 +25,8 @@ const state = {
   news: '<div>loading</div>',
   car: '',
   dlrCode: 'H2901',//todo
-  sucCode:'R200',//调用成功的编码
-  mytitle:'',//智通车商  标题 todo
+  sucCode: 'R200',//调用成功的编码
+  mytitle: '',//智通车商  标题 todo
   // types,
   //记得给state赋值初始值,不然getter中不会自动变化 
   SEND_AUTH_CODE: null,
@@ -53,6 +53,8 @@ const state = {
   CANCEL_VEHICLE_APPOINTMENT: null,
   CANCEL_SERVICE_APPOINTMENT: null,
   GET_EVENT: null,
+  GET_EVENT_DETAIL: null,
+GET_MSG_DETAIL:null,
   validate: (err) => {
     let res = true;
     //   debugger;
@@ -65,7 +67,7 @@ const state = {
       }
       Toast({
         message: msg,
-       // position: 'bottom',
+        // position: 'bottom',
         duration: 2000
       });
     }

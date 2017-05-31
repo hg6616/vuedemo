@@ -56,6 +56,8 @@ export default {
   [types.CANCEL_SERVICE_APPOINTMENT](state, data) { commonMutation(state, data, types.CANCEL_SERVICE_APPOINTMENT) },
   [types.GET_EVENT](state, data) { commonMutation(state, data, types.GET_EVENT) },
   [types.CHANGE_TITLE](state, title) { state.mytitle=title },
+  [types.GET_EVENT_DETAIL](state, data) { commonMutation(state, data, types.GET_EVENT_DETAIL) },
+  [types.GET_MSG_DETAIL](state, data) { commonMutation(state, data, types.GET_MSG_DETAIL) },
 
 
 }

@@ -1,33 +1,33 @@
 <template>
     <div class="container">
         <!--<div class="arrow-select arrow">
-                                           <div class="roundDot"></div>
-                                            <span class="text">2016款 1.6L 手动 标致301 舒适版</span>
-                                        </div>-->
+                                                                   <div class="roundDot"></div>
+                                                                    <span class="text">2016款 1.6L 手动 标致301 舒适版</span>
+                                                                </div>-->
         <div class="card middle-div  margin-bottom">
             <div class="body">
                 <ul>
                     <li>
-                        <label>姓名</label>
-                        <span><input ref="carownerName" type="text" placeholder="请输入姓名"></span>
+                        <label class="required">姓名</label>
+                        <span><input class="required" ref="carownerName" type="text" name="姓名" v-validate="{ rules: {  required: true,chn: true } }"   placeholder="请输入姓名"></span>
                     </li>
                     <li>
-                        <label>手机号</label>
-                        <span><input ref="mobile" type="text" placeholder="请输入手机号"></span>
+                        <label class="required">手机号</label>
+                        <span><input ref="mobile" type="text" name="手机号"  v-validate="{ rules: { required: true, mobile: true } }" placeholder="请输入手机号"></span>
                     </li>
                     <!--<li style="position: relative">
-                                                        <label>验证码</label>
-                                                        <span><input type="text" placeholder="请输入验证码" class="short-inpu3t"></span>
-                                                        <div class="little-button">获取验证码</div>
-                                                    </li>-->
+                                                                                <label>验证码</label>
+                                                                                <span><input type="text" placeholder="请输入验证码" class="short-inpu3t"></span>
+                                                                                <div class="little-button">获取验证码</div>
+                                                                            </li>-->
                     <!--<li class="arrow">
-                                    <label>专营店</label>
-                                    <div style="position:relative;display:inline-block">
-                                        <input type="text" placeholder="请选择专营店" @keyup="keyu" ref="zyd">
-                                      
-                                    </div>
-                
-                                </li>-->
+                                                            <label>专营店</label>
+                                                            <div style="position:relative;display:inline-block">
+                                                                <input type="text" placeholder="请选择专营店" @keyup="keyu" ref="zyd">
+                                                              
+                                                            </div>
+                                        
+                                                        </li>-->
                     <li>
                         <label style="vertical-align: top">备注</label>
                         <span><textarea  ref="remark"   style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
@@ -54,6 +54,18 @@ export default {
     methods: {
         ...mapActions([types.ADD_VEHICLE_CLUE]),
         submit() {
+            //validateScopes  validateAll
+            // debugger;
+            // console.log(this.errors)
+            this.$validator.validateScopes()
+                .then(() => {
+                    console.log('vali suc')
+                })
+                .catch(() => {
+                    console.log('vali fail')
+                    this.$store.state.validate(this.errors)
+                }); 
+            return;
             var params = {
                 "dlrCode": this.$store.state.dlrCode,
                 "carownerName": this.$refs.carownerName.value,
@@ -66,7 +78,7 @@ export default {
                 //    "validCode": "201609"
             }
             this.ADD_VEHICLE_CLUE(params)
-                .then(() => { 
+                .then(() => {
                     if (this.$store.state.ADD_VEHICLE_CLUE == 'R200') {
                         this.$toast('操作成功');
                     }
