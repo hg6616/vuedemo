@@ -35,14 +35,23 @@ export default {
 		})
 	},
 	mounted() {
-		this.$store.dispatch({ type: 'GET_USER_INFO', data: { dlrCode: this.$store.state.dlrCode } })
-		//   this.GET_USER_INFO({ data: {dlrCode: this.$store.state.dlrCode } })
-	},
-	methods: {
-		logx(obj) {
-			console.log(obj)
+		//	 return;//todo
+		console.log(this.$route.query);
+		let dlrCode = this.$route.query.dlrCode;
+		if (dlrCode != undefined) {
+			this.$store.commit('CHANGE_DLR', dlrCode); 
 		}
-	}
+		this.$store.dispatch({
+			type: 'GET_USER_INFO',
+			data: { dlrCode: this.$store.state.dlrCode }
+		})
+			.then(() => {
+				this.$store.dispatch({
+					type: 'GET_MSG_COUNT',
+					data: { dlrCode: this.$store.state.dlrCode }
+				})
+			})
+	},
 }
 </script>
 

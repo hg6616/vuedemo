@@ -30,6 +30,7 @@ import width from '../pages/width';
 import learnvue from '../pages/learnvue';
 import myMsgDetail from '../pages/myMsgDetail';
 import carRescue from '../pages/carRescue';
+import learning from '../pages/learning';
 
 
 
@@ -46,8 +47,8 @@ export default [
   { path: '/bindOwner', meta: { title: '绑定车主' }, component: bindOwner },
   { path: '/myService', meta: { title: '我的服务' }, component: myService },
   { path: '/coupon', meta: { title: '优惠券' }, component: coupon },
-  { path: '/carTypeChoose', name: '车型选择', meta: { title: '个人中心' }, component: carTypeChoose },
-  { path: '/onlineShow', meta: { title: '在线展示' }, component: onlineShow },
+  { path: '/carTypeChoose', name: '车型选择', meta: { title: '车型选择' }, component: carTypeChoose },
+  { path: '/onlineShow', meta: { title: '线上展示' }, component: onlineShow },
   { path: '/priceQuery', meta: { title: '询底价' }, component: priceQuery },
   { path: '/testDriveAppointment', meta: { title: '试驾预约' }, component: testDriveAppointment },
   { path: '/recommendBuy', meta: { title: '推荐购车' }, component: recommendBuy },
@@ -61,12 +62,13 @@ export default [
   { path: '/eventAlarm', meta: { title: '活动提醒' }, component: eventAlarm },
   { path: '/eventDetail', meta: { title: '活动详情' }, component: eventDetail },
   { path: '/myTestDrive', meta: { title: '我的试驾' }, component: myTestDrive },
-  { path: '/testDriveDetail', meta: { title: '试驾详情' }, component: testDriveDetail },
+  { path: '/testDriveDetail',name:'testDriveDetail', meta: { title: '详情' }, component: testDriveDetail },
   { path: '/myRecord', meta: { title: '我的记录' }, component: myRecord },
   { path: '/zhihu', meta: { title: '知乎' }, component: zhihu },
   { path: '/zhihuDetail/:id', meta: { title: '知乎详细' }, component: zhihuDetail }, 
   { path: '/width', meta: { title: '测试宽度' }, component: width },
-  { path: '/learnvue', meta: { title: '测试宽度' }, component: learnvue },
+ { path: '/learnvue', meta: { title: '测试宽度' }, component: learnvue },
   { path: '/myMsgDetail', meta: { title: '消息详情' },  component: myMsgDetail },
   { path: '/carRescue', meta: { title: '一键救援' }, component: carRescue },
+  { path: '/learning', meta: { title: '学习vue' }, component: learning },
 ];

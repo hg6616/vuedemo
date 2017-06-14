@@ -117,26 +117,31 @@ app.post('/mock', urlencodedParser, function (req, resOut, next) {
     console.log(req.body.url)
     //console.log(req.body.params)
     //  postData = 'params= {"dlrCode": "H2901"}';
-    // console.log(postData)
+    console.log(postData)
+    console.log(postData.length)
+
     var options = {
-      hostname: 'dmswx.szlanyou.com',
-      port: 80,
+    hostname: 'dmswx.szlanyou.com',
+     //  hostname: '172.26.136.36', 
+         port: 80, 
+    //  hostname: '172.26.131.118',
+     // port: 8085,
       path: req.body.url,
       //    path: '/serv/base/car/brand/v1/list',
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': postData.length
+        // 'Content-Length': postData.length+100
       }
     };
-    var resData;
+    var resData='';
     var req = http.request(options, (res) => {
       //  console.log(`STATUS: ${res.statusCode}`);
       //   console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
       res.setEncoding('utf8');
       res.on('data', (chunk) => {
         console.log(`主体: ${chunk}`);
-        resData = chunk;
+        resData+= chunk;
       });
       res.on('end', () => {
         console.log('响应中已无数据。');

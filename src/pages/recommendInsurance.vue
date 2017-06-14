@@ -11,9 +11,9 @@
                         <label class="required">手机号</label>
                         <span><input ref="mobile" name="手机号"  v-validate="{ rules: {  required: true,mobile: true } }"   type="number" placeholder="请输入手机号"></span>
                     </li>
-                    <li class=" ">
+                    <li class="arrow ">
                         <label class="required">到险日期</label>
-                        <span><input ref="repairTime" name="到险日期"  v-validate="{ rules: {  required: true } }"   type="date" placeholder="请选择到险日期"></span>
+                        <span><input readonly ref="repairTime" readonly name="到险日期" @click="openPicker"  v-validate="{ rules: {  required: true } }"   type="text" placeholder="请选择到险日期"></span>
                     </li>
                     <li>
                         <label style="vertical-align: top">备注</label>
@@ -26,41 +26,65 @@
         </div>
     
         <button class="longButton  bottom-button" @click="submit">提交</button>
+    
+        <mt-datetime-picker ref="picker" type="date" :startDate="new Date()" v-model="pickerValue" @confirm="handleConfirm">
+        </mt-datetime-picker>
+    
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
 export default {
     data() {
-        return { 
+        return {
+            pickerValue: ''
         };
     },
     methods: {
-        ...mapActions([types.ADD_INSURANCE_CLUE]),
+        openPicker() {
+            this.$refs.picker.open();
+        },
+        handleConfirm() {
+            var c = util.getDateStr({ date: this.pickerValue })
+            this.$refs.repairTime.value = c;
+        },
         submit() {
             var state = this.$store.state;
-            var params = {
-                "dlrCode": state.dlrCode,
-                "aiBuType": "2",//推荐购买是2
-                "recommendName": this.$refs.carownerName.value,
-                "recommendTel": this.$refs.mobile.value,
-                "remark": this.$refs.remark.value,
-            };
-            this.ADD_INSURANCE_CLUE(params)
+            this.$validator.validateAll()
                 .then(() => {
-                 //    this.$store.commit(types.CHANGE_TITLE,'保险')
-                    if (state.ADD_INSURANCE_CLUE == state.sucCode) {
-                        this.$toast('操作成功');
-                    }
-                    else {
-                        this.$toast('操作失败');
-                    }
+
+                    api.getData([{
+                        type: types.ADD_INSURANCE_CLUE,
+                        param: {
+                            "dlrCode": state.dlrCode,
+                            "aiBuType": "2",//推荐购买是2
+                            "recommendName": this.$refs.carownerName.value,
+                            "recommendTel": this.$refs.mobile.value,
+                            "remark": this.$refs.remark.value,
+                            aboutExpireTime: this.$refs.repairTime.value,
+                        }
+                    }])
+                        .then(res => {
+                            if (res == state.sucCode) {
+                                this.$toast('操作成功');
+                            }
+                            else {
+                                this.$toast('操作失败');
+                            }
+                        })
+                        .catch(() => {
+                            this.$toast('操作失败');
+                        })
                 })
-                .catch(() => {
-                    this.$toast('操作失败');
-                })
+                .catch((err) => {
+                    console.log(err)
+                    util.validate(this.errors);
+                });
+
         }
     },
 }

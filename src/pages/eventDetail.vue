@@ -2,174 +2,261 @@
     <div class="container">
         <div class="swiper-container margin-bottom">
             <div class="swiper">
-                <img :src="detail.actPhotoUrl" class="actImg"> 
+                <img :src="detail.actPhotoUrl" class="actImg">
             </div>
     
         </div>
-        <!--<div class="event_card middle-div">
-            <ul>
-                <li class="cls">
-                    <div class="up clearfix">
-                        <div class="left">
-                            <img class="img" src="../assets/car_event.jpg">
-                            <div class="status">进行中</div>
-                        </div>
-                        <div class="right">
-                            <p class="clshead">奇骏MT手到擒来,先用后买超低首付10%起!</p>
-                            <p class="cls">活动时间:2017.04.01~2017.04.21</p>
-                            <p class="cls">报名时间:2017.04.01~2017.04.21</p>
-                        </div>
-                    </div>
-                    <div class="down">
-                        活动地址:广州市花都区风神大道108号xxxxxxxx
-                    </div>
-                </li>
-                <li class="cls">
-                    <div class="up clearfix">
-                        <div class="left">
-                            <img class="img" src="../assets/car_event.jpg">
-                            <div class="status">进行中</div>
-                        </div>
-                        <div class="right">
-                            <p class="clshead">奇骏MT手到擒来,先用后买超低首付10%起!</p>
-                            <p class="cls">活动时间:2017.04.01~2017.04.21</p>
-                            <p class="cls">报名时间:2017.04.01~2017.04.21</p>
-                        </div>
-                    </div>
-                    <div class="down">
-                        活动地址:广州市花都区风神大道108号xxxxxxxx
-                    </div>
-                </li>
-                <li class="cls">
-                    <div class="up clearfix">
-                        <div class="left">
-                            <img class="img" src="../assets/car_event.jpg">
-                            <div class="status">进行中</div>
-                        </div>
-                        <div class="right">
-                            <p class="clshead">奇骏MT手到擒来,先用后买超低首付10%起!</p>
-                            <p class="cls">活动时间:2017.04.01~2017.04.21</p>
-                            <p class="cls">报名时间:2017.04.01~2017.04.21</p>
-                        </div>
-                    </div>
-                    <div class="down">
-                        活动地址:广州市花都区风神大道108号xxxxxxxx
-                    </div>
-                </li>
-            </ul>
-        </div>-->
     
         <div class="event_detail  middle-div">
             <div class="content">
                 <div class="title">
                     <p class="event_name">{{detail.actName}}</p>
                     <p class="sub">活动时间:{{detail.actStartTime}}~{{detail.actEndTime}}</p>
-                    <p class="sub">活动对象:{{detail.actClient==undefined?'':detail.actClient}}
-                        <span class="view-status">
-<span class="view">
-    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 2000
-</span>
-<span class="zan">
-   <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></span> 2000
-</span>
-                        </span>
+                    <!--   <p class="sub">活动对象:{{detail.actClient==undefined?'':detail.actClient}} -->
+                    <span class="view-status">
+                                                <span class="view">
+                                                   <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{detail.actUpNum}}
+                    </span>
+                    <span class="zan">
+                                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></span> {{detail.actCheckNum}}
+                    </span>
+                    </span>
                     </p>
                 </div>
-                <div class="detail">
-                     {{detail.actInfor}}
+                <div class="detail" v-html="detail.actInfor">
+                    <!--{{detail.actInfor}}-->
                 </div>
             </div>
             <div class="operate">
                 <div class="signMan">
                     <p>已报名人数:</p>
-                    <p class="pNum"><span class="signNum">{{detail.signUpNum}}</span>人</p>
+                    <p class="pNum"><span class="signNum">{{detail.signUpNum2}}</span>人</p>
                 </div>
                 <div class="buttons">
-                    <div class="button2" @click="signUpAct">参加活动</div>
-                    <div class="button2" @click="dail">拨打热线</div>
+                    <div class="button2" @click="signUpAct(detail)">参加活动</div>
+                    <div class="button2" @click="dail(detail)"><a :href="'tel:'+detail.actTel">拨打热线</a></div>
                 </div>
             </div>
-            <div class="coupon" @click="clickCoupon">
+            <div class="coupon" @click="clickCoupon(detail)" v-if="detail.coupon!=undefined">
                 <div class="coupon-desc">
                     <p class="coupon-big-word">{{detail.coupon.title}}</p>
                     <p class="coupon-sub-word">点击图片,立即领取优惠券</p>
                 </div>
                 <div class="coupon-time">
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                    <span class="expire-time">有效期:{{detail.coupon.expire}}</span>
+                    <span class="expire-time">有效期:{{detail.coupon.expireText}}</span>
                 </div>
             </div>
             <div class="comments">
                 <div class="head clearfix">
                     <span class="sp1">精选评论</span>
-                    <span class="sp2" @click="writeComment"><span class="glyphicon glyphicon-pencil icon-mg-right" aria-hidden="true"></span>写评论</span>
+                    <span class="sp2" @click="showWriteComment">
+                                              <span class="glyphicon glyphicon-pencil icon-mg-right" aria-hidden="true"></span>写评论</span>
                 </div>
                 <div class="body">
-                    <ul>                      
-                        <li v-for="x in detail.comments">
+                    <ul>
+                        <li v-for="x in  comments">
                             <div class="img">
-                                <img :src="x.photo" class="thumb">
+                                <img :src="x.headImgUrl" class="thumb">
                             </div>
                             <div class="comment">
                                 <p class="p1">
-                                    <span class="username">{{x.nickname}}</span>
-                                    <span class="zan"><span class="glyphicon glyphicon-thumbs-up icon-mg-right" aria-hidden="true"></span>{{x.thumbNum}}</span>
+                                    <span class="username">{{x.nickName}}</span>
+                                    <!--<span class="zan"><span class="glyphicon glyphicon-thumbs-up icon-mg-right" aria-hidden="true"></span>{{x.thumbNum}}</span>-->
                                 </p>
-                                <p class="p2">{{x.content}}</p>
+                                <p class="p2">{{x.comment}}</p>
                                 <p class="p3">
-                                 {{x.time}}
+                                    {{x.createDate}}
                                 </p>
                             </div>
-                        </li> 
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <modal :config="modalConfig">
+            <!--<h1 slot="dialog">这里可能是一个页面标题</h1>-->
     
+            <div class="dialog" slot="dialog">
+                <!--<div class="header">
+                                                                                                    请填写评论
+                                                                                                </div>-->
+                <div class="content">
+                    <textarea name="备注" style=" vertical-align: text-top" resize="no" v-validate="{ rules: {  max: 200} }" ref="remark" placeholder="请填写评论"></textarea>
+                </div>
+                <div class="footer">
+                    <div class="btnText" @click="hideWriteComment">
+                        取消
+                    </div>
+                    <div class="btnText" @click="submitComment">
+                        确定
+                    </div>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util'
+import modal from '../components/modal'
+import dialog from '../components/dialog'
+import api from '../api/api.js';
+
 export default {
+    data() {
+        return {
+            modalConfig: {
+                isShow: false
+            },
+            changeDetail: false,
+            id: '',
+            detail: {},
+            comments: {},
+        }
+    },
+    components: { modal, dialog2: dialog },
     computed: {
-     ...mapState({
-         detail:state=>{
-             var res=state.GET_EVENT_DETAIL;
-             if(res==null){
-                 res={}
-             }
-             else if(res.length>0){
-                 res=res[0];
-             }
-             return res;
-         }
-     })
     },
     activated() {
-        console.log(this.$route.query.id)
-        var id = this.$route.query.id;
-        if (id) {
-            this.GET_EVENT_DETAIL({ data: { dlrCode: this.$store.state.dlrCode, id } })
-        } 
+        this.id = this.$route.query.id;
+        if (this.id != '') {
+            this.loadData();
+        }
     },
     methods: {
-        ...mapActions([types.GET_EVENT_DETAIL]),
-        //参加活动  //todo
-        signUpAct(){
+        ...mapActions([types.GET_EVENT_DETAIL, types.JOIN_EVENT, types.TAKE_COUPON, types.GET_EVENT_COMMENT]),
 
+        loadData() {
+            let dlrCode = this.$store.state.dlrCode;
+            let id = this.id;
+            api.getData([{
+                type: types.GET_EVENT_DETAIL,
+                param: { dlrCode, id }
+            }])
+                .then(res => {
+                    if (res == null) {
+                        res = {}
+                    }
+                    else if (res.length > 0) {
+                        res = res[0];
+                        res.signUpNum2 = res.signUpNum;
+                        if (res.coupon != undefined) {
+                            var cp = res.coupon;
+                            if (cp.dateType == 1) {
+                                cp.expireText = util.getDateStr({ date: new Date(cp.beginTimestamp.time) }) + '~' + util.getDateStr({ date: new Date(cp.endTimestamp.time) });
+                            }
+                            else if (cp.dateType == 2) {
+                                cp.expireText = `自领取${cp.fixedBeginTerm}天后生效,${cp.fixedTerm}天内使用有效`;
+                            }
+                        }
+                    }
+                    this.detail = res;
+                    api.getData([{
+                        type: types.GET_EVENT_COMMENT,
+                        param: { dlrCode, id: this.detail.id }
+                    }]).then(res2 => {
+                        this.comments = res2;
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.$toast('获取详情失败')
+                });
+        },
+        //参加活动   
+        signUpAct(d) {
+            let param = {
+                dlrCode: this.$store.state.dlrCode,
+                id: d.id,
+                type: 3,
+                userName: '',
+                moblie: '',
+            };
+            var state = this.$store.state;
+            api.getData([{
+                type: types.JOIN_EVENT,
+                param
+            }])
+                .then(res => {
+                    if (res == state.sucCode)
+                        this.$toast('参加成功');
+                    this.detail.signUpNum2 = parseInt(this.detail.signUpNum2) + 1;
+                    this.changeDetail = !this.changeDetail;
+                })
+                .catch(() => {
+                    this.$toast('参加失败')
+                });
         },
         //拨打热线
-        dail(){
-
+        dail(d) {
+            //donothing
         },
         //领取优惠券
-        clickCoupon(){
-
+        clickCoupon(d) {
+            var state = this.$store.state;
+            api.getData([{
+                type: types.TAKE_COUPON,
+                param: {
+                    dlrCode: this.$store.state.dlrCode,
+                    cardId: d.coupon.id,
+                    bussId: this.detail.id,
+                    receiveType: 1,
+                }
+            }])
+                .then(res => {
+                    if (res.id != undefined)
+                        this.$toast('领取成功')
+                })
+                .catch(() => {
+                    this.$toast('领取失败')
+                });
         },
         //写评论
-        writeComment(){
+        showWriteComment() {
+            this.modalConfig.isShow = true;
+            document.getElementsByTagName("body")[0].style.overflow='hidden';
+        },
+        hideWriteComment() {
+            this.modalConfig.isShow = false;
+            document.getElementsByTagName("body")[0].style.overflow='';
+        },
+        submitComment(d) {
+            var state = this.$store.state;
+            this.$validator.validateAll()
+                .then(() => {
+                    api.getData([{
+                        type: types.JOIN_EVENT,
+                        param: {
+                            dlrCode: state.dlrCode,
+                            id: this.detail.id,
+                            type: 4,
+                            content: this.$refs.remark.value,
+                        }
+                    }])
+                        .then(res => { 
+                            if (res == state.sucCode) {
+                                this.$toast('评论成功')
+                                this.hideWriteComment();
+                                api.getData([{
+                                    type: types.GET_EVENT_COMMENT,
+                                    param: { dlrCode: this.$store.state.dlrCode, id: this.detail.id }
+                                }])
+                                .then(res=>{
+                                    this.comments=res;
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            this.$toast('评论失败')
+                        });
+                })
+                .catch((err) => {
+                    console.log(err)
+                    util.validate(this.errors);
+                })
 
         }
     }
@@ -179,7 +266,9 @@ export default {
 <style lang="stylus" scoped> 
        @import    '../style/var'; 
          
-
+body{
+    overflow:hidden;
+}
 .swiper-container{
     height:16.7rem;
     position: relative; 
@@ -256,13 +345,26 @@ export default {
     .content{
        background-color: #fff;
         border-radius: 0.5rem;
+        width: 100%;
+        display: inline-block;
+        width: 96%;
         .title{
             padding: 0.5rem;
             border-bottom: 0.1rem solid $bordercolor;
+            display: inline-block;
             .event_name{
                 font-size: 1.2rem;
                 color:$themeColor;
                 margin-bottom: 0.5rem; 
+            }
+            .view-status{
+              float:right;
+              .glyphicon-eye-open:before {
+                  color: #ef9e20;
+              }
+              .glyphicon-thumbs-up:before {
+                  color: #f11414;
+              }
             }
             .sub{
                 color:#a4a4a4;

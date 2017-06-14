@@ -65,9 +65,9 @@
 						sessionStorage.setItem("lat", r.point.lat);
 						console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
 
-						setTimeout(function() {
-							map.setZoom(16);
-						}, 2000); //2秒后放大到14级
+//						setTimeout(function() {
+//							map.setZoom(16);
+//						}, 2000); //2秒后放大到14级
 						map.enableScrollWheelZoom(true);
 					} else {
 						alert('failed' + this.getStatus());

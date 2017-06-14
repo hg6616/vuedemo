@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <div class="swiper-container margin-bottom">
-            <mt-swipe :auto="4000">
-                <mt-swipe-item v-for="x in picList" :key="x.imgPath">
-                    <img class="swiperImg" :src="x.imgPath">
-                </mt-swipe-item>
-            </mt-swipe>
+            <img src="../assets/iwantrecommand.jpg" style="width:100%">
+            <!--<mt-swipe :auto="4000">
+                                                    <mt-swipe-item v-for="x in picList" :key="x.imgPath">
+                                                        <img class="swiperImg" :src="x.imgPath">
+                                                    </mt-swipe-item>
+                                                </mt-swipe>-->
     
         </div>
         <div class="middle-div">
@@ -28,18 +29,18 @@
 </template>
 
 <script>
+import api from '../api/api';
+import * as types from '../store/mutation-types'
 export default {
-    data() {
-        return {
-
-        };
-    },
-    methods:{
-        linkTo(url){
-            this.$router.push({path:url})
+    methods: {
+        linkTo(url) {
+            this.$router.push({ path: url })
         }
     },
-    computed: { 
+    activated() {
+       
+    },
+    computed: {
         picList() {
             return [
                 {
@@ -60,13 +61,7 @@ export default {
                 }
             ]
         }
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
+    }
 }
 </script>
 

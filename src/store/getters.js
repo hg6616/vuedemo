@@ -15,17 +15,18 @@ export const cartProducts = state => {
 export const carOwner = state => {
   var d = state.GET_USER_INFO;
   var res = {
-    "nickName": "kkkk",
+    "nickName": "",
     "headImgUrl": "",
     "carOwner": {
       "carNo": "",
       "carTypeConfigName": ""
     }
   };
+
   if (d != undefined) {
     res = d;
     if (res.carOwner != null) {
-      res.binded =true;//已绑定
+      res.binded = true;//已绑定
     }
     else {
       res.carOwner = {
@@ -33,13 +34,14 @@ export const carOwner = state => {
         "carTypeConfigName": ""
       }
     }
+   //  res.binded =true//todo
   }
   return res;
 }
 
 //活动提醒
-export const events = state => { 
-    //  "result": [
+export const events = state => {
+  //  "result": [
   //           {
   //               "id": 1,
   //               "actName": "奇骏MT手到擎来，先用后买超低首付10%起",
@@ -51,7 +53,7 @@ export const events = state => {
   //               "actPhotoUrl": "http://dmswx.szlanyou.com/file/img/1234566434.jpg"
   //           }
   //       ],
-  var d = state.GET_EVENT; 
+  var d = state.GET_EVENT;
   var res = [];
   if (d != undefined && d.length > 0) {
     for (let x in d) {
@@ -61,5 +63,46 @@ export const events = state => {
   }
   return res;
 }
- 
- 
+export const msgCount = state => {
+  var d = state.GET_MSG_COUNT;
+  //10系统，11试驾，12询底价，13续保询价，14养修，15推荐
+  var res = {
+    system: null,
+    testDrive: null,
+    priceQuery: null,
+    xubaoQuery: null,
+    maintain: null,
+    recommand: null,
+    all: null,
+  } 
+  if (d != null) {
+    d.forEach(v => {
+      res.all += parseInt(v.count)
+    })
+  }
+
+  for (let x in d) {
+    switch (d[x].msgType) {
+      case '10':
+        res.system = d[x].count;
+        break;
+      case '11':
+        res.testDrive = d[x].count;
+        break;
+      case '12':
+        res.priceQuery = d[x].count;
+        break;
+      case '13':
+        res.xubaoQuery = d[x].count;
+        break;
+      case '14':
+        res.maintain = d[x].count;
+        break;
+      case '15':
+        res.recommand = d[x].count;
+        break;
+    }
+  }
+  return res;
+}
+

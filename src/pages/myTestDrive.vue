@@ -12,7 +12,9 @@
     
             </li>
             <li class="lic ">
-                <p class="p1"><span class="sp1">MX5</span><span class="markLabel mkFail"></span></p>
+                <p class="p1"><span class="sp1">MX5</span><span class="markLabel mkFail"  style="background-color:red ;display:inline-block; "></span>
+                <span class="markLabel " style="background-color:red;width:17px;display:inline-block;height:17px;transform: skew(45deg);
+        transform-origin: bottom;"> </span></p>
                 <p class="p2">2017款 1.5L 手动豪华智能型</p>
                 <p class="p3">预约时间:2017-02-13 9:00~10:00</p>
                 <p class="p3">提交时间:2017-02-10 16:23</p>
@@ -47,23 +49,15 @@
 </template>
 
 <script>
+import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
 export default {
     data() {
         return {
 
         };
-    },
-    computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
+    }
 }
 </script>
 

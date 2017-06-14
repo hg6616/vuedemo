@@ -54,25 +54,12 @@ const state = {
   CANCEL_SERVICE_APPOINTMENT: null,
   GET_EVENT: null,
   GET_EVENT_DETAIL: null,
-GET_MSG_DETAIL:null,
-  validate: (err) => {
-    let res = true;
-    //   debugger;
-    console.log(err);
-    if (err && err.errors.length > 0) {
-      var msg = '';
-      res = false;
-      for (let x in err.errors) {
-        msg += err.errors[x].msg + ';';
-      }
-      Toast({
-        message: msg,
-        // position: 'bottom',
-        duration: 2000
-      });
-    }
-    return res;
-  }
+  GET_MSG_DETAIL: null,
+  GET_RECORD: null,
+  GET_CLUE_RECORD: null,
+  JOIN_EVENT: null,
+  GET_EVENT_COMMENT: null,
+
 };
 export default new Vuex.Store({
   actions,

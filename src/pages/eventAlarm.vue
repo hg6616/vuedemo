@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container mg_b_5">
         <div class="middle-div">
-            <ul class="events">
+            <ul class="events" ref="ulList">
                 <li class="cls" v-for="d in events" @click="seeDetail(d.id)">
                     <p class="big ellipsis">{{d.actName}}</p>
                     <p class="small">{{d.actStartTime}}</p>
@@ -18,18 +18,93 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import util from '../utils/util.js';
+import api from '../api/api.js';
+import * as types from '../store/mutation-types'
+let cfg = {
+    pageNo: 1,
+    pageSize: 2,
+    haveMoreData: true,
+    loading: false,
+    oldList: [],
+    firstLoad: true,
+};
 export default {
-    computed: {
-        ...mapGetters(['events']),
-    },
-    methods: {
-        ...mapActions(['GET_EVENT']),
-        seeDetail(id){
-            this.$router.push({path:'/eventDetail',query:{id:id}})
+    data() {
+        return {
+            listOrign: null
         }
     },
+    computed: {
+        events() {
+            var d = this.listOrign;
+            var res = [];
+            if (d != undefined && d.length > 0) {
+                for (let x in d) {
+                    d[x].going = new Date() - new Date(d[x].actEndTime) <= 0 ? true : false;
+                }
+                res = d;
+                if (res.length == cfg.pageSize) {
+                    cfg.haveMoreData = true;
+                }
+                else {
+                    cfg.haveMoreData = false;
+                }
+                cfg.firstLoad = false;
+            }
+            if (cfg.pageNo == 1) {
+            }
+            else {
+                res = cfg.oldList.concat(res);
+            }
+            cfg.oldList = res;
+            return res;
+        },
+    },
+    methods: { 
+        seeDetail(id) {
+            this.$router.push({ path: '/eventDetail', query: { id: id } })
+        },
+        loadData() {
+            let pageNo, pageSize;
+            if (cfg.firstLoad) {
+                pageNo = cfg.pageNo = 1;
+                pageSize = cfg.pageSize = 10;
+            }
+            else {
+                cfg.pageNo++;
+                pageNo = cfg.pageNo;
+                pageSize = cfg.pageSize;
+            }
+            let dlrCode = this.$store.state.dlrCode;
+            if (!cfg.haveMoreData) {
+                this.$toast('没有更多的数据')
+            }
+            else if (cfg.haveMoreData && !cfg.loading) {
+                cfg.loading = true;
+                api.getData([{ type:'GET_USER_EVENT', param: { dlrCode, pageNo, pageSize } }]) 
+                    .then(res=> {
+                        this.listOrign=res;
+                        cfg.loading = false;
+                    })
+                    .catch(() => {
+                        cfg.loading = false;
+                    });
+            }
+        },
+    },
     activated() {
-        this.GET_EVENT({ data: { "dlrCode": this.$store.state.dlrCode, "busiType": "1", "subBusiType": "1" } })
+        cfg.firstLoad = true;
+        this.loadData();
+    },
+    mounted() {
+        //   var obj = window;
+        let obj = this.$refs.ulList;
+        let _this = this;
+        util.addScrollEvent({
+            target: obj,
+            fn: _this.loadData,
+        });
     },
 }
 </script>

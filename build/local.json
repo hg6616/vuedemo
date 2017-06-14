@@ -374,17 +374,17 @@
                         "id": 1,
                         "nickname": "same",
                         "photo": "static/img/thumb_comment.jpg",
-                        "content":"活动很好",
-                        "time":"2小时前",
-                        "thumbNum":277
+                        "content": "活动很好",
+                        "time": "2小时前",
+                        "thumbNum": 277
                     },
-                       {
+                    {
                         "id": 12,
                         "nickname": "jack",
                         "photo": "static/img/thumb_comment.jpg",
-                        "content":"活动还好还好.............",
-                        "time":"2小时前",
-                        "thumbNum":77
+                        "content": "活动还好还好.............",
+                        "time": "2小时前",
+                        "thumbNum": 77
                     }
                 ]
             }
@@ -393,16 +393,128 @@
         "errormessage": "调用成功",
         "token": null
     },
-
-    "GET_MSG_DETAIL":{
+    "GET_MSG_DETAIL": {
         "callTime": "2017-05-05 09:24:30",
-        "result":[
-          {  
-            "msg":"祝您生活愉快"
-
-           }
-      ]
-       
+        "result": [
+            {
+                "msgtitle": "养修预约详情",
+                "actContent": "尊敬的XXX先生/女士，您与5月10日预约的轩逸2017款2.0L智能版已预约成功。XXXXXXX店恭候您的到来，具体信息如下：",
+                "actType": "轩逸2017款2.0L智跑款",
+                "actTime": "2017年5月12日9:00-10:00",
+                "actAddress": "广州花都风神大道8号",
+                "actState": "待试驾",
+                "msg": "祝您生活愉快"
+            }
+        ]
+    },
+    "GET_MSG_COUNT": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "msgType": "11",
+                "count": 2
+            },
+            {
+                "msgType": "12",
+                "count": 3
+            },
+            {
+                "msgType": "10",
+                "count": 0
+            },
+            {
+                "msgType": "13",
+                "count": 0
+            },
+            {
+                "msgType": "14",
+                "count": 0
+            },
+            {
+                "msgType": "15",
+                "count": 0
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_MSG": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "id": 1,
+                "msgType": "10",
+                "msgContent": "车微服新版新体验",
+                "sendTime": "2017-05-05 08:24:30"
+            },
+            {
+                "id": 2,
+                "msgType": "11",
+                "msgContent": "成功预约明天(2月14日)的车辆试驾",
+                "sendTime": "2017-05-05 08:24:30"
+            },
+            {
+                "id": 3,
+                "msgType": "12",
+                "msgContent": "新的车辆报价已到",
+                "sendTime": "2017-05-05 08:24:30"
+            },
+            {
+                "id": 4,
+                "msgType": "13",
+                "msgContent": "车辆续保报价已到",
+                "sendTime": "2017-05-05 08:24:30"
+            },
+            {
+                "id": 5,
+                "msgType": "14",
+                "msgContent": "养修已受理,恭候光临",
+                "sendTime": "2017-05-05 08:24:30"
+            },
+            {
+                "id": 6,
+                "msgType": "15",
+                "msgContent": "推荐有礼已有结果",
+                "sendTime": "2017-05-05 08:24:30"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
+    },
+    "GET_CLUE_RECORD": {
+        "callTime": "2017-05-05 09:24:30",
+        "result": [
+            {
+                "type": 1,
+                "clueType": "1",
+                "carTypeConfigId": 1,
+                "carTypeConfigName": "豪华版",
+                "name": "张生",
+                "mobile": "13662344567",
+                "followStatus": "1",
+                "createDate": "2017-05-05 09:24:30"
+            },
+            {
+                "type": 3,
+                "clueType": "2",
+                "carTypeConfigId": 1,
+                "carTypeConfigName": "轩逸经典",
+                "followStatus": "2",
+                "createDate": "2017-05-05 09:24:30"
+            },
+            {
+                "type": 1,
+                "clueType": "2",
+                "carTypeConfigId": 1,
+                "carTypeConfigName": "轩逸经典",
+                "followStatus": "2",
+                "createDate": "2017-05-05 09:24:30"
+            }
+        ],
+        "error": "R200",
+        "errormessage": "调用成功",
+        "token": null
     }
-  
 }

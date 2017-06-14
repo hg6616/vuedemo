@@ -1,25 +1,21 @@
 <template>
     <div class="container">
         <div class="swiper-container margin-bottom">
-            <div class="swiper"></div>
-    
+            <div class="swiper">
+                <mt-swipe :auto="4000">
+                    <mt-swipe-item v-for="x in picList" :key="x.imgPath">
+                        <img class="swiperImg" :src="x.imgPath">
+                    </mt-swipe-item>
+                </mt-swipe>
+            </div>
         </div>
     
         <div class="card middle-div  margin-bottom">
-    
             <div class="body">
                 <ul>
-                    <li class="arrow">
-                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
-                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
-                    </li>
-                        <li class="arrow">
-                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
-                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
-                    </li>
-                        <li class="arrow">
-                        <span class="spImg"><img src="../assets/iconc.jpg"></span>
-                        <span class="spText ellipsis">购车活动购车活动购车活动购车活动购车活动66666666yerterter</span>
+                    <li class="arrow" v-for="x in eventList" @click="linkTo(x.id)">
+                        <span class="spImg"><img :src="x.actPhotoUrl"></span>
+                        <span class="spText ellipsis">{{x.actName}}</span>
                     </li>
                 </ul>
             </div>
@@ -31,23 +27,56 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapGetters } from 'vuex';
+import * as types from '../store/mutation-types';
+import util from '../utils/util.js';
+import api from '../api/api.js';
+
 export default {
     data() {
         return {
-
-        };
+            list: []
+        }
+    },
+    activated() {
+        // this.GET_EVENT({ dlrCode: this.$store.state.dlrCode });
+        var dlrCode = this.$store.state.dlrCode;
+        api.getData([{ type: types.GET_EVENT, param: { dlrCode } }])
+            .then(res => {
+                this.list = res;
+            })
+    },
+    methods: { 
+        linkTo(id) {
+            this.$router.push({ path: '/eventDetail', query: { id } })
+        }
     },
     computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
+        eventList() {
+            var res = this.list;
+            if (res == null) {
+                res = []
+            }
+            else {
+
+            }
+            return res;
+        },
+        picList() {
+            var res = [];
+            for (let o in this.list) {
+                if (parseInt(o) < 5) {
+                    res.push({
+                        imgPath: this.list[o].actPhotoUrl
+                    })
+                }
+                else {
+                    break;
+                } 
+            }
+            return res;
+        }
+    }
 }
 </script>
 
@@ -58,9 +87,9 @@ export default {
     position: relative; 
    .swiper{
        height: 100%;
-        background: $themeColor;
-        background: url("../assets/iwantrecommand.jpg");
-        background-size: 100% 100%;
+        // background: $themeColor;
+        // background: url("../assets/iwantrecommand.jpg");
+        // background-size: 100% 100%;
    } 
 } 
   
@@ -81,7 +110,7 @@ export default {
                   }
               }
               .spText{
-                  max-width:(653/$pr3);
+                  max-width:50%;
                   display:inline-block;
                   line-height:(100/$pr3);
                   height:(100/$pr3);

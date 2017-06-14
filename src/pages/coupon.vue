@@ -1,96 +1,104 @@
 <template>
     <div>
-    
         <div class="container">
-    
             <div class="middle-div margin-top">
-                <div class="coupon" @click="showModal" v-for="x in coupon">
+                <div class="coupon"  v-for="x in coupon">
                     <div class="head">
-                        <span class="type"></span>
-                        <span class="shop"></span>
+                       <p class="coupon-name">{{x.cardCode}}</p>
+                        <!-- <span class="type"></span>
+                        <span class="shop"></span> -->
                     </div>
                     <div class="content">
                         <p class="coupon-name">{{x.title}}</p>
                         <p class="coupon-expire">有效期至{{x.endTime}}</p>
                     </div>
-                    <div class="couponimg unused" :class="{unused:x.status=='0',used:x.status=='1',expired:x.status=='2',}"> </div>
+                    <div class="couponimg unused" :class="x.status"> </div>
                 </div>
             </div>
     
-        </div>
-        <modal :config="modalConfig" v-on:childdo="listenfromchild" :callback="childsay">
-            <mdialog slot="dialog"> </mdialog>
-        </modal>
-        <!--<img :src="pic">-->
-        <p>{{res}}</p>
+        </div> 
     </div>
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
-import modal from '../components/modal'
-import mdialog from '../components/dialog'
+import  api from  '../api/api.js'
 export default {
     data() {
-        return {
-            isShow: false,
-            res: 'hell no',
-            childsay2: function (e) {
-                // alert(e);
-                this.res = e;
-            }
+        return { 
             //  pic:'static/img/car_event.jpg'//引用本地文件的写法,只能放在static,发布后要复制到static目录
-            // modalConfig:{
-            //     isShow:false
-            // }
+            coupon:null
         };
     },
-    components: { modal, mdialog },
-    computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-        modalConfig() {
-            return { isShow: false }
-        },
-        ...mapState({
-            coupon: state => {
-                var res = state.GET_COUPON_TAKING_RECORD;
-                if (res == null || res == undefined) {
-                    res = []
-                }
-                return res;
-            }
-        })
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
+   
+    computed: {  
+           
+
+    }, 
     activated() {
-        // this.$store.dispatch({ type: this.$store.state.types.GET_COUPON_TAKING_RECORD, data: {"dlrCode":"H2901","status":"1"} });
-        this.GET_COUPON_TAKING_RECORD({ data: { "dlrCode": "H2901", "status": "1" } })
+         var dlrCode = this.$store.state.dlrCode;
+        // this.GET_COUPON_TAKING_RECORD({ data: { dlrCode } });
+        api.getData([{
+            type:types.GET_COUPON_TAKING_RECORD,
+            param:{ dlrCode }
+        }])
+        .then(
+            res=>{
+            var fStatus = {
+                '5': {
+                    status: 'unused-c'
+                },
+                '2': {
+                    status: 'kexiao'
+                },
+                '3': {
+                    status: 'used'
+                },
+                '4': {
+                    status: 'expired'
+                }
+            }
+            if (res == null) {
+                res = [];
+            }
+            else {
+                for (let i in res) {
+                    console.log('this.status[i]');
+                    var d = res[i];
+                    if((d.status)==2){
+                        d.status = fStatus[d.status].status;
+                    }else{
+                        var  x=this.computedTime(d.beginTime,d.endTime);
+                        d.status = fStatus[x].status; 
+                        // this.$set(d,'status',fStatus[this.computedTime(d.beginTime,d.endTime)].status)   
+                    }
+                   
+                }
+            }
+            this.coupon= res;
+                }
+            )
+
     },
     methods: {
-        ...mapActions([
-            types.GET_COUPON_TAKING_RECORD
-        ]),
-        childsay(e) {
-            console.log(e);
-            this.res = e;
-        },
-        showModal() {
-            this.modalConfig.isShow = true;
-        },
-        hideModal() {
-            this.$data.isShow = false;
-        },
-        listenfromchild(msg) {
-            console.log('listen child')
-            console.log(msg)
+        /**
+         * unused 未生效  day-beginTime<0
+           used 有效     day-beginTime>=0 & day-endTime=<0 
+           expired 已过期   day-endTime>0 
+         */
+        computedTime(beginTime,endTime){
+            var Today= new Date();
+            var timeBegin=new Date(beginTime);
+            var timeEnd=new Date(endTime);
+
+            if(Today - timeBegin < 0 ){
+                return 5
+            }else if(Today - timeBegin>= 0 && Today-timeEnd<=0){
+                return 3
+            }else if(Today-timeEnd>0){
+                return 4
+            }
+        
         }
     }
 }
@@ -123,6 +131,8 @@ export default {
      }
      .content{
          padding: 1.2rem;
+         z-index: 5;
+         position: relative;
          .coupon-name{
              color:#222;
              font-size: 1.7rem;
@@ -150,10 +160,10 @@ export default {
          }
 }
      .unused{ 
-                background:url("../assets/cp_unused.png");
+                background:url("../assets/cp_used.png");
                 background-size: 100% 100%;
          &:after{
-            content: '未使用'; 
+            content: '未生效'; 
          }
      }
 
@@ -166,11 +176,18 @@ export default {
      }
 
         .used{ 
-                background:url("../assets/cp_used.png");
+                background:url("../assets/cp_unused.png");
                 background-size: 100% 100%;
          &:after{
-            content: '已使用'; 
+            content: '有效卡券'; 
          }
      }
+      .kexiao{ 
+                background:url("../assets/cp_kexiao.png");
+                background-size: 100% 100%;
+         &:after{
+            content: '已核销'; 
+         }  
+         } 
 }
 </style>

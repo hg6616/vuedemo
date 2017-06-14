@@ -1,9 +1,10 @@
 <template>
     <div class="container">
-        <!--<div class="arrow-select arrow">
-                                                                   <div class="roundDot"></div>
-                                                                    <span class="text">2016款 1.6L 手动 标致301 舒适版</span>
-                                                                </div>-->
+    
+        <div class="arrow-select  " @click="showBrand">
+            <div class="roundDot"></div>
+            <span class="text">{{selectedSeries.carConfigCn}}</span>
+        </div>
         <div class="card middle-div  margin-bottom">
             <div class="body">
                 <ul>
@@ -16,18 +17,18 @@
                         <span><input ref="mobile" type="text" name="手机号"  v-validate="{ rules: { required: true, mobile: true } }" placeholder="请输入手机号"></span>
                     </li>
                     <!--<li style="position: relative">
-                                                                                <label>验证码</label>
-                                                                                <span><input type="text" placeholder="请输入验证码" class="short-inpu3t"></span>
-                                                                                <div class="little-button">获取验证码</div>
-                                                                            </li>-->
+                                                                                                        <label>验证码</label>
+                                                                                                        <span><input type="text" placeholder="请输入验证码" class="short-inpu3t"></span>
+                                                                                                        <div class="little-button">获取验证码</div>
+                                                                                                    </li>-->
                     <!--<li class="arrow">
-                                                            <label>专营店</label>
-                                                            <div style="position:relative;display:inline-block">
-                                                                <input type="text" placeholder="请选择专营店" @keyup="keyu" ref="zyd">
-                                                              
-                                                            </div>
-                                        
-                                                        </li>-->
+                                                                                    <label>专营店</label>
+                                                                                    <div style="position:relative;display:inline-block">
+                                                                                        <input type="text" placeholder="请选择专营店" @keyup="keyu" ref="zyd">
+                                                                                      
+                                                                                    </div>
+                                                                
+                                                                                </li>-->
                     <li>
                         <label style="vertical-align: top">备注</label>
                         <span><textarea  ref="remark"   style="vertical-align: text-top" placeholder="请填写备注"></textarea></span>
@@ -39,79 +40,88 @@
         </div>
     
         <div class="longButton  bottom-button" @click="submit">提交</div>
+        <brandSelect :callback="setSelectSeries" :config="brandSelectConfig"></brandSelect>
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
+import brandSelect from '../components/brandSelect'
 export default {
     data() {
         return {
-            showtip: false
+            showtip: false,
+            selectedSeries: {
+                carSeriesCn: ''
+            },
+            brandSelectConfig: {
+                showBrand: false,
+                level: 'cartype'
+            },
         };
     },
+    components: { brandSelect },
+    // activated() {
+    //     this.selectedSeries.carConfigCn = this.$route.query.seriesCN;
+    //     this.$refs.carownerName.value = '';
+    //     this.$refs.mobile.value = '';
+    //     this.$refs.remark.value = '';
+    // },
     methods: {
-        ...mapActions([types.ADD_VEHICLE_CLUE]),
+        setSelectSeries(obj) {
+            this.selectedSeries = obj;
+        },
+        showBrand() {
+            this.brandSelectConfig.showBrand = true;
+        },
         submit() {
-            //validateScopes  validateAll
-            // debugger;
-            // console.log(this.errors)
-            this.$validator.validateScopes()
-                .then(() => {
-                    console.log('vali suc')
-                })
-                .catch(() => {
-                    console.log('vali fail')
-                    this.$store.state.validate(this.errors)
-                }); 
-            return;
-            var params = {
-                "dlrCode": this.$store.state.dlrCode,
-                "carownerName": this.$refs.carownerName.value,
-                "mobile": this.$refs.mobile.value,
-                "clueType": "1",
-                //  "repairTime": "2016-09-09",
-                "carTypeId": this.$route.query.cartype,
-                "carBrandId": this.$route.query.carbrand,
-                "remark": this.$refs.remark.value,
-                //    "validCode": "201609"
+            if (this.selectedSeries.carConfigCn == '') {
+                this.$toast({
+                    message: '请选择车型',
+                    duration: 2000
+                });
+                return;
             }
-            this.ADD_VEHICLE_CLUE(params)
+            var state = this.$store.state;
+            this.$validator.validateAll()
                 .then(() => {
-                    if (this.$store.state.ADD_VEHICLE_CLUE == 'R200') {
-                        this.$toast('操作成功');
-                    }
-                    else {
-                        this.$toast('操作失败');
-                    }
+                    api.getData([{
+                        type: types.ADD_VEHICLE_CLUE,
+                        param: {
+                            "dlrCode": this.$store.state.dlrCode,
+                            "carownerName": this.$refs.carownerName.value,
+                            "mobile": this.$refs.mobile.value,
+                            "clueType": "1",
+                            // "repairTime": "2016-09-09",
+                            "carTypeId": this.selectedSeries.id,
+                            "carBrandId": this.selectedSeries.brandID,
+                            "remark": this.$refs.remark.value
+                            //    "validCode": "201609"
+                        }
+                    }])
+                        .then(res => {
+                            if (res == 'R200') {
+                                this.$toast('操作成功');
+                            }
+                            else {
+                                this.$toast('操作失败');
+                            }
+                        })
+                        .catch(() => {
+                            this.$toast('操作失败');
+                        });
                 })
                 .catch(() => {
-                    this.$toast('操作失败');
-                })
+                    console.log(err)
+                    util.validate(this.errors);
+                });
+            // return;
+
         }
     },
-    computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
-    },
-
-    //     $(function () {
-    //     $('.longButton').click(function () {
-    //         $('.modal').addClass('show');
-    //     });
-
-    //     $('.modal').click(function () {
-    //         $(this).removeClass('show');
-    //     });
-    // })
 }
 </script>
 

@@ -7,23 +7,26 @@
             </div>
             <div class="showpic-content middle-div">
                 <ul class="ul-pic">
-                    <li class="li-pic" v-for="x in carList" @click="showDetail(x.id)">
+                    <li class="li-pic" v-for="x in carList" @click="showDetail(x.id,x.carSeriesCn)">
                         <div class="pic">
-                            <img :src="x.image" class="showpic">
+                            <img :src="x.path" class="showpic">
                         </div>
                         <p class="car-series">{{x.carSeriesCn}}</p>
-                        <p class="price"><span>{{x.price}}</span>万</p>
+                        <!--<p class="price"><span>{{x.price}}</span>万</p>-->
                     </li>
                 </ul>
             </div>
         </div>
         <brandSelect :callback="setSelectBrand" :config="brandSelectConfig"></brandSelect>
+    
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
 import brandSelect from '../components/brandSelect'
 export default {
     data() {
@@ -31,43 +34,51 @@ export default {
             //传入选择品牌组件的配置
             brandSelectConfig: {
                 showBrand: false,
-               level:'brand'
-               // level:'series'
+                level: 'brand'
+                // level:'series'
             },
             selectedBrand: {
-                carBrandCn: '',
+                carBrandCn: '请选择品牌',
                 icon: ''
-            }
+            },
+            carList: {},
         };
     },
     computed: {
-        ...mapState({
-            carList: state => {
-                var res = state.GET_CAR_SERIES;
-                if (res == null) {
-                    res = [];
-                }
-                return res;
-            },
-
-        })
     },
     components: {
         brandSelect
     },
     activated() {
-        this.GET_CAR_SERIES({ data: { "dlrCode": "H2901", "carBrandId": "1", "carBrandCode": "1" } });
+        //  
     },
     methods: {
-        ...mapActions([types.GET_CAR_SERIES]),
-        showDetail(id) {
-            this.$router.push({ path: '/carTypeChoose', query: { id: id } })
+        openPicker() {
+            this.$refs.picker.open();
         },
+        showDetail(id, cn) {
+            this.$router.push({
+                path: '/carTypeChoose',
+                query: { id: id, brandID: this.selectedBrand.id, brandCode: this.selectedBrand.carBrandCode, cn }
+            })
+        },
+
         showBrand() {
             this.brandSelectConfig.showBrand = true;
         },
         setSelectBrand(obj) {
             this.selectedBrand = obj;
+            let dlrCode = this.$store.state.dlrCode,
+                carBrandId = this.selectedBrand.id,
+                carBrandCode = this.selectedBrand.carBrandCode;
+            api.getData([{
+                type: types.GET_CAR_SERIES,
+                param: { dlrCode, carBrandId, carBrandCode }
+            }])
+                .then(res => {
+                    this.carList = res;
+                });
+
         }
     }
 }

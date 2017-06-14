@@ -17,13 +17,11 @@ export const getNews = ({ commit }, param) => {
   });
 }
 var commonAction = (commit, param, type, field) => {
-  // console.log(param);
   Indicator.open();
   param.type = type;
+  console.log('action:'+type);
   return new Promise((resolve, reject) => {
-    // setTimeout(() => {
     api[types[type]](param, data => {
-      // debugger;
       Indicator.close();
       if (field == undefined) {
         field = 'result'//默认使用result字段
@@ -32,23 +30,38 @@ var commonAction = (commit, param, type, field) => {
       if (field == '') {//为空就返回整个data
         d = data;
       }
-      commit(types[type], d);
-      if (resolve) {
-        resolve();
+      if (param.isConcurrency) {
+        console.log(data);
+        console.log('i got data!!');
+        var res = {};
+        debugger;
+        for (let i in param.data) {
+          var x = param.data[i];
+          res[x.type] = null;
+          if (data[i].status === 200 && data[i].data.result != undefined) {
+            res[x.type] = data[i].data.result;
+          }
+        }
+        commit(types[type], res);
+      }
+      else {
+        commit(types[type], d,param);
       }
 
+      if (resolve) {
+        resolve(d);
+      }
     }).catch(err => {
       Indicator.close();
       console.log('cm action err');
       console.log(err);
-      reject();
       if (reject) {
         reject();
       }
     });
-    //  }, 1000) 
   })
 }
+
 
 export const SEND_AUTH_CODE = ({ commit }, param) => { return commonAction(commit, param, types.SEND_AUTH_CODE); }
 export const GET_CAR_BRAND = ({ commit }, param) => { return commonAction(commit, param, types.GET_CAR_BRAND); }
@@ -61,7 +74,7 @@ export const GET_MSG = ({ commit }, param) => { return commonAction(commit, para
 export const UPDATE_MSG_READ_STATUS = ({ commit }, param) => { return commonAction(commit, param, types.UPDATE_MSG_READ_STATUS); }
 export const ADD_VEHICLE_CLUE = ({ commit }, param) => { return commonAction(commit, param, types.ADD_VEHICLE_CLUE); }
 export const GET_VEHICLE_CLUE = ({ commit }, param) => { return commonAction(commit, param, types.GET_VEHICLE_CLUE); }
-export const BIND_CAR_OWNER = ({ commit }, param) => { return commonAction(commit, param, types.BIND_CAR_OWNER, ''); }
+export const BIND_CAR_OWNER = ({ commit }, param) => { return commonAction(commit, param, types.BIND_CAR_OWNER); }
 export const ADD_SERVICE_CLUE = ({ commit }, param) => { return commonAction(commit, param, types.ADD_SERVICE_CLUE); }
 export const GET_SERVICE_CLUE = ({ commit }, param) => { return commonAction(commit, param, types.GET_SERVICE_CLUE); }
 export const GET_INSURANCE_TYPE = ({ commit }, param) => { return commonAction(commit, param, types.GET_INSURANCE_TYPE); }
@@ -74,6 +87,14 @@ export const GET_DLR = ({ commit }, param) => { return commonAction(commit, para
 export const CANCEL_VEHICLE_APPOINTMENT = ({ commit }, param) => { return commonAction(commit, param, types.CANCEL_VEHICLE_APPOINTMENT); }
 export const CANCEL_SERVICE_APPOINTMENT = ({ commit }, param) => { return commonAction(commit, param, types.CANCEL_SERVICE_APPOINTMENT); }
 export const GET_EVENT = ({ commit }, param) => { return commonAction(commit, param, types.GET_EVENT); }
-export const GET_EVENT_DETAIL = ( { commit }, param) => { return commonAction(commit,param,types.GET_EVENT_DETAIL);}
+export const GET_EVENT_DETAIL = ({ commit }, param) => { return commonAction(commit, param, types.GET_EVENT_DETAIL); }
 export const GET_MSG_DETAIL = ({ commit }, param) => { return commonAction(commit, param, types.GET_MSG_DETAIL); }
+export const GET_RECORD = ({ dispatch, commit }, param) => {
+  param.isConcurrency = true;
+  return commonAction(commit, param, types.GET_RECORD);
+}
+export const GET_CLUE_RECORD = ({ commit }, param) => { return  commonAction(commit,param,types.GET_CLUE_RECORD);}
+export const JOIN_EVENT = ({ commit }, param) => {return  commonAction(commit,param,types.JOIN_EVENT);}
+export const GET_EVENT_COMMENT = ({ commit }, param) => {return  commonAction(commit,param,types.GET_EVENT_COMMENT);}
+
 

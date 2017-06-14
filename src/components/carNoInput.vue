@@ -1,13 +1,13 @@
 <template>
     <span>
-            <select v-model="selectedProvice" @change="changeCarNo">
-                <option  v-for="x in provice"  :value="x">{{x}}</option>
-            </select>
-             <select v-model="selectedAlpha" @change="changeCarNo">
-                <option v-for="x in alpha"   :value="x">{{x}}</option>
-            </select>
-            <input type="text" v-model="no" @change="changeCarNo" placeholder="请填入车牌号">
-        </span>
+                <select v-model="selectedProvice" @change="changeCarNo">
+                    <option  v-for="x in provice"  :value="x">{{x}}</option>
+                </select>
+                 <select v-model="selectedAlpha" @change="changeCarNo">
+                    <option v-for="x in alpha"   :value="x">{{x}}</option>
+                </select>
+                <input type="text" max="5" v-model="no" @change="changeCarNo" placeholder="请填入车牌号">
+            </span>
 </template>
 
 <script> 
@@ -35,6 +35,9 @@ export default {
         changeCarNo() {
             //校验
             var carNo = this.selectedProvice + this.selectedAlpha + this.no;
+            if (this.no.length != 5) {
+                carNo = '';
+            }
             this.callback(carNo)
         }
     }

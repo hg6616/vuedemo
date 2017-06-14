@@ -34,5 +34,16 @@ export const GET_EVENT='GET_EVENT' ;//活动列表接口
 export const CHANGE_TITLE='CHANGE_TITLE';//更改header的标题
 export const GET_EVENT_DETAIL='GET_EVENT_DETAIL' ;//活动详情
 export const GET_MSG_DETAIL='GET_MSG_DETAIL' ;//消息详情
+export const GET_RECORD='GET_RECORD' ;//我的记录 这是一个并发请求
+export const GET_CLUE_RECORD='GET_CLUE_RECORD' ;//留资记录
+export const JOIN_EVENT='JOIN_EVENT' ;//活动操作记录接口
+export const GET_EVENT_COMMENT='GET_EVENT_COMMENT' ;//活动评论记录
+export const GET_VE_RECORD_DETAIL='GET_VE_RECORD_DETAIL' ;//整车线索记录详情
+export const GET_SE_RECORD_DETAIL='GET_SE_RECORD_DETAIL' ;//服务线索记录详情
+export const GET_AI_RECORD_DETAIL='GET_AI_RECORD_DETAIL' ;//保险线索记录详情 
+export const CHANGE_DLR='CHANGE_DLR';//更改header的标题
+
+
+
 
 

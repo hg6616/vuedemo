@@ -10,7 +10,7 @@
                     <li>
                         <label>手机号码</label>
                         <span>{{info.mobile}}</span>
-                        <a class="abuttonRight" @click="changeMobile">更换</a>
+                       <!--  <a class="abuttonRight" @click="changeMobile">更换</a> -->
                     </li>
                 </ul>
     
@@ -36,29 +36,39 @@
                         <span>{{info.engineNo}}</span></li>
                     <li>
                         <label>保险到期</label>
-                        <span>{{info.buyInsuranceTime}}</span></li>
+                        <span>{{info.buyInsuranceTime2}}</span></li>
                 </ul>
             </div>
         </div>
-     
-        <button   class="longButton  bottom-button" @click="changeInfo">更改</button>
+    
+       <!--  <button class="longButton  bottom-button" @click="changeInfo">更改</button> -->
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-export default { 
+import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
+export default {
     computed: {
         ...mapGetters(['carOwner']),
-        info(){
-            return this.carOwner.carOwner;
-        } 
-    }, 
-    methods:{
-        changeMobile(){
+        info() {
+            var res = this.carOwner.carOwner;
+            if (res.buyInsuranceTime != undefined) {
+                var d = util.getDateStr({ date: new Date(res.buyInsuranceTime.time) });
+                console.log(d)
+                res.buyInsuranceTime2 = util.getDateStr({ date: new Date(res.buyInsuranceTime.time) });
+
+            }
+            return res;
+        }
+    },
+    methods: {
+        changeMobile() {
             //todo
         },
-         changeInfo(){
+        changeInfo() {
             //todo
         }
     }

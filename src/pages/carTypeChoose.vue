@@ -8,10 +8,10 @@
                 </mt-swipe-item>
             </mt-swipe>
             <div class="intro">
-                <p class="name">标致301</p>
-                <p class="price"><span>18.97~21.97</span>万</p>
+                <p class="name">{{theCar.name}}</p>
+                <p class="price"><span>{{theCar.price}}</span>万</p>
                 <p class="price-old">
-                    <del>厂家指导价:18.97~21.97</del>
+                    <del>厂家指导价:{{theCar.delPrice}}</del>
                 </p>
             </div>
     
@@ -25,13 +25,13 @@
                     <li v-for="x in carList">
                         <div class="detail">
                             <p class="name">{{x.carConfigCn}}</p>
-                            <p class="price"><span>{{x.netSalePrice}}</span>万</p>
+                            <p class="price"><span>{{x.lowestPrice2}}</span>万</p>
                             <p class="price-old">
-                                <del>厂家指导价:{{x.lowestPrice}}~{{x.netSalePrice}}</del>
+                                <del>厂家指导价:{{x.netSalePrice2}}万</del>
                             </p>
                             <div class="operate">
-                                <div class="button" @click="queryPrice(x.id)">询底价</div>
-                                <div class="button" @click="testDrive(x.id)">试驾</div>
+                                <div class="button" @click="queryPrice(x)">询底价</div>
+                                <div class="button" @click="testDrive(x)">试驾</div>
                             </div>
                         </div>
                     </li>
@@ -43,67 +43,88 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+//import { mapActions, mapState } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
+import _ from 'underscore';
 export default {
     data() {
         return {
-
+            theCar: {
+                name: '',
+                price: '',
+                delPrice: '',
+            },
+            carList: null,
+            picList: null,
         };
     },
     components: {
 
     },
     methods: {
-        ...mapActions([types.GET_CAR_TYPE_CONFIG, types.GET_CAR_SERIES_PIC]),
-        queryPrice(id) { 
+        queryPrice(x) {
             this.$router.push({
                 path: '/priceQuery', query:
-                    { cartype: id, carbrand: this.carbrand }
+                { cartype: x.id, carbrand: this.carbrand, seriesCN: x.carConfigCn }
             })
         },
         testDrive(id) {
-               this.$router.push({
+            this.$router.push({
                 path: '/testDriveAppointment', query:
-                    { cartype: id, carbrand: this.carbrand }
+                { cartype: id, carbrand: this.carbrand }
             })
         },
     },
     computed: {
-        // msg() {
-        //     return this.$store.state.pc.msg;
-        // }
-        ...mapState({
-            carList: state => {
-                var res = state.GET_CAR_TYPE_CONFIG;
-                if (res == null) {
-                    res = [];
-                }
-                return res;
-            },
-            picList: state => {
-                var res = state.GET_CAR_SERIES_PIC;
-                if (res == null) {
-                    res = [];
-                }
-                return res;
-            },
-        })
-    },
-    created() {
-        //   console.log('created');
-    },
-    mounted() {
-        //  console.log('mounted');
     },
     activated() {
-        var carSeriesID = this.$route.query.id;
+        var carSeriesId = this.$route.query.id;
         var dlrCode = this.$store.state.dlrCode
-        var carBrandId = '2';
-        var carBrandCode = '1';
-        this.carbrand=carBrandId;
-        this.GET_CAR_TYPE_CONFIG({ data: { dlrCode, carSeriesID } });
-        this.GET_CAR_SERIES_PIC({ data: { dlrCode, carBrandId, carBrandCode } });
+        var carBrandId = this.$route.query.brandID;
+        var carBrandCode = this.$route.query.brandCode;
+        this.carbrand = carBrandId;
+        this.theCar.name = this.$route.query.cn;
+
+        api.getData([{
+            type: types.GET_CAR_TYPE_CONFIG,
+            param: { dlrCode, carSeriesId }
+        }])
+            .then(res => {
+                if (res == null) {
+                    res = [];
+                }
+                else {
+                    for (let o of res) {
+                        o.lowestPrice2 = o.lowestPrice / 10000;
+                        o.netSalePrice2 = o.netSalePrice / 10000;
+                    }
+                    if (this.theCar != undefined) {
+                        var minLow = _.min(res, function (r) { return r.lowestPrice2; });
+                        var maxLow = _.max(res, function (r) { return r.lowestPrice2; });
+                        var minNet = _.min(res, function (r) { return r.netSalePrice2; });
+                        var maxNet = _.max(res, function (r) { return r.netSalePrice2; });
+                        this.theCar.price = `${minLow.lowestPrice2}~${maxLow.lowestPrice2}`;
+                        this.theCar.delPrice = `${minNet.netSalePrice2}~${maxNet.netSalePrice2}`;
+                    }
+                }
+                this.carList = res;
+            })
+            .catch(err => {
+
+            });
+            
+        api.getData([{
+            type: types.GET_CAR_SERIES_PIC,
+            param: { dlrCode, carBrandId, carBrandCode, carSeriesId }
+        }])
+            .then(res => {
+                this.picList = res;
+            })
+            .catch(err => {
+
+            });
     }
 }
 </script>

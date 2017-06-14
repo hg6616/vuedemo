@@ -1,56 +1,80 @@
 <template>
     <div class="container">
         <div class="msgde topBorder">
-            <h5>养修预约详情</h5>
-            <div class="msgdt">尊敬的XXX先生/女士，您与5月10日预约的轩逸2017款2.0L智能版已预约成功。XXXXXXX店恭候您的到来，具体信息如下：</div>
-            <p>试驾车型：轩逸2017款2.0L智跑款</p>
-            <p>试驾时间：2017年5月12日9:00-10:00</p>
-            <p>地址：广州花都风神大道8号</p>
-            <p>状态：待试驾</p>
-            <div class="msgline">{{info.msg}}</div>
+            <h5>{{info.msgTypeCn}}</h5>
+            <div class="msgdt">{{info.msgContentCn}}</div> 
         </div>
     </div>
 </template>
 
-<script>
-import { mapActions, mapState } from 'vuex';
+<script> 
 import * as types from '../store/mutation-types'
+import api from '../api/api.js'
 export default {
-    methods: {
-        ...mapActions([types.GET_MSG_DETAIL]),
+     data() {
+        return { 
+            info:{
+                msgTypeCn:'',
+                msgContentCn:''
+            },
+        };
     },
-    computed: {
-        ...mapState({
-            info: state => {
-                var res = state.GET_MSG_DETAIL;
-                debugger;
+    methods: {
+       
+    },
+    computed: { 
+      
+    },
+    activated() {
+        console.log(this.$route.query.type,this.$route.query.id)
+        api.getData([{
+            type:types.GET_MSG,
+            param:{ "dlrCode": this.$store.state.dlrCode, "busiType": "1", "subBusiType": "1"}
+        }
+            ])
+        .then(res=>{ 
                 if (res == null) {
                     res = {
-                        msg: ''
+                        msgType:'',
+                        msgContent:'',
                     }
                 }
                 else {
-                    res = res[0]
+                    res.msgType = this.$route.query.type;
+                    res.id = this.$route.query.id;
+         var  text=''
+         switch (parseInt(res.msgType)){
+                    case 10:
+                      text='系统消息'
+                      break;
+                    case 11:
+                       text='试驾信息'
+                      break;
+                    case 12:
+                      text= '询低价信息'
+                      break;
+                    case 13:
+                     text='续保询价消息'
+                      break;
+                    case 14:
+                       text= '养修消息'
+                      break;
+                    case 15:
+                     text= '推荐消息'
+                      break;
                 }
-                return res;
-            }
-        }),
-        info2() {
-
-            var res = this.$store.state.GET_MSG_DETAIL;
-            if (res == null) {
-                res = {
-                    msg: ''
-                }
-            }
-            else {
-                res = res[0]
-            }
-            return res;
-        }
-    },
-    activated() {
-        this.GET_MSG_DETAIL({ data: { "dlrCode": this.$store.state.dlrCode, "busiType": "1", "subBusiType": "1" } })
+                res.msgTypeCn=text; 
+                for (let i in res) {
+                    var d = res[i];
+                    var id = res.id;
+                    if (res[i].id == parseInt(id)) {
+                         res.msgContentCn=d.msgContent 
+                    }
+                }                                   
+                } 
+                this.info= res;            
+        })
+         
     }
 }
 </script>
@@ -59,7 +83,7 @@ export default {
        @import    '../style/var'; 
            .msgde{
             margin:15px;
-            padding:5px;
+            padding:10px;
             background-color:#fff;
             border-radius: 5px;
             font-size:1.4rem;
@@ -73,15 +97,7 @@ export default {
                     text-indent: 2rem;
                     margin:10px 0;
                 }
-                p{
-                    line-height: 2rem;
-                }
-                .msgline{
-                    padding: 10px;
-                    border-top: 1px solid #e1e1e1;
-                    margin-top: 10px;
-                }
-
+            
            }
  
 </style>

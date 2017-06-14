@@ -28,7 +28,29 @@ export default {
     },
     methods:{
         back(){ 
-            this.$router.go(-1); 
+            let entry = this.$route.query.entry;
+            if(entry=='weixin'){
+
+                this.weixinClosePage();
+            }else{
+                this.$router.go(-1); 
+            }
+        },
+        //关闭微信页面
+        weixinClosePage() {
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', this.weixin_ClosePage(), false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', this.weixin_ClosePage());
+                    document.attachEvent('onWeixinJSBridgeReady', this.weixin_ClosePage());
+                }
+            } else {
+                this.weixin_ClosePage();
+            }
+        },
+        weixin_ClosePage() {
+            WeixinJSBridge.call('closeWindow');
         }
     }
 }

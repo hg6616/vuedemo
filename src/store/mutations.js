@@ -7,8 +7,8 @@ String.prototype.replaceAll = function (s1, s2) {
 }
 //在这里更改state,只能是同步的方式
 function commonMutation(state, data, type) {
-  console.log('mutation')
- // debugger
+  console.log('mutation:' + type)
+  // debugger
   state[type] = data;
 }
 export default {
@@ -54,10 +54,19 @@ export default {
   [types.GET_DLR](state, data) { commonMutation(state, data, types.GET_DLR) },
   [types.CANCEL_VEHICLE_APPOINTMENT](state, data) { commonMutation(state, data, types.CANCEL_VEHICLE_APPOINTMENT) },
   [types.CANCEL_SERVICE_APPOINTMENT](state, data) { commonMutation(state, data, types.CANCEL_SERVICE_APPOINTMENT) },
-  [types.GET_EVENT](state, data) { commonMutation(state, data, types.GET_EVENT) },
-  [types.CHANGE_TITLE](state, title) { state.mytitle=title },
+  [types.GET_EVENT](state, data) {
+    let type = types.GET_EVENT;
+    console.log('mutation:' + type)
+    state[type] = data;
+  },
+  [types.CHANGE_TITLE](state, title) { state.mytitle = title },
   [types.GET_EVENT_DETAIL](state, data) { commonMutation(state, data, types.GET_EVENT_DETAIL) },
   [types.GET_MSG_DETAIL](state, data) { commonMutation(state, data, types.GET_MSG_DETAIL) },
+  [types.GET_RECORD](state, data) { commonMutation(state, data, types.GET_RECORD) },
+  [types.GET_CLUE_RECORD](state, data) { state.GET_CLUE_RECORD = data; },
+  [types.JOIN_EVENT](state, data) { state.JOIN_EVENT = data; },
+  [types.GET_EVENT_COMMENT](state, data) { commonMutation(state, data, types.GET_EVENT_COMMENT); },
 
+[types.CHANGE_DLR](state, data) { state.dlrCode = data },
 
 }

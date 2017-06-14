@@ -23,7 +23,7 @@
     
                     .....
                     <li v-for="x in list ">
-                       <div @click="alertOutter">
+                        <div @click="alertOutter">
                             <label class="required" @click.stop="alertInner">名称</label>
                             <span><input  :value="x.name"   type="text" name="x2"  placeholder="单价"></span>
     
@@ -83,22 +83,22 @@ export default {
         changeTitle() {
             this.title = "i have changed";
         },
-        submit(){
-           // console.log(this.list)
-            this.$validator.validateAll().then(()=>{
+        submit() {
+            // console.log(this.list)
+            this.$validator.validateAll().then(() => {
                 console.log('vali suc')
             })
-            .catch(()=>{
-                console.log('vali fail')
-            }); 
+                .catch(() => {
+                    console.log('vali fail')
+                });
             if (this.$store.state.validate(this.errors)) {
-                      console.log('vali suc')    
+                console.log('vali suc')
             }
         },
-           alertInner(){
+        alertInner() {
             alert('u click inner')
         },
-          alertOutter(){
+        alertOutter() {
             alert('u click outter')
         }
     }

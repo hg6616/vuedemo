@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-    
+     <!---->
         <div class="tableMenu middle-div" v-show="carOwner.binded">
             <div class="row">
                 <div class="cell clickable" @click="linkTo('/maintainAppointment')">
@@ -65,12 +65,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="cell" @click="linkTo('/maintainAppointment')">
+                <!-- <div class="cell" @click="linkTo('/carexchange')"> -->
+                <div class="cell disable" >
                     <div class="icon">
                         <div class="icon-wrapper">
-                            <i class="iconfont icon-iconfont-dianhua"></i> </div>
+                            <i class="iconfont icon-cheliangzhihuan"></i> </div>
                     </div>
-                    <div class="text">一键求援</div>
+                    <div class="text">车辆置换</div>
                     <div class="lineToBottom"></div>
     
                 </div>
@@ -88,7 +89,7 @@
     
         <div class="tableMenu middle-div" v-show="!carOwner.binded">
             <div class="row">
-                <div class="cell">
+                <div class="cell"  @click="linkTo('/maintainAppointment')">
                     <div class="icon">
                         <div class="icon-wrapper">
     
@@ -99,7 +100,7 @@
                     <div class="lineToTop2"></div>
                     <div class="lineToBottom2"></div>
                 </div>
-                <div class="cell">
+                <div class="cell"  @click="linkTo('/irecommand')">
                     <div class="icon">
                         <div class="icon-wrapper">
                             <i class="iconfont icon-iconfont-tuijian-"></i>
@@ -118,14 +119,14 @@
                     <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
     
                     <div class="text">最新优惠活动</div>
-                    <div class="msgnum">3</div>
+                    <div class="msgnum" v-if="msgCount.maintain!=null">{{msgCount.maintain}}</div>
     
                 </li>
                 <li class="arrow" @click="linkTo('/myMsg')">
     
                     <i class="iconfont icon-tixing"></i>
                     <div class="text">我的消息</div>
-                    <div class="msgnum">3</div>
+                    <div class="msgnum">{{msgCount.all}}</div>
     
                 </li>
                 <li class="arrow" @click="linkTo('/myRecord')">
@@ -150,21 +151,20 @@
                 <p>5.1对1专属养车顾问24小时在线服务</p>
             </div>
         </div>
-    
+               
     </div>
 </template>
 
 <script type=""> 
 import { mapGetters, mapState, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
+import util from '../utils/util.js';
+import api from '../api/api.js';
 export default {
     name: 'personalCenter',
-    data() {
-        return {
-        }
-    },
     computed: {
-        ...mapGetters(['carOwner']),
+        ...mapGetters(['carOwner','msgCount']),
+    
     },
 
     methods: {
@@ -177,49 +177,14 @@ export default {
         viewDetail() {
             if (this.carOwner.binded) {
                 this.$router.push('/personaldata');
-            } 
-        }
-    }
-    , components: {
-        //  mheader
-    },
-    beforeCreate() {
-        //   console.log('beforeCreate');
-    },
-    created() {
-        //    console.log('created');
-    },
-    beforeMount() {
-        //  console.log('beforeMount');
-    },
-    mounted() {
-        //   console.log('mounted');
-    },
-    beforeUpdate() {
-        //   console.log('beforeUpdate');
-    },
-    updated() {
-        //   console.log('updated');
-    },
-    beforeDestroy() {
-        //  console.log('beforeDestroy');
-    },
-    destroyed() {
-        //  console.log('destroyed');
-    },
-    activated() {
-        //   console.log('activated');   
-    },
-    deactivated: function () {
-        // console.log('deactivated');
+            }
+        },
     }
 }
 </script>
 
 <style lang="stylus" > 
-     @import    '../style/var'; 
- 
-
+     @import    '../style/var';  
  .personcenter-container {
      .head {
          height: 11rem;
@@ -375,6 +340,15 @@ export default {
          }
          &>.row{
             display:flex; 
+            &>.cell.disable {
+                    color: #ddd;
+                    .icon {
+                        border: 0.2rem solid #ddd;
+                        .icon-wrapper {
+                            background-color: #ddd;
+                        }
+                    }
+                }
             &>.cell{
                 flex:1;
                 text-align:center;

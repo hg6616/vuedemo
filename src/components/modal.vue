@@ -27,7 +27,8 @@ export default {
     },
     methods: {
         hideModal(){
-            this.callback('hello')
+            this.config.isShow=false;
+            //this.callback('hello')
                  // this.config.isShow=false;
         },
         dosome(){
@@ -48,9 +49,22 @@ export default {
 }
 </script>
 
-<style lang="stylus" > 
+<style lang="stylus" scoped> 
      @import    '../style/var';   
 .modal{
+     display: none;
+           position: absolute;
+    z-index: 2001;
+        top:0;
+.modal-back{
+     position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background: #000;
+}
     .content{
         .desc{
             font-size: 1rem;
@@ -83,4 +97,41 @@ export default {
             }
     }
 }
+.dialog{
+      position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+    background-color: #fff;
+    width: 85%;
+    border-radius: 3px;
+    font-size: 16px;
+    -webkit-user-select: none;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: .2s;
+    transition: .2s; 
+    textarea{
+           width:100%;
+           }       
+     .header{ 
+           padding:1.2rem;      
+           border-bottom: 0.1rem solid $themeColor;
+        
+     }   
+      .footer{
+          border-top: 0.1rem solid $themeColor;
+      }
+      .content{
+           padding:1.2rem;
+      }
+    
+  }
+.show {
+    display: block;
+    top: 0;
+}
+
 </style>
